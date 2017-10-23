@@ -1,6 +1,5 @@
 *
-!UltiSnips/*.zsh
-!*.snippets
+!Documents
 !.zshenv
 !.zshrc
 !.vimrc

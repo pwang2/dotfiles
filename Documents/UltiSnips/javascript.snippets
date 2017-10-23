@@ -1,0 +1,75 @@
+priority -50
+
+snippet const
+const ${1} = ${0};
+endsnippet
+
+snippet constf "const arrow function"
+const ${1:function_name} = (${2}) => {
+  ${0:${VISUAL}}
+}
+endsnippet
+
+snippet let
+let ${1} = ${0};
+endsnippet
+
+snippet im "import xyz from 'xyz'"
+import ${1} from '${2:$1}';
+endsnippet
+
+snippet imas "import * as xyz from 'xyz'"
+import * as ${1} from '${2:$1}';
+endsnippet
+
+snippet imm "import { member } from 'xyz'"
+import { ${1} } from '${2}';
+endsnippet
+
+snippet mo "module.export"
+module.exports = {
+
+};
+endsnippet
+
+snippet r "require"
+const ${1} = require('${2:$1}')
+endsnippet
+
+snippet ex "export default"
+export default $0;
+endsnippet
+
+snippet jsp "json stringify"
+JSON.stringify(${0:object});
+endsnippet
+
+snippet jst "json stringify"
+JSON.stringify(${0:object});
+endsnippet
+
+snippet qs
+${1:document}.querySelector('${0:CSS selector}')
+endsnippet
+
+snippet qsa
+${1:document}.querySelectorAll('${0:CSS selector}')
+endsnippet
+
+snippet cl "console.log"
+console.log(${0});
+endsnippet
+
+snippet ce "console.error"
+console.error(${0});
+endsnippet
+
+snippet cw "console.warn"
+console.warn(${0})
+endsnippet
+
+snippet ctime "console.time ... console.timeEnd"
+console.time("${1:label}");
+${0:${VISUAL}}
+console.timeEnd("$1");
+endsnippet
