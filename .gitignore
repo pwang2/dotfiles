@@ -7,3 +7,4 @@
 !.tmux.conf
 !.tmuxline.conf
 !.gitignore
+.DS_Store
