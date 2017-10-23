@@ -41,6 +41,7 @@ function routine() {
     npm i -s --no-package-lock
     cd /Users/pwang/.config/yarn/global/
     yarn
+    cd ~
 }
 
 function add-github {

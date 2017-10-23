@@ -1,0 +1,9 @@
+*
+!*.snippets
+!.zshenv
+!.zshrc
+!.vimrc
+!.Brewfile
+!.tmux.conf
+!.tmuxline.conf
+!.gitignore
