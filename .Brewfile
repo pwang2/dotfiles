@@ -43,6 +43,7 @@ brew "yarn", args: ["without-node"]
 brew "zsh"
 brew "googlechrome/simplehttp2server/simplehttp2server"
 cask "dbeaver-community"
+cask "docker"
 cask "google-chrome"
 cask "inkscape"
 cask "keycastr"
