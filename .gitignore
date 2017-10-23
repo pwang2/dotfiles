@@ -1,4 +1,5 @@
 *
+!UltiSnips/*.zsh
 !*.snippets
 !.zshenv
 !.zshrc
