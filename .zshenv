@@ -25,7 +25,6 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 
 function routine() {
-    cd ~
     upgrade_oh_my_zsh
     brew doctor
     brew update
@@ -33,6 +32,8 @@ function routine() {
     brew cleanup
     brew cask cleanup
     brew bundle dump --global --force
+
+    cd ~
     git submodule foreach 'git pull'
     git add -A
     git add -f Documents/ -A
