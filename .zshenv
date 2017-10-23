@@ -36,6 +36,7 @@ function routine() {
     git submodule foreach 'git pull'
     git add -A
     git commit -m "update submodule"
+    git push https://github.com/pwang2/dotfiles master
     echo 'update vi plugins'
     vi +PluginUpdate +qall
     $HOME/.vim/bundle/YouCompleteMe/install.py --tern-completer  --clang-completer
