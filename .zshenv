@@ -35,6 +35,7 @@ function routine() {
     brew bundle dump --global --force
     git submodule foreach 'git pull'
     git add -A
+    git add -f Documents/ -A
     git commit -m "update submodule"
     git push https://github.com/pwang2/dotfiles master
     echo 'update vi plugins'
