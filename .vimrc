@@ -245,7 +245,7 @@ function! FormatVue()
          \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
          \   prettier --stdin --single-quote
 
-   silent! /<style>/+1,/<\/style>/-1 !
+   silent! /<style/+1,/<\/style>/-1 !
          \    prettier --stdin --parser css
 
    silent! /<template>/,/<\/template>/ !
@@ -256,6 +256,7 @@ function! FormatVue()
          \    sed -e s/v-on:/@/g -
 
    call winrestview(winview)
+   syntax sync fromstart
 endfunction
 
 function! FormatJs()
