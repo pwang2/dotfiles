@@ -32,6 +32,7 @@ function routine() {
     brew cleanup
     brew cask cleanup
     brew bundle dump --global --force
+    npm install -g npm@latest
 
     cd ~
     git submodule foreach 'git pull'
