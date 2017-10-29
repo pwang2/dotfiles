@@ -1,0 +1,17 @@
+type: "MARKDOWN_NOTE"
+folder: "98fe49f4c111e674e662"
+title: "You'd better know"
+content: '''
+  You'd better know
+  
+  - [ ] https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
+  - [ ] GraphQL      
+  - [ ] Typescript
+  - [ ] Valueof in JS
+  - [ ] Implement a curry function
+'''
+tags: []
+isStarred: false
+isTrashed: false
+createdAt: "2017-10-27T22:10:59.461Z"
+updatedAt: "2017-10-29T21:17:03.024Z"

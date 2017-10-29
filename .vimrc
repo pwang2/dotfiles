@@ -218,7 +218,7 @@ augroup vimrc
   au BufRead,BufNewFile            .babelrc  setlocal filetype=json
   " Remember info about open buffers on close
   au BufReadPost                   *         if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  au VimEnter                      *         call ToggleHiddenAll()
+  au VimEnter,BufRead              *         call ToggleHiddenAll()
   au ColorScheme                   default   call s:patch_colors()
 
   au FileType nerdtree    setlocal signcolumn=no nocursorline
