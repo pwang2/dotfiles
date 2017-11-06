@@ -92,7 +92,6 @@ Plugin 'guns/xterm-color-table.vim'
 "Plugin 'hex.vim'
 "Plugin 'Shougo/vimproc.vim'
 "Plugin 'wesQ3/vim-windowswap'
-"Plugin 'wesQ3/vim-windowswap'
 "Plugin 'mtscout6/syntastic-local-eslint.vim'
 "Plugin 'vim-stylus'
 "Plugin 'Chiel92/vim-autoformat'
@@ -244,7 +243,7 @@ function! FormatVue()
    silent! /<script>/+1,/<\/script>/-1 !
          \   cat |
          \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
-         \   prettier --stdin --single-quote
+         \   prettier --stdin --single-quote --tab-width "${TAB_SIZE:-2}"
 
    silent! /<style/+1,/<\/style>/-1 !
          \    prettier --stdin --parser css
@@ -252,7 +251,7 @@ function! FormatVue()
    silent! /<template>/,/<\/template>/ !
          \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
          \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-         \    tidy -config "$(dirname $(npm -s root))/.tidyrc" - |
+         \    tidy -config "$HOME/.tidyrc" - |
          \    sed -e s/v-bind:/:/g - |
          \    sed -e s/v-on:/@/g -
 
@@ -265,7 +264,7 @@ function! FormatJs()
    silent! % !
          \   cat |
          \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout || cat ) |
-         \   prettier --stdin --single-quote
+         \   prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2}
    call winrestview(winview)
 endfunction
 

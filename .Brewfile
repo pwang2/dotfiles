@@ -39,7 +39,7 @@ brew "parallel"
 brew "proctools"
 brew "pstree"
 brew "reattach-to-user-namespace"
-brew "redis"
+brew "redis", restart_service: true
 brew "sonar-scanner"
 brew "tcptraceroute"
 brew "terminal-notifier"
