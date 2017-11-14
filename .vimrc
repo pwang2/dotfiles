@@ -111,7 +111,7 @@ let g:airline_section_error                = airline#section#create_right(['ALE'
 let mapleader                              = ";"
 let g:mapleader                            = ";"
 let g:NERDTreeIgnore                       = ['\.DS_Store']
-"let g:NERDTreeWinPos                       = "right"
+let g:NERDTreeWinPos                       = "left"
 let g:ackprg                               = 'ag --vimgrep'
 let g:ackhighlight                         = 1
 let g:airline_powerline_fonts              = 1
@@ -127,18 +127,6 @@ let g:CtrlSpaceSaveWorkspaceOnExit         = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch       = 1
 let g:CtrlSpaceGlobCommand                 = 'ag -l --nocolor -g ""'
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-"let g:neoformat_enabled_javascript         = ['prettier','eslint_d']
-" eslint_d can not read project eslintrc.js
-"let g:neoformat_javascript_eslint_d        = {
-                                           "\ 'exe': "eslint_d",
-                                           "\ 'args': ['--stdin','--fix-to-stdout', '--config $(dirname $(npm -s root))/.eslintrc.js'],
-                                           "\ 'stdin': 1,
-                                           "\ }
-"let g:neoformat_javascript_prettier        = {
-                                           "\ 'exe': "prettier",
-                                           "\ 'args': ['--stdin', '--single-quote'],
-                                           "\ 'stdin': 1,
-                                           "\ }
 let g:ycm_key_list_select_completion       = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion     = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType        = '<C-n>'
@@ -153,12 +141,12 @@ let g:ctrlp_custom_ignore                  = '\v[\/](node_modules|bower_componen
 let g:ctrlp_mruf_save_on_update            = 1
 let g:goyo_width                           = 150
 let g:ale_linters                          = {'javascript': ['eslint'], 'vue':['tidy','eslint'], 'html':['tidy']}
-let g:ale_html_htmlhint_options            = "--config $(dirname $(npm -s root))/.htmlhintrc"
 let g:ale_html_tidy_executable             = "/usr/local/bin/tidy" " self build tidy
-let g:ale_html_tidy_options                = "-config $(dirname $(npm -s root))/.tidyrc"
+let g:ale_html_tidy_options                = "-config $HOME/.tidyrc"
 let g:NERDCustomDelimiters                 = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
 let g:windowswap_map_keys                  = 0 "prevent default bindings
 let g:mta_use_matchparen_group             = 1
+let g:airline_section_error                = airline#section#create_right(['ALE'])
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
@@ -353,5 +341,4 @@ if exists('g:loaded_webdevicons')
 endif
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
 " }}}
