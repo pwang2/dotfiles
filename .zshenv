@@ -42,9 +42,8 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 
 function routine() {
-  set -xe
   upgrade_oh_my_zsh
-  brew doctor
+  brew doctor || exit
   brew update
   brew upgrade
   brew cleanup
@@ -67,7 +66,6 @@ function routine() {
   cd /Users/pwang/.config/yarn/global/
   yarn
   cd ~
-  set +xe
 }
 
 function add-github {
