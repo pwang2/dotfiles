@@ -18,7 +18,6 @@ open_git_remote(){
 
   prot=`grep -oP '^[^/]*(?=(@|//))' <<< $url`
   host=`grep -oP '((?<=//)|(?<=@))[^:/]*' <<< $url`
-  repo=
   if [[ "$prot" == "https:" ]]; then
     open $url
   else
@@ -43,6 +42,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 
 function routine() {
+  set -xe
   upgrade_oh_my_zsh
   brew doctor
   brew update
@@ -67,6 +67,7 @@ function routine() {
   cd /Users/pwang/.config/yarn/global/
   yarn
   cd ~
+  set +xe
 }
 
 function add-github {
