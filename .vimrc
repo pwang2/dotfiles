@@ -33,8 +33,7 @@ set mouse          =a
 set backspace      =eol,start,indent
 set dir            =/var/tmp
 set rtp            ^=$HOME
-"set fillchars      =vert:\⎸
-set fillchars=""
+set fillchars      =""
 " Add home directory to runtimepath
 " }}}
 
