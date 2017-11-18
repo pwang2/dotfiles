@@ -34,7 +34,7 @@ set backspace      =eol,start,indent
 set dir            =/var/tmp
 set rtp            ^=$HOME
 "set fillchars      =vert:\⎸
-"set fillchars      =vert:\│
+set fillchars=""
 " Add home directory to runtimepath
 " }}}
 
@@ -157,7 +157,7 @@ endif
 " }}}
 
 " {{{ keymap
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
+nnoremap <S-h>               :call ToggleHiddenAll()<CR>
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<cr>
 nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<cr>
 nnoremap <Leader><Space>     :Goyo<cr>
@@ -206,7 +206,7 @@ augroup vimrc
   au BufRead,BufNewFile            .babelrc  setlocal filetype=json
   " Remember info about open buffers on close
   au BufReadPost                   *         if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  au VimEnter,BufRead              *         call ToggleHiddenAll()
+  au VimEnter,BufRead              *         call HideAll()
   au ColorScheme                   default   call s:patch_colors()
 
   au FileType nerdtree    setlocal signcolumn=no nocursorline
@@ -276,8 +276,8 @@ endfunction
 
 function! s:patch_colors()
   hi ExtraWhitespace cterm=none       ctermbg=darkgreen
-  hi NonText         cterm=none       ctermbg=none       ctermfg=15
-  hi VertSplit       cterm=none       ctermbg=none       ctermfg=15
+  hi NonText         cterm=none       ctermbg=none       ctermfg=236
+  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
   hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
   hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
   hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
@@ -313,19 +313,27 @@ function! NERDTreeHighlightFile(extension, fg, bg)
     exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
+function! HideAll()
+    set noshowmode
+    set noruler
+    set laststatus=0
+    set noshowcmd
+endfunction
+
+function! ShowAll()
+    set showmode
+    set ruler
+    set laststatus=2
+    set showcmd
+endfunction
+
 function! ToggleHiddenAll()
     if s:hidden_all  == 0
         let s:hidden_all = 1
-        set noshowmode
-        set noruler
-        set laststatus=0
-        set noshowcmd
+        call HideAll()
     else
         let s:hidden_all = 0
-        set showmode
-        set ruler
-        set laststatus=2
-        set showcmd
+        call ShowAll()
     endif
 endfunction
 " }}}
