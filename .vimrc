@@ -105,12 +105,15 @@ syntax on
 "}}}
 
 " {{{ variables
-let s:hidden_all                           = 0
-let g:airline_section_error                = airline#section#create_right(['ALE'])
 let mapleader                              = ";"
 let g:mapleader                            = ";"
+let s:hidden_all                           = 0
+let g:airline_section_error                = airline#section#create_right(['ALE'])
 let g:NERDTreeIgnore                       = ['\.DS_Store']
-let g:NERDTreeWinPos                       = "left"
+"let g:NERDTreeWinPos                       = "right"
+"let g:NERDTreeQuitOnOpen                   = 1
+let g:NERDTreeMinimalUI                    = 1
+let g:NERDTreeAutoDeleteBuffer             = 1
 let g:ackprg                               = 'ag --vimgrep'
 let g:ackhighlight                         = 1
 let g:airline_powerline_fonts              = 1
@@ -129,7 +132,7 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 let g:ycm_key_list_select_completion       = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion     = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType        = '<C-n>'
-let g:UltiSnipsSnippetsDir                 ='/Users/pwang/Documents/UltiSnips'
+let g:UltiSnipsSnippetsDir                 = '/Users/pwang/Documents/UltiSnips'
 let g:UltiSnipsSnippetDirectories          = ['/Users/pwang/Documents/UltiSnips']
 let g:UltiSnipsExpandTrigger               = "<tab>"
 let g:UltiSnipsJumpForwardTrigger          = "<tab>"
@@ -275,8 +278,8 @@ endfunction
 
 function! s:patch_colors()
   hi ExtraWhitespace cterm=none       ctermbg=darkgreen
-  hi NonText         cterm=none       ctermbg=none       ctermfg=236
-  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
+  hi NonText         cterm=none       ctermbg=none       ctermfg=236  guifg=bg
+  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8     
   hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
   hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
   hi SignColumn      cterm=none       ctermbg=none       ctermfg=none

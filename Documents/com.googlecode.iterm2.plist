@@ -4996,17 +4996,17 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>427 404 228 297 0 0 1680 1050 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>755 37 445 211 0 0 1680 1050 </string>
+	<string>799 205 445 94 0 0 1680 1050 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>650 500 620 392 0 0 1920 1058 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 469 0 0 1680 1028 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>433 480 918 512 0 0 1680 1050 </string>
+	<string>433 586 1018 447 0 0 1680 1050 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>127 444 592 584 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 521 1680 529 0 0 1680 1050 </string>
+	<string>-1920 -30 2194 1080 -1920 -30 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>212 101 570 452 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -5666,7 +5666,7 @@
 			<key>Use Tab Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1.2000000000000002</real>
+			<real>1.1758918486445784</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -7157,7 +7157,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-18T20:07:35Z</date>
+	<date>2017-11-22T20:34:46Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>Secure Input</key>
