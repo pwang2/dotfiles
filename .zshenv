@@ -52,20 +52,19 @@ function routine() {
   npm install -g npm@latest
 
   cd ~
-  git submodule foreach 'git pull'
-  git add -A
-  git add -f Documents/ -A
-  git commit -m "update $(date)"
-  git push origin master
   echo 'update vi plugins'
   vi +PluginUpdate +qall
-  $HOME/.vim/bundle/YouCompleteMe/install.py --tern-completer  --clang-completer
+  $HOME/.vim/bundle/YouCompleteMe/install.py --js-completer --tern-completer # --clang-completer
   $HOME/.tmux/plugins/tpm/scripts/update_plugin.sh --bug-here all
   cd ~/.vim/bundle/tern_for_vim
   npm i -s --no-package-lock
   cd /Users/pwang/.config/yarn/global/
   yarn
   cd ~
+  git submodule foreach 'git pull'
+  git add -A
+  git commit -m "update $(date)"
+  git push origin master
 }
 
 function add-github {
