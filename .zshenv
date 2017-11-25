@@ -51,20 +51,17 @@ function routine() {
   brew bundle dump --global --force
   npm install -g npm@latest
 
-  vi +PluginUpdate +qall
+  vi +PluginInstall +PluginUpdate +qall
   $HOME/.vim/bundle/YouCompleteMe/install.py --js-completer --tern-completer # --clang-completer
   $HOME/.tmux/plugins/tpm/scripts/update_plugin.sh --bug-here all
-  cd $HOME/.vim/bundle/tern_for_vim
-  npm i -s --no-package-lock
-  cd $HOME/.config/yarn/global/
-  yarn
-  (
-  cd $HOME
-  git submodule foreach 'git pull'
-  git add -A
-  git commit -m "update $(date)"
-  git push origin master
-  )
+
+  (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
+  (cd $HOME/.config/yarn/global/ && yarn)
+
+  git -C $HOME submodule foreach 'git pull'
+  git -C $HOME add -A
+  git -C $HOME commit -m "update $(date)"
+  git -C $HOME push origin master
 }
 
 function add-github {
