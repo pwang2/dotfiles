@@ -18,4 +18,3 @@ export JIRA_URL="https://jira.uptake.com"
 . $ZSH/oh-my-zsh.sh
 . $HOME/.iterm2_shell_integration.zsh
 . /usr/local/etc/profile.d/autojump.sh
-

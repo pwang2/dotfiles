@@ -34,7 +34,6 @@ set backspace      =eol,start,indent
 set dir            =/var/tmp
 set rtp            ^=$HOME
 set fillchars      =""
-" Add home directory to runtimepath
 " }}}
 
 " {{{ plugins
@@ -128,7 +127,7 @@ let g:CtrlSpaceLoadLastWorkspaceOnStart    = 1
 let g:CtrlSpaceSaveWorkspaceOnExit         = 1
 let g:CtrlSpaceSaveWorkspaceOnSwitch       = 1
 let g:CtrlSpaceGlobCommand                 = 'ag -l --nocolor -g ""'
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:ycm_key_list_select_completion       = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion     = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType        = '<C-n>'
@@ -143,12 +142,14 @@ let g:ctrlp_custom_ignore                  = '\v[\/](node_modules|bower_componen
 let g:ctrlp_mruf_save_on_update            = 1
 let g:goyo_width                           = 150
 let g:ale_linters                          = {'javascript': ['eslint'], 'vue':['tidy','eslint'], 'html':['tidy']}
-let g:ale_html_tidy_executable             = "/usr/local/bin/tidy" " self build tidy
+let g:ale_html_tidy_executable             = "/usr/local/bin/tidy"
 let g:ale_html_tidy_options                = "-config $HOME/.tidyrc"
 let g:NERDCustomDelimiters                 = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
-let g:windowswap_map_keys                  = 0 "prevent default bindings
+let g:windowswap_map_keys                  = 0
+let g:mta_filetypes                        = { 'vue' : 1, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
 let g:mta_use_matchparen_group             = 1
-let g:airline_section_error                = airline#section#create_right(['ALE'])
+"let g:airline_section_error                = airline#section#create_right(['ALE'])
+
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
     let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
@@ -279,7 +280,7 @@ endfunction
 function! s:patch_colors()
   hi ExtraWhitespace cterm=none       ctermbg=darkgreen
   hi NonText         cterm=none       ctermbg=none       ctermfg=236  guifg=bg
-  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8     
+  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
   hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
   hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
   hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
