@@ -76,6 +76,7 @@ Plugin 'fugitive.vim'
 Plugin 'nginx.vim'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'loremipsum'
+Plugin 'tkhren/vim-fake'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'sbdchd/neoformat'
 Plugin 'pangloss/vim-javascript'
@@ -236,7 +237,7 @@ function! FormatVue()
          \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
          \   prettier --stdin --single-quote --tab-width "${TAB_SIZE:-2}"
 
-   silent! /<style/+1,/<\/style>/-1 !
+   silent! /<style>/+1,/<\/style>/-1 !
          \    prettier --stdin --parser css
 
    silent! /<template>/,/<\/template>/ !
@@ -342,14 +343,26 @@ endfunction
 " }}}
 
 " {{{ bootstrap init
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
 call NERDTreeHighlightFile('yml', '100', 'none')
 call NERDTreeHighlightFile('json', '5', 'none')
 call NERDTreeHighlightFile('md', '100', 'none')
 call NERDTreeHighlightFile('sh', '1', 'none')
+
 call s:patch_colors()
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
+
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+
+call fake#define('sex', 'fake#choice(["male", "female"])')
+call fake#define('name', 'fake#int(1) ? fake#gen("male_name")'
+                                  \ . ' : fake#gen("female_name")')
+call fake#define('fullname', 'fake#gen("name") . " " . fake#gen("surname")')
+call fake#define('sentense', 'fake#capitalize('
+                        \ . 'join(map(range(fake#int(3,15)),"fake#gen(\"nonsense\")"))'
+                        \ . ' . fake#chars(1,"..............!?"))')
+call fake#define('paragraph', 'join(map(range(fake#int(3,10)),"fake#gen(\"sentense\")"))')
+call fake#define('ipsum', 'fake#gen("paragraph")')
 " }}}
