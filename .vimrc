@@ -53,6 +53,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-obsession'
 Plugin 'metakirby5/codi.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
@@ -256,7 +257,7 @@ function! FormatJs()
    silent! % !
          \   cat |
          \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout || cat ) |
-         \   prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2}
+         \   ([[ ${PRETTY:-1} -eq 1 ]] && prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2} || cat )
    call winrestview(winview)
 endfunction
 
