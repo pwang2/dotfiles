@@ -115,6 +115,8 @@ let g:NERDTreeIgnore                       = ['\.DS_Store']
 "let g:NERDTreeQuitOnOpen                   = 1
 let g:NERDTreeMinimalUI                    = 1
 let g:NERDTreeAutoDeleteBuffer             = 1
+let g:NERDTreeMapJumpNextSibling           = ''  " yield ctrl-j to tmux navigation
+let g:NERDTreeMapJumpPrevSibling           = ''  " yield ctrl-k to tmux navigation
 let g:ackprg                               = 'ag --vimgrep'
 let g:ackhighlight                         = 1
 let g:airline_powerline_fonts              = 1
@@ -230,117 +232,117 @@ augroup END
 " }}}
 
 " {{{ functions
-function! FormatVue()
-   let winview = winsaveview()
+  function! FormatVue()
+     let winview = winsaveview()
 
-   silent! /<script>/+1,/<\/script>/-1 !
-         \   cat |
-         \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
-         \   prettier --stdin --single-quote --tab-width "${TAB_SIZE:-2}"
+     silent! /<script>/+1,/<\/script>/-1 !
+           \   cat |
+           \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
+           \   prettier --stdin --single-quote --tab-width "${TAB_SIZE:-2}"
 
-   silent! /<style>/+1,/<\/style>/-1 !
-         \    prettier --stdin --parser css
+     silent! /<style>/+1,/<\/style>/-1 !
+           \    prettier --stdin --parser css
 
-   silent! /<template>/,/<\/template>/ !
-         \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
-         \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-         \    tidy -config "$HOME/.tidyrc" - |
-         \    sed -e s/v-bind:/:/g - |
-         \    sed -e s/v-on:/@/g -
+     silent! /<template>/,/<\/template>/ !
+           \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
+           \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
+           \    tidy -config "$HOME/.tidyrc" - |
+           \    sed -e s/v-bind:/:/g - |
+           \    sed -e s/v-on:/@/g -
 
-   call winrestview(winview)
-   syntax sync fromstart
-endfunction
+     call winrestview(winview)
+     syntax sync fromstart
+  endfunction
 
-function! FormatJs()
-   let winview = winsaveview()
-   silent! % !
-         \   cat |
-         \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout || cat ) |
-         \   ([[ ${PRETTY:-1} -eq 1 ]] && prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2} || cat )
-   call winrestview(winview)
-endfunction
+  function! FormatJs()
+     let winview = winsaveview()
+     silent! % !
+           \   cat |
+           \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout || cat ) |
+           \   ([[ ${PRETTY:-1} -eq 1 ]] && prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2} || cat )
+     call winrestview(winview)
+  endfunction
 
-function! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunction
+  function! DeleteTrailingWS()
+      exe "normal mz"
+      %s/\s\+$//ge
+      exe "normal `z"
+  endfunction
 
-function! s:goyo_enter()
-  silent !tmux set status off
-  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  hi StatusLineNC ctermfg=235
-endfunction
+  function! s:goyo_enter()
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    hi StatusLineNC ctermfg=235
+  endfunction
 
-function! s:goyo_leave()
-  silent !tmux set status on
-  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set background=light
-endfunction
+  function! s:goyo_leave()
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set background=light
+  endfunction
 
-function! s:patch_colors()
-  hi ExtraWhitespace cterm=none       ctermbg=darkgreen
-  hi NonText         cterm=none       ctermbg=none       ctermfg=236  guifg=bg
-  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
-  hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
-  hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
-  hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
-  hi Visual          cterm=reverse    ctermbg=none       ctermfg=none
-  hi Search          cterm=none       ctermbg=red        ctermfg=235
-  hi QuickFixLine    cterm=underline  ctermbg=none       ctermfg=blue
-  hi MatchParen      cterm=bold       ctermbg=none       ctermfg=magenta
-  hi OverLength      cterm=none       ctermbg=magenta    ctermfg=white
-  hi Folded          cterm=bold       ctermbg=none       ctermfg=6
-  hi Error           cterm=none       ctermbg=219        ctermfg=160
-  hi link CtrlSpaceNormal Normal
-  hi link CtrlSpaceSelected Visual
-endfunction
+  function! s:patch_colors()
+    hi ExtraWhitespace cterm=none       ctermbg=darkgreen
+    hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
+    hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
+    hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
+    hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
+    hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
+    hi Visual          cterm=reverse    ctermbg=none       ctermfg=none
+    hi Search          cterm=none       ctermbg=red        ctermfg=235
+    hi QuickFixLine    cterm=underline  ctermbg=none       ctermfg=blue
+    hi MatchParen      cterm=bold       ctermbg=none       ctermfg=magenta
+    hi OverLength      cterm=none       ctermbg=magenta    ctermfg=white
+    hi Folded          cterm=bold       ctermbg=none       ctermfg=6
+    hi Error           cterm=none       ctermbg=219        ctermfg=160
+    hi link CtrlSpaceNormal Normal
+    hi link CtrlSpaceSelected Visual
+  endfunction
 
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
-endfunction
+  function! <SID>BufcloseCloseIt()
+      let l:currentBufNum = bufnr("%")
+      let l:alternateBufNum = bufnr("#")
+      if buflisted(l:alternateBufNum)
+          buffer #
+      else
+          bnext
+      endif
+      if bufnr("%") == l:currentBufNum
+          new
+      endif
+      if buflisted(l:currentBufNum)
+          execute("bdelete! ".l:currentBufNum)
+      endif
+  endfunction
 
-function! NERDTreeHighlightFile(extension, fg, bg)
-    exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg
-    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
+  function! NERDTreeHighlightFile(extension, fg, bg)
+      exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg
+      exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  endfunction
 
-function! HideAll()
-    set noshowmode
-    set noruler
-    set laststatus=0
-    set noshowcmd
-endfunction
+  function! HideAll()
+      set noshowmode
+      set noruler
+      set laststatus=0
+      set noshowcmd
+  endfunction
 
-function! ShowAll()
-    set showmode
-    set ruler
-    set laststatus=2
-    set showcmd
-endfunction
+  function! ShowAll()
+      set showmode
+      set ruler
+      set laststatus=2
+      set showcmd
+  endfunction
 
-function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-        let s:hidden_all = 1
-        call HideAll()
-    else
-        let s:hidden_all = 0
-        call ShowAll()
-    endif
-endfunction
+  function! ToggleHiddenAll()
+      if s:hidden_all  == 0
+          let s:hidden_all = 1
+          call HideAll()
+      else
+          let s:hidden_all = 0
+          call ShowAll()
+      endif
+  endfunction
 " }}}
 
 " {{{ bootstrap init
