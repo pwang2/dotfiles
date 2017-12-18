@@ -11,4 +11,4 @@ plugins=(zsh-vim-mode docker yarn git tmux zsh-autosuggestions zsh-syntax-highli
 . /usr/local/etc/profile.d/autojump.sh
 
 export HOMEBREW_GITHUB_API_TOKEN="326cc9be987d5a30237b1ccc73b539d2a46ae7b1"
-
+export PATH="/usr/local/opt/node@8/bin:$PATH"

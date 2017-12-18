@@ -1,21 +1,19 @@
 # vim: foldmethod=marker
-
 export KEYTIMEOUT=1
 export CLICOLOR=1
 export TERM=xterm-256color
 export LANG=en_US.UTF-8
+export EDITOR="mvim -v"
 
-alias vi='mvim -v '
-alias vim='mvim -v '
+alias vi='mvim -v'
+alias vim='mvim -v'
 alias dm='docker-machine'
-alias gcd='git checkout develop'
 alias cls='clear'
+alias "sudovi"='sudo command vi -u NONE'
 alias gopen='open `git remote get-url origin`'
 alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"'
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 
-# {{{ flags
+# {{{ functions
 function man() {
   env LESS_TERMCAP_mb=$'\E[01;31m' \
     LESS_TERMCAP_md=$'\E[01;38;5;74m' \
