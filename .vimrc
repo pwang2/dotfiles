@@ -85,8 +85,9 @@ Plugin 'djoshea/vim-autoread'
 Plugin 'posva/vim-vue'
 Plugin 'mattn/emmet-vim'
 Plugin 'martinda/Jenkinsfile-vim-syntax'
-
 Plugin 'guns/xterm-color-table.vim'
+Plugin 'ensime/ensime-vim'
+
 "Plugin 'edkolev/tmuxline.vim'
 "Plugin 'edkolev/promptline.vim'
 "Plugin 'hex.vim'
@@ -216,18 +217,21 @@ augroup vimrc
   au VimEnter,BufRead              *         call HideAll()
   au ColorScheme                   default   call s:patch_colors()
 
+  au FileType scala       setlocal formatprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
+  au FileType scala       setlocal equalprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
+  au FileType scala       noremap  <buffer> <leader>f :normal! maHmbgg=G`bzt`a<cr>
+  au FileType vue         noremap  <buffer> <leader>f :call FormatVue()       <cr>
+  au FileType javascript  noremap  <buffer> <leader>f :call FormatJs()        <cr>
+  au FileType json        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType css         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType html        noremap  <buffer> <leader>f :Neoformat tidy         <cr>
+  au FileType javascript  noremap  <buffer> <Leader>l :JsDoc                  <cr>
   au FileType nerdtree    setlocal signcolumn=no nocursorline
   au FileType markdown    setlocal tw=10000
   au FileType qf          setlocal cursorline
   au FileType javascript  setlocal signcolumn=yes
   au FileType vue         setlocal signcolumn=yes
-  au FileType vue         noremap  <buffer> <leader>f :call FormatVue()<cr>
-  au FileType javascript  noremap  <buffer> <leader>f :call FormatJs()<cr>
-  au FileType json        noremap  <buffer> <leader>f :Neoformat prettier  <cr>
-  au FileType css         noremap  <buffer> <leader>f :Neoformat prettier  <cr>
-  au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier  <cr>
-  au FileType html        noremap  <buffer> <leader>f :Neoformat tidy      <cr>
-  au FileType javascript  noremap  <buffer> <Leader>l :JsDoc<cr>
 augroup END
 " }}}
 
