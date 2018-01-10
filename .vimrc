@@ -86,7 +86,6 @@ Plugin 'posva/vim-vue'
 Plugin 'mattn/emmet-vim'
 Plugin 'martinda/Jenkinsfile-vim-syntax'
 Plugin 'guns/xterm-color-table.vim'
-Plugin 'ensime/ensime-vim'
 
 "Plugin 'edkolev/tmuxline.vim'
 "Plugin 'edkolev/promptline.vim'

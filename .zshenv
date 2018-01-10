@@ -32,6 +32,8 @@ function routine() {
   brew upgrade
   brew cleanup
   brew cask cleanup
+  brew bundle install --global
+  brew bundle cleanup --global --force
   brew bundle dump --global --force
   npm install -g npm@latest
 
