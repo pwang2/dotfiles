@@ -34,6 +34,7 @@ set backspace      =eol,start,indent
 set dir            =/var/tmp
 set rtp            ^=$HOME
 set fillchars      =""
+set guifont        =Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
 " }}}
 
 " {{{ plugins
@@ -174,6 +175,8 @@ nnoremap <Leader>ev          :e $MYVIMRC<cr>
 nnoremap <Leader>sv          :so $MYVIMRC<cr>
 nnoremap <Leader>x           :bclose<cr>
 nnoremap <leader>%           :MtaJumpToOtherTag<cr>
+nnoremap gvf                 :vertical wincmd f<CR>
+nnoremap gf                  <C-W>f<CR>
 
 "noremap q                    <NOP>
 noremap <leader>[            zfi{
@@ -249,7 +252,7 @@ augroup END
      silent! /<template>/,/<\/template>/ !
            \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
            \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-           \    tidy -config "$HOME/.tidyrc" - |
+           "\    tidy --show-errors 5 - |
            \    sed -e s/v-bind:/:/g - |
            \    sed -e s/v-on:/@/g -
 
@@ -287,7 +290,7 @@ augroup END
   function! s:patch_colors()
     hi ExtraWhitespace cterm=none       ctermbg=darkgreen
     hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
-    hi VertSplit       cterm=none       ctermbg=none       ctermfg=8
+    hi VertSplit       cterm=none       ctermbg=none       ctermfg=8    guifg=white
     hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
     hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
     hi SignColumn      cterm=none       ctermbg=none       ctermfg=none

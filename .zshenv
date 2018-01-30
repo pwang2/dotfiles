@@ -30,6 +30,7 @@ function routine() {
   brew doctor
   brew update
   brew upgrade
+  brew cask upgrade
   brew cleanup
   brew cask cleanup
   brew bundle install --global
