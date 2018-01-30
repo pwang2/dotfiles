@@ -21,7 +21,7 @@ brew "sqlite"
 brew "csvkit"
 brew "dnsmasq", restart_service: true
 brew "emacs"
-brew "gettext", link: true
+brew "gettext"
 brew "git"
 brew "gnu-sed", args: ["with-default-names"]
 brew "gradle"
