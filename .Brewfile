@@ -30,7 +30,6 @@ brew "groovy"
 brew "haproxy", restart_service: true
 brew "node"
 brew "heroku"
-brew "htop"
 brew "ipcalc"
 brew "iproute2mac"
 brew "jq"
