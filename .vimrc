@@ -252,7 +252,7 @@ augroup END
      silent! /<template>/,/<\/template>/ !
            \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
            \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-           "\    tidy --show-errors 5 - |
+           \    tidy --show-errors 5 - |
            \    sed -e s/v-bind:/:/g - |
            \    sed -e s/v-on:/@/g -
 
