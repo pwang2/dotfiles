@@ -239,6 +239,7 @@ augroup END
 
 " {{{ functions
   function! FormatVue()
+     normal zE
      let winview = winsaveview()
 
      silent! /<script>/+1,/<\/script>/-1 !
@@ -249,12 +250,12 @@ augroup END
      silent! /<style>/+1,/<\/style>/-1 !
            \    prettier --stdin --parser css
 
-     silent! /<template>/,/<\/template>/ !
-           \    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
-           \    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-           \    tidy --show-errors 5 - |
-           \    sed -e s/v-bind:/:/g - |
-           \    sed -e s/v-on:/@/g -
+     "silent! /<template>/,/<\/template>/ !
+           "\    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
+           "\    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
+           "\    tidy --show-errors 5 - |
+           "\    sed -e s/v-bind:/:/g - |
+           "\    sed -e s/v-on:/@/g -
 
      call winrestview(winview)
      syntax sync fromstart
