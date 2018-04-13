@@ -28,7 +28,7 @@ brew "gradle"
 brew "grep", args: ["with-default-names"]
 brew "groovy"
 brew "haproxy", restart_service: true
-brew "node"
+brew "node", args: ["without-npm"]
 brew "heroku"
 brew "ipcalc"
 brew "iproute2mac"
@@ -41,7 +41,7 @@ brew "macvim", args: ["with-override-system-vim"]
 brew "maven"
 brew "md5sha1sum"
 brew "ncdu"
-brew "node@8"
+brew "node@8", args: ["without-npm"]
 brew "parallel"
 brew "postgresql"
 brew "proctools"

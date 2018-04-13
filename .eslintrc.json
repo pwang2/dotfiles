@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "parserOptions": { "parser": "babel-eslint" },
+  "extends": [
+    "airbnb-base",
+    "plugin:vue/essential",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["vue", "import", "compat", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/no-extraneous-dependencies": "warn"
+  }
+}

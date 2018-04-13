@@ -87,6 +87,8 @@ Plugin 'posva/vim-vue'
 Plugin 'mattn/emmet-vim'
 Plugin 'martinda/Jenkinsfile-vim-syntax'
 Plugin 'guns/xterm-color-table.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
 
 "Plugin 'edkolev/tmuxline.vim'
 "Plugin 'edkolev/promptline.vim'
@@ -99,25 +101,23 @@ Plugin 'guns/xterm-color-table.vim'
 "Plugin 'mhinz/vim-startify'
 "Plugin 'digitaltoad/vim-pug'
 "Plugin 'flazz/vim-colorschemes'
-"Plugin 'leafgarland/typescript-vim'
-"Plugin 'Quramy/tsuquyomi'
 call vundle#end()
 filetype plugin indent on
 syntax on
 "}}}
 
 " {{{ variables
+let g:prettier#config#print_width          = 100
 let mapleader                              = ";"
 let g:mapleader                            = ";"
 let s:hidden_all                           = 0
 let g:airline_section_error                = airline#section#create_right(['ALE'])
-let g:NERDTreeIgnore                       = ['\.DS_Store']
-"let g:NERDTreeWinPos                       = "right"
-"let g:NERDTreeQuitOnOpen                   = 1
+let g:NERDTreeIgnore                       = ['\.DS_Store', 'yarn-error.log']
 let g:NERDTreeMinimalUI                    = 1
 let g:NERDTreeAutoDeleteBuffer             = 1
 let g:NERDTreeMapJumpNextSibling           = ''  " yield ctrl-j to tmux navigation
 let g:NERDTreeMapJumpPrevSibling           = ''  " yield ctrl-k to tmux navigation
+let g:NERDCustomDelimiters                 = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
 let g:ackprg                               = 'ag --vimgrep'
 let g:ackhighlight                         = 1
 let g:airline_powerline_fonts              = 1
@@ -146,14 +146,10 @@ let g:ctrlp_working_path_mode              = 'ra'
 let g:ctrlp_custom_ignore                  = '\v[\/](node_modules|bower_components|target|dist|\.git)'
 let g:ctrlp_mruf_save_on_update            = 1
 let g:goyo_width                           = 150
-let g:ale_linters                          = {'javascript': ['eslint'], 'vue':['tidy','eslint'], 'html':['tidy']}
-let g:ale_html_tidy_executable             = "/usr/local/bin/tidy"
-let g:ale_html_tidy_options                = "-config $HOME/.tidyrc"
-let g:NERDCustomDelimiters                 = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
 let g:windowswap_map_keys                  = 0
 let g:mta_filetypes                        = { 'vue' : 1, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
 let g:mta_use_matchparen_group             = 1
-"let g:airline_section_error                = airline#section#create_right(['ALE'])
+let g:ale_fix_on_save                      = 1
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -204,30 +200,29 @@ augroup vimrc
   "need to use with vim-tmux-focus-events
   au FocusGained,VimEnter          *         set noinsertmode
 
-  au BufWritePost                  .vimrc    call DeleteTrailingWS() | so $MYVIMRC
-  au BufWritePost                  *.js      match OverLength /\%81v.*/
-  au BufWritePost                  *.html    match OverLength /\%81v.*/
-  "au BufWritePre                   *.vue     execute ":normal zE" | call FormatVue()
-  "au BufWritePre                   *.js      execute ":normal zE" | call FormatJs()
-  au BufWritePre                   *.json    silent! if(expand('%:t')!="package.json") | exec ":%!prettier --stdin --parser json" | endif
-  au BufWritePre                   .babelrc  silent! %!prettier --stdin --parser json
-  au BufRead,BufNewFile            *.vue     setlocal filetype=js.html.vue
-  au BufNewFile,BufFilePre,BufRead *.md      setlocal filetype=markdown tw=80 fo+=t
-  au BufRead,BufNewFile            .babelrc  setlocal filetype=json
+  au BufWritePost                  .vimrc         call DeleteTrailingWS() | so $MYVIMRC
+  au BufWritePost                  *.js           match OverLength /\%81v.*/
+  au BufWritePost                  *.html         match OverLength /\%81v.*/
+  au BufWritePre                   *.json         silent! if(expand('%:t')!="package.json") | exec ":%!prettier --stdin --parser json --print-width 100" | endif
+  au BufWritePre                   .babelrc       silent! %!prettier --stdin --parser json --print-width 100
+  au BufNewFile,BufFilePre,BufRead *.md           setlocal wrap filetype=markdown columns=80 fo+=t
+  au BufRead,BufNewFile            .babelrc       setlocal filetype=json
+  au BufRead                       nginx.conf     setlocal syntax=nginx
+  au BufRead                       Dockerfile.*   setlocal filetype=Dockerfile
   " Remember info about open buffers on close
-  au BufReadPost                   *         if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  au VimEnter,BufRead              *         call HideAll()
-  au ColorScheme                   default   call s:patch_colors()
+  au BufReadPost                   *              if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  au VimEnter,BufRead              *              call HideAll()
+  au ColorScheme                   default        call s:patch_colors()
 
   au FileType scala       setlocal formatprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
   au FileType scala       setlocal equalprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
   au FileType scala       noremap  <buffer> <leader>f :normal! maHmbgg=G`bzt`a<cr>
-  au FileType vue         noremap  <buffer> <leader>f :call FormatVue()       <cr>
-  au FileType javascript  noremap  <buffer> <leader>f :call FormatJs()        <cr>
+  au FileType vue         noremap  <buffer> <leader>f :Neoformat eslint       <cr>
+  au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint       <cr>
   au FileType json        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType css         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
-  au FileType html        noremap  <buffer> <leader>f :Neoformat tidy         <cr>
+  au FileType html        noremap  <buffer> <leader>f :Neoformat              <cr>
   au FileType javascript  noremap  <buffer> <Leader>l :JsDoc                  <cr>
   au FileType nerdtree    setlocal signcolumn=no nocursorline
   au FileType markdown    setlocal tw=10000
@@ -238,141 +233,124 @@ augroup END
 " }}}
 
 " {{{ functions
-  function! FormatVue()
-     normal zE
-     let winview = winsaveview()
+function! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunction
 
-     silent! /<script>/+1,/<\/script>/-1 !
-           \   cat |
-           \   ( [[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout - || cat ) |
-           \   prettier --stdin --single-quote --tab-width "${TAB_SIZE:-2}"
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  hi StatusLineNC ctermfg=235
+endfunction
 
-     silent! /<style>/+1,/<\/style>/-1 !
-           \    prettier --stdin --parser css
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set background=light
+endfunction
 
-     "silent! /<template>/,/<\/template>/ !
-           "\    perl -pe 's/ :(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-bind:/g' - |
-           "\    perl -pe 's/ @(?=(?:[^"]*"[^"]*")*[^"]*$)/ v-on:/g' - |
-           "\    tidy --show-errors 5 - |
-           "\    sed -e s/v-bind:/:/g - |
-           "\    sed -e s/v-on:/@/g -
+function! s:patch_colors()
+  hi ExtraWhitespace cterm=none       ctermbg=darkgreen
+  hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
+  hi VertSplit       cterm=none       ctermbg=none       ctermfg=8    guifg=white
+  hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
+  hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
+  hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
+  hi Visual          cterm=reverse    ctermbg=none       ctermfg=none
+  hi Search          cterm=none       ctermbg=red        ctermfg=235
+  hi QuickFixLine    cterm=underline  ctermbg=none       ctermfg=blue
+  hi MatchParen      cterm=bold       ctermbg=none       ctermfg=magenta
+  hi OverLength      cterm=none       ctermbg=magenta    ctermfg=white
+  hi Folded          cterm=bold       ctermbg=none       ctermfg=6
+  hi Error           cterm=none       ctermbg=219        ctermfg=160
+  hi link CtrlSpaceNormal Normal
+  hi link CtrlSpaceSelected Visual
+endfunction
 
-     call winrestview(winview)
-     syntax sync fromstart
-  endfunction
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
 
-  function! FormatJs()
-     let winview = winsaveview()
-     silent! % !
-           \   cat |
-           \   ([[ -f "$(dirname $(npm -s root))/.eslintrc.js" ]] && eslint_d --stdin --fix --fix-to-stdout || cat ) |
-           \   ([[ ${PRETTY:-1} -eq 1 ]] && prettier --stdin --single-quote --tab-width ${TAB_SIZE:-2} || cat )
-     call winrestview(winview)
-  endfunction
+function! NERDTreeHighlightFile(extension, fg, bg)
+    exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg
+    exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
 
-  function! DeleteTrailingWS()
-      exe "normal mz"
-      %s/\s\+$//ge
-      exe "normal `z"
-  endfunction
+function! HideAll()
+    set noshowmode
+    set noruler
+    set laststatus=0
+    set noshowcmd
+endfunction
 
-  function! s:goyo_enter()
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-    hi StatusLineNC ctermfg=235
-  endfunction
+function! ShowAll()
+    set showmode
+    set ruler
+    set laststatus=2
+    set showcmd
+endfunction
 
-  function! s:goyo_leave()
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    set background=light
-  endfunction
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        call HideAll()
+    else
+        let s:hidden_all = 0
+        call ShowAll()
+    endif
+endfunction
 
-  function! s:patch_colors()
-    hi ExtraWhitespace cterm=none       ctermbg=darkgreen
-    hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
-    hi VertSplit       cterm=none       ctermbg=none       ctermfg=8    guifg=white
-    hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
-    hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none
-    hi SignColumn      cterm=none       ctermbg=none       ctermfg=none
-    hi Visual          cterm=reverse    ctermbg=none       ctermfg=none
-    hi Search          cterm=none       ctermbg=red        ctermfg=235
-    hi QuickFixLine    cterm=underline  ctermbg=none       ctermfg=blue
-    hi MatchParen      cterm=bold       ctermbg=none       ctermfg=magenta
-    hi OverLength      cterm=none       ctermbg=magenta    ctermfg=white
-    hi Folded          cterm=bold       ctermbg=none       ctermfg=6
-    hi Error           cterm=none       ctermbg=219        ctermfg=160
-    hi link CtrlSpaceNormal Normal
-    hi link CtrlSpaceSelected Visual
-  endfunction
+function! s:RevealInFinder()
+  if filereadable(expand("%"))
+    let l:command = "open -R " . shellescape("%")
+  elseif getftype(expand("%:p:h")) == "dir"
+    let l:command = "open " . shellescape("%") . ":p:h"
+  else
+    let l:command = "open ."
+  endif
 
-  function! <SID>BufcloseCloseIt()
-      let l:currentBufNum = bufnr("%")
-      let l:alternateBufNum = bufnr("#")
-      if buflisted(l:alternateBufNum)
-          buffer #
-      else
-          bnext
-      endif
-      if bufnr("%") == l:currentBufNum
-          new
-      endif
-      if buflisted(l:currentBufNum)
-          execute("bdelete! ".l:currentBufNum)
-      endif
-  endfunction
+  execute ":silent! !" . l:command
 
-  function! NERDTreeHighlightFile(extension, fg, bg)
-      exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg
-      exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-  endfunction
-
-  function! HideAll()
-      set noshowmode
-      set noruler
-      set laststatus=0
-      set noshowcmd
-  endfunction
-
-  function! ShowAll()
-      set showmode
-      set ruler
-      set laststatus=2
-      set showcmd
-  endfunction
-
-  function! ToggleHiddenAll()
-      if s:hidden_all  == 0
-          let s:hidden_all = 1
-          call HideAll()
-      else
-          let s:hidden_all = 0
-          call ShowAll()
-      endif
-  endfunction
+  " For terminal Vim not to look messed up.
+  redraw!
+endfunction
 " }}}
 
 " {{{ bootstrap init
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
+call s:patch_colors()
+
+if exists('g:loaded_webdevicons') | call webdevicons#refresh() | endif
+
 call NERDTreeHighlightFile('yml', '100', 'none')
 call NERDTreeHighlightFile('json', '5', 'none')
 call NERDTreeHighlightFile('md', '100', 'none')
 call NERDTreeHighlightFile('sh', '1', 'none')
 
-call s:patch_colors()
-
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 
 call fake#define('sex', 'fake#choice(["male", "female"])')
-call fake#define('name', 'fake#int(1) ? fake#gen("male_name")'
-                                  \ . ' : fake#gen("female_name")')
+call fake#define('name', 'fake#int(1) ? fake#gen("male_name")' . ' : fake#gen("female_name")')
 call fake#define('fullname', 'fake#gen("name") . " " . fake#gen("surname")')
-call fake#define('sentense', 'fake#capitalize('
-                        \ . 'join(map(range(fake#int(3,15)),"fake#gen(\"nonsense\")"))'
-                        \ . ' . fake#chars(1,"..............!?"))')
+call fake#define('sentense', 'fake#capitalize(' . 'join(map(range(fake#int(3,15)),"fake#gen(\"nonsense\")"))' . ' . fake#chars(1,"..............!?"))')
 call fake#define('paragraph', 'join(map(range(fake#int(3,10)),"fake#gen(\"sentense\")"))')
 call fake#define('ipsum', 'fake#gen("paragraph")')
+" }}}
+
+" {{{ Command
+command! Reveal call <SID>RevealInFinder()
 " }}}
