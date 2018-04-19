@@ -52,8 +52,8 @@ function routine() {
   $HOME/.vim/bundle/YouCompleteMe/install.py --js-completer --tern-completer # --clang-completer
   $HOME/.tmux/plugins/tpm/scripts/update_plugin.sh --bug-here all
 
-  (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
   (cd $HOME/.config/yarn/global/ && NODE_ENV=production yarn)
+  (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
 
   git -C $HOME submodule foreach 'git pull'
   git -C $HOME add -A
