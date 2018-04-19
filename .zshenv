@@ -9,9 +9,10 @@ alias vi='mvim -v'
 alias vim='mvim -v'
 alias dm='docker-machine'
 alias cls='clear'
-alias "sudovi"='sudo command vi -u NONE'
+alias sudovi='sudo command vi -u NONE'
 alias gopen='open `git remote get-url origin`'
 alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"'
+alias 'brew'='brew $@; brew bundle dump --global -f'
 
 # {{{ functions
 function man() {
@@ -34,9 +35,7 @@ function routine() {
   brew cleanup
   brew cask cleanup
   brew bundle install --global
-  brew bundle cleanup --global --force
   brew bundle dump --global --force
-  npm install -g npm@latest
 
   vi +PluginInstall +PluginUpdate +qall
   $HOME/.vim/bundle/YouCompleteMe/install.py --js-completer --tern-completer # --clang-completer

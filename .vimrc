@@ -252,6 +252,7 @@ function! s:goyo_leave()
 endfunction
 
 function! s:patch_colors()
+  hi Pmenu           cterm=none       ctermbg=4
   hi ExtraWhitespace cterm=none       ctermbg=darkgreen
   hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
   hi VertSplit       cterm=none       ctermbg=none       ctermfg=8    guifg=white
@@ -333,7 +334,9 @@ endfunction
 " {{{ bootstrap init
 call s:patch_colors()
 
-if exists('g:loaded_webdevicons') | call webdevicons#refresh() | endif
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
 
 call NERDTreeHighlightFile('yml', '100', 'none')
 call NERDTreeHighlightFile('json', '5', 'none')
