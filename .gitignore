@@ -7,4 +7,6 @@
 !.tmuxline.conf
 !.gitignore
 !.eslintrc.json
-!.tern-configjjkќ
+!.tern-config
+!.config/yarn/global/package.json
+!.config/yarn/global/yarn.lock

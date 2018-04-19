@@ -16,8 +16,9 @@ alias dkill='docker ps  -qa | xargs docker rm -f'
 
 # {{{ functions
 function brew() {
-  if [[ $1 == 'cask' ]] && [[ $2 == 'install' || $2 == 'remove' ]] || [[ $1 == 'install' || $1 == 'remove' ]] ; then
-    command brew $@ && command brew bundle dump --global -f && command brew cleanup
+  if [[ $1 == 'cask' ]] && [[ $2 == 'install' || $2 == 'remove' ]] \
+    || [[ $1 == 'install' || $1 == 'remove' ]] ; then
+    command brew $@ && command brew bundle dump --global -f && command brew cleanup && brew cask cleanup
   else
     command brew $@
   fi
