@@ -12,9 +12,17 @@ alias cls='clear'
 alias sudovi='sudo command vi -u NONE'
 alias gopen='open `git remote get-url origin`'
 alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"'
-alias 'brew'='brew $@; brew bundle dump --global -f'
+alias dkill='docker ps  -qa | xargs docker rm -f'
 
 # {{{ functions
+function brew() {
+  if [[ $1 == 'cask' ]] && [[ $2 == 'install' || $2 == 'remove' ]] || [[ $1 == 'install' || $1 == 'remove' ]] ; then
+    command brew $@ && command brew bundle dump --global -f && command brew cleanup
+  else
+    command brew $@
+  fi
+}
+
 function man() {
   env LESS_TERMCAP_mb=$'\E[01;31m' \
     LESS_TERMCAP_md=$'\E[01;38;5;74m' \
@@ -28,7 +36,9 @@ function man() {
 
 function routine() {
   upgrade_oh_my_zsh
+  brew prune
   brew doctor
+  [[ $? != 0 ]] && echo "fix brew doctor output" && return
   brew update
   brew upgrade
   brew cask upgrade
