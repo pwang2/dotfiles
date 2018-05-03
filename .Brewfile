@@ -23,6 +23,7 @@ brew "dnsmasq", restart_service: true
 brew "emacs"
 brew "gettext"
 brew "git"
+brew "giter8"
 brew "gnu-sed", args: ["with-default-names"]
 brew "grep", args: ["with-default-names"]
 brew "groovy"
@@ -53,11 +54,13 @@ brew "sonar-scanner"
 brew "tcptraceroute"
 brew "terminal-notifier"
 brew "the_silver_searcher"
+brew "thefuck"
 brew "tidy-html5"
 brew "tldr"
 brew "tmux"
 brew "tree"
 brew "vnstat"
+brew "watchman"
 brew "yarn", args: ["without-node"]
 brew "zsh"
 brew "googlechrome/simplehttp2server/simplehttp2server"

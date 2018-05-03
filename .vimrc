@@ -43,6 +43,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'w0rp/ale'
+Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'tmux-plugins/vim-tmux'
@@ -108,49 +109,50 @@ syntax on
 "}}}
 
 " {{{ variables
-let g:prettier#config#print_width          = 100
-let mapleader                              = ";"
-let g:mapleader                            = ";"
-let s:hidden_all                           = 0
-let g:airline_section_error                = airline#section#create_right(['ALE'])
-let g:NERDTreeIgnore                       = ['\.DS_Store', 'yarn-error.log']
-let g:NERDTreeMinimalUI                    = 1
-let g:NERDTreeAutoDeleteBuffer             = 1
-let g:NERDTreeMapJumpNextSibling           = ''  " yield ctrl-j to tmux navigation
-let g:NERDTreeMapJumpPrevSibling           = ''  " yield ctrl-k to tmux navigation
-let g:NERDCustomDelimiters                 = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
-let g:ackprg                               = 'ag --vimgrep'
-let g:ackhighlight                         = 1
-let g:airline_powerline_fonts              = 1
-let g:airline#extensions#ale#enabled       = 1
-let g:airline#extensions#tabline#enabled   = 0
-let g:airline#extensions#tmuxline#enabled  = 0
-let g:airline_theme                        = 'luna'
-let g:airline_right_sep                    = ''
-let g:airline_left_sep                     = ''
-let g:airline_left_alt_sep                 = ''
-let g:CtrlSpaceLoadLastWorkspaceOnStart    = 1
-let g:CtrlSpaceSaveWorkspaceOnExit         = 1
-let g:CtrlSpaceSaveWorkspaceOnSwitch       = 1
-let g:CtrlSpaceGlobCommand                 = 'ag -l --nocolor -g ""'
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-let g:ycm_key_list_select_completion       = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion     = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType        = '<C-n>'
-let g:UltiSnipsSnippetsDir                 = '/Users/pwang/.extra/UltiSnips'
-let g:UltiSnipsSnippetDirectories          = ['/Users/pwang/.extra/UltiSnips']
-let g:UltiSnipsExpandTrigger               = "<tab>"
-let g:UltiSnipsJumpForwardTrigger          = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger         = "<s-tab>"
-let g:UltiSnipsEditSplit                   = "vertical"
-let g:ctrlp_working_path_mode              = 'ra'
-let g:ctrlp_custom_ignore                  = '\v[\/](node_modules|bower_components|target|dist|\.git)'
-let g:ctrlp_mruf_save_on_update            = 1
-let g:goyo_width                           = 150
-let g:windowswap_map_keys                  = 0
-let g:mta_filetypes                        = { 'vue' : 1, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
-let g:mta_use_matchparen_group             = 1
-let g:ale_fix_on_save                      = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:prettier#config#print_width                  = 80
+let mapleader                                      = ";"
+let g:mapleader                                    = ";"
+let s:hidden_all                                   = 0
+let g:airline_section_error                        = airline#section#create_right(['ALE'])
+let g:NERDTreeIgnore                               = ['\.DS_Store', 'yarn-error.log', 'yarn.lock', 'node_modules$[[dir]]']
+let g:NERDTreeMinimalUI                            = 1
+let g:NERDTreeAutoDeleteBuffer                     = 1
+let g:NERDTreeMapJumpNextSibling                   = ''  " yield ctrl-j to tmux navigation
+let g:NERDTreeMapJumpPrevSibling                   = ''  " yield ctrl-k to tmux navigation
+let g:NERDCustomDelimiters                         = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
+let g:ackprg                                       = 'ag --vimgrep'
+let g:ackhighlight                                 = 1
+let g:airline_powerline_fonts                      = 1
+let g:airline#extensions#ale#enabled               = 1
+let g:airline#extensions#tabline#enabled           = 0
+let g:airline#extensions#tmuxline#enabled          = 0
+let g:airline_theme                                = 'luna'
+let g:airline_right_sep                            = ''
+let g:airline_left_sep                             = ''
+let g:airline_left_alt_sep                         = ''
+let g:CtrlSpaceLoadLastWorkspaceOnStart            = 1
+let g:CtrlSpaceSaveWorkspaceOnExit                 = 1
+let g:CtrlSpaceSaveWorkspaceOnSwitch               = 1
+let g:CtrlSpaceGlobCommand                         = 'ag -l --nocolor -g ""'
+let g:WebDevIconsNerdTreeAfterGlyphPadding         = ' '
+let g:ycm_key_list_select_completion               = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion             = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType                = '<C-n>'
+let g:UltiSnipsSnippetsDir                         = '/Users/pwang/.extra/UltiSnips'
+let g:UltiSnipsSnippetDirectories                  = ['/Users/pwang/.extra/UltiSnips']
+let g:UltiSnipsExpandTrigger                       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger                  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger                 = "<s-tab>"
+let g:UltiSnipsEditSplit                           = "vertical"
+let g:ctrlp_working_path_mode                      = 'ra'
+let g:ctrlp_custom_ignore                          = '\v[\/](node_modules|bower_components|target|dist|\.git)'
+let g:ctrlp_mruf_save_on_update                    = 1
+let g:goyo_width                                   = 150
+let g:windowswap_map_keys                          = 0
+let g:mta_filetypes                                = { 'vue' : 1, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
+let g:mta_use_matchparen_group                     = 1
+let g:ale_fix_on_save                              = 1
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -162,7 +164,6 @@ endif
 " }}}
 
 " {{{ keymap
-nnoremap <S-h>               :call ToggleHiddenAll()<CR>
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<cr>
 nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<cr>
 nnoremap <Leader><Space>     :Goyo<cr>
@@ -188,8 +189,6 @@ map <silent> <leader><cr>    :noh<cr>
 map <space>                  <Plug>(incsearch-forward)
 map ?                        <Plug>(incsearch-backward)
 nmap s                       <Plug>(easymotion-overwin-f2)
-nmap <leader>"               ysiw"
-nmap <leader>'               ysiw'
 " }}}
 
 " {{{  augroup
@@ -212,21 +211,17 @@ augroup vimrc
   au BufRead                       Dockerfile.*   setlocal filetype=Dockerfile
   " Remember info about open buffers on close
   au BufReadPost                   *              if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  au VimEnter,BufRead              *              call HideAll()
-  au ColorScheme                   default        call s:patch_colors()
+  au InsertLeave                   *              if pumvisible() == 0|pclose|endif
 
-  au FileType scala       setlocal formatprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
-  au FileType scala       setlocal equalprg=/usr/local/opt/scalariform/bin/scalariform\ -f\ -q\ +compactControlReadability\ +alignParameters\ +alignSingleLineCaseStatements\ +doubleIndentConstructorArguments\ +rewriteArrowSymbols\ +preserveSpaceBeforeArguments\ --stdin\ --stdout
-  au FileType scala       noremap  <buffer> <leader>f :normal! maHmbgg=G`bzt`a<cr>
-  au FileType vue         noremap  <buffer> <leader>f :Neoformat eslint       <cr>
-  au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint       <cr>
+  au FileType vue         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint_d     <cr>
   au FileType json        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType markdown    noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType css         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType html        noremap  <buffer> <leader>f :Neoformat              <cr>
   au FileType javascript  noremap  <buffer> <Leader>l :JsDoc                  <cr>
   au FileType nerdtree    setlocal signcolumn=no nocursorline
-  au FileType markdown    setlocal tw=10000
   au FileType qf          setlocal cursorline
   au FileType javascript  setlocal signcolumn=yes
   au FileType vue         setlocal signcolumn=yes
@@ -250,6 +245,7 @@ function! s:goyo_leave()
   silent !tmux set status on
   silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   set background=light
+  call s:patch_colors()
 endfunction
 
 function! s:patch_colors()
@@ -292,28 +288,18 @@ function! NERDTreeHighlightFile(extension, fg, bg)
     exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
 
-function! HideAll()
+function! s:HideAll()
     set noshowmode
     set noruler
     set laststatus=0
     set noshowcmd
 endfunction
 
-function! ShowAll()
+function! s:ShowAll()
     set showmode
     set ruler
     set laststatus=2
     set showcmd
-endfunction
-
-function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-        let s:hidden_all = 1
-        call HideAll()
-    else
-        let s:hidden_all = 0
-        call ShowAll()
-    endif
 endfunction
 
 function! s:RevealInFinder()
@@ -333,19 +319,13 @@ endfunction
 " }}}
 
 " {{{ bootstrap init
+call s:HideAll()
 call s:patch_colors()
-
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
 
 call NERDTreeHighlightFile('yml', '100', 'none')
 call NERDTreeHighlightFile('json', '5', 'none')
 call NERDTreeHighlightFile('md', '100', 'none')
 call NERDTreeHighlightFile('sh', '1', 'none')
-
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 
 call fake#define('sex', 'fake#choice(["male", "female"])')
 call fake#define('name', 'fake#int(1) ? fake#gen("male_name")' . ' : fake#gen("female_name")')
@@ -353,8 +333,16 @@ call fake#define('fullname', 'fake#gen("name") . " " . fake#gen("surname")')
 call fake#define('sentense', 'fake#capitalize(' . 'join(map(range(fake#int(3,15)),"fake#gen(\"nonsense\")"))' . ' . fake#chars(1,"..............!?"))')
 call fake#define('paragraph', 'join(map(range(fake#int(3,10)),"fake#gen(\"sentense\")"))')
 call fake#define('ipsum', 'fake#gen("paragraph")')
+
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
 " }}}
 
 " {{{ Command
-command! Reveal call <SID>RevealInFinder()
+command! Reveal  call <SID>RevealInFinder()
+command! HideAll call <SID>HideAll()
+command! ShowAll call <SID>ShowAll()
 " }}}
+
+
