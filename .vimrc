@@ -150,9 +150,15 @@ let g:ctrlp_custom_ignore                          = '\v[\/](node_modules|bower_
 let g:ctrlp_mruf_save_on_update                    = 1
 let g:goyo_width                                   = 150
 let g:windowswap_map_keys                          = 0
-let g:mta_filetypes                                = { 'vue' : 1, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
+let g:mta_filetypes                                = { 'vue' : 2, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
 let g:mta_use_matchparen_group                     = 1
 let g:ale_fix_on_save                              = 1
+
+let g:neoformat_javascript_eslint_d = {
+        \ 'exe': 'eslint_d',
+        \ 'args': ['--stdin','--fix-to-stdout', '--stdin-filename', '%:p'],
+        \ 'stdin': 1
+\ }
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -213,7 +219,7 @@ augroup vimrc
   au BufReadPost                   *              if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   au InsertLeave                   *              if pumvisible() == 0|pclose|endif
 
-  au FileType vue         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
+  au FileType vue         noremap  <buffer> <leader>f :Neoformat eslint_d     <cr>
   au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint_d     <cr>
   au FileType json        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
   au FileType markdown    noremap  <buffer> <leader>f :Neoformat prettier     <cr>
