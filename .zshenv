@@ -75,8 +75,8 @@ function add-github {
 function add-mine {
   appname=${1:-`grep -oP '(?<="name": ")(.*)(?=")' package.json`}
   curl -X POST \
-    https://git.uptake.com/rest/api/1.0/projects/~pwang/repos \
-    -u 'pwang' \
+    https://git.uptake.com/rest/api/1.0/projects/~$(whoami)/repos \
+    -u $(whoami) \
     -d "{\"name\":\"$appname\", \"public\": true}"  \
     -H 'content-type:application/json' \
     | jq -r '.links.clone[0].href' \
