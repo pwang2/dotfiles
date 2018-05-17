@@ -1691,12 +1691,12 @@ camelcase@^4.0.0, camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-db@^1.0.30000794:
-  version "1.0.30000841"
-  resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000841.tgz#dba400895990348e2de3b71795a50e837f13b3f6"
+  version "1.0.30000842"
+  resolved "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000842.tgz#8a82c377b8b3d6f2594478e8431ff4fd303e160c"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000841"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000841.tgz#200079f853ca2839cb80852348d09a551f92f70a"
+  version "1.0.30000842"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000842.tgz#7a198e3181a207f4b5749b8f5a1817685bf3d7df"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -2774,9 +2774,9 @@ eslint-plugin-compat@^2.2.0:
     mdn-browser-compat-data "^0.0.20"
     requireindex "^1.1.0"
 
-eslint-plugin-import@^2.11.0:
-  version "2.11.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.11.0.tgz#15aeea37a67499d848e8e981806d4627b5503816"
+eslint-plugin-import@^2.7.0:
+  version "2.12.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.12.0.tgz#dad31781292d6664b25317fd049d2e2b2f02205d"
   dependencies:
     contains-path "^0.1.0"
     debug "^2.6.8"
@@ -2817,7 +2817,7 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^4.18.2, eslint@^4.19.1:
+eslint@^4.19.1, eslint@^4.9.0:
   version "4.19.1"
   resolved "https://registry.npmjs.org/eslint/-/eslint-4.19.1.tgz#32d1d653e1d90408854bfb296f076ec7e186a300"
   dependencies:
@@ -2860,7 +2860,7 @@ eslint@^4.18.2, eslint@^4.19.1:
     table "4.0.2"
     text-table "~0.2.0"
 
-eslint_d@^5.2.2:
+eslint_d@^5.3.1:
   version "5.3.1"
   resolved "https://registry.npmjs.org/eslint_d/-/eslint_d-5.3.1.tgz#d393bc3bd49dd8e60ce58ff22d1c8a50a23d4222"
   dependencies:
@@ -5514,8 +5514,8 @@ normalize-url@2.0.1:
     sort-keys "^2.0.0"
 
 npm-audit-report@^1.0.8:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/npm-audit-report/-/npm-audit-report-1.1.0.tgz#c4c74bb08b3be25cafaff89fd68ed81fecf6846d"
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/npm-audit-report/-/npm-audit-report-1.2.1.tgz#14813e9551f0f33088e7acc442e83ea6d627ef13"
   dependencies:
     cli-table2 "^0.2.0"
     console-control-strings "^1.1.0"

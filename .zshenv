@@ -55,6 +55,8 @@ function routine() {
   (cd $HOME/.config/yarn/global/ && NODE_ENV=production yarn upgrade && yarn outdated)
   (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
 
+  ln -sF $(yarn global dir)/node_modules  $HOME/node_modles
+
   git -C $HOME submodule foreach 'git pull'
   git -C $HOME add -A
   git -C $HOME commit -m "update $(date)"
