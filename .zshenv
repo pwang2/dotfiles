@@ -10,9 +10,7 @@ alias vim='mvim -v'
 alias dm='docker-machine'
 alias cls='clear'
 alias sudovi='sudo command vi -u NONE'
-alias gopen='open `git remote get-url origin`'
-alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"'
-alias dkill='docker ps  -qa | xargs docker rm -f'
+alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"' alias dkill='docker ps  -qa | xargs docker rm -f'
 
 # {{{ functions
 function brew() {
@@ -22,6 +20,32 @@ function brew() {
   else
     command brew $@
   fi
+}
+
+function is_git_repo() {
+  [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1
+  echo "$(($? == 0))"
+}
+
+function bitbucket_ssh_to_https() {
+  # ssh://git@git.uptake.com:7999/rep/xep-cli.git -> https://git.uptake.com/projects/REP/repos/xe-cli/browse
+  if [[ "$1" =~ ssh:\/\/git@([^\/:]+)(:[[:digit:]]{4,})?\/([^\/]+)\/([^.]+)(\.git) ]]; then
+    local branch=${2:=$(git rev-parse --abbrev-ref HEAD)}
+    local url="https://$match[1]/projects/$match[3]/repos/$match[4]/browse"
+    echo "take you to ${url}"
+    open "$url?at=refs%2Fheads%2F$branch"
+  else
+    echo "invalid bitbucket url to match"
+  fi
+}
+
+function gopen() {
+  [[ $(is_git_repo) == 0 ]] && echo "not in a git repository"  && return
+  git remote get-url origin > /dev/null 2>&1
+  [[ $? != 0 ]] && echo "origin url not yet set" && return
+  local origin=$(git remote get-url origin)
+  [[ "$origin" =~ "^ssh://.*" ]] && bitbucket_ssh_to_https "$origin" "$1" && return
+  open "$origin"
 }
 
 function man() {
