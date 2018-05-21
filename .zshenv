@@ -76,7 +76,17 @@ function routine() {
   $HOME/.vim/bundle/YouCompleteMe/install.py --js-completer --tern-completer # --clang-completer
   $HOME/.tmux/plugins/tpm/scripts/update_plugin.sh --bug-here all
 
-  (cd $HOME/.config/yarn/global/ && NODE_ENV=production yarn upgrade && yarn outdated)
+  (cd $HOME/.config/yarn/global/
+    rm -rf yarn.lock yarn-error.log
+    mv package.json old_package.json
+    cat old_package.json | jq '.dependencies
+        | to_entries
+        | map(.+{"value":"latest"})
+        | from_entries
+        | {"license":"MIT", "dependencies":.}' > package.json
+    rm old_package.json
+    NODE_ENV=production yarn install)
+
   (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
 
   git -C $HOME submodule foreach 'git pull'
