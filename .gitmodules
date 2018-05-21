@@ -10,3 +10,6 @@
 [submodule ".extra/iTerm2-Color-Schemes"]
 	path = .extra/iTerm2-Color-Schemes
 	url = https://github.com/mbadolato/iTerm2-Color-Schemes
+[submodule ".zsh_custom/themes/spaceship-prompt"]
+	path = .zsh_custom/themes/spaceship-prompt
+	url = https://github.com/denysdovhan/spaceship-prompt.git

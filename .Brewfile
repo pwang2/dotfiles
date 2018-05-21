@@ -69,6 +69,7 @@ brew "vnstat"
 brew "watchman"
 brew "yarn", args: ["without-node"]
 brew "zsh"
+brew "zsh-completions"
 brew "googlechrome/simplehttp2server/simplehttp2server"
 brew "knqyf263/pet/pet"
 brew "spectolabs/tap/hoverfly"
