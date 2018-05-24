@@ -153,12 +153,21 @@ let g:windowswap_map_keys                          = 0
 let g:mta_filetypes                                = { 'vue' : 2, 'html' : 1, 'xhtml' : 1, 'xml' : 1 }
 let g:mta_use_matchparen_group                     = 1
 let g:ale_fix_on_save                              = 1
+let g:vue_disable_pre_processors                   = 1
 
 let g:neoformat_javascript_eslint_d = {
         \ 'exe': 'eslint_d',
         \ 'args': ['--stdin','--fix-to-stdout', '--stdin-filename', '%:p'],
         \ 'stdin': 1
 \ }
+
+let g:neoformat_vue_eslint_d = {
+        \ 'exe': 'eslint_d',
+        \ 'args': ['--stdin','--fix-to-stdout', '--stdin-filename', '%:p'],
+        \ 'stdin': 1
+\ }
+
+let g:neoformat_enabled_vue = ['prettier', 'eslint_d']
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -204,8 +213,7 @@ augroup vimrc
   au User     GoyoLeave nested call <SID>goyo_leave()
 
   "need to use with vim-tmux-focus-events
-  au FocusGained,VimEnter          *         set noinsertmode
-
+  au FocusGained,VimEnter          *              set noinsertmode
   au BufWritePost                  .vimrc         call DeleteTrailingWS() | so $MYVIMRC
   au BufWritePost                  *.js           match OverLength /\%81v.*/
   au BufWritePost                  *.html         match OverLength /\%81v.*/
@@ -219,14 +227,14 @@ augroup vimrc
   au BufReadPost                   *              if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   au InsertLeave                   *              if pumvisible() == 0|pclose|endif
 
-  au FileType vue         noremap  <buffer> <leader>f :Neoformat eslint_d     <cr>
-  au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint_d     <cr>
-  au FileType json        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
-  au FileType markdown    noremap  <buffer> <leader>f :Neoformat prettier     <cr>
-  au FileType css         noremap  <buffer> <leader>f :Neoformat prettier     <cr>
-  au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier     <cr>
-  au FileType html        noremap  <buffer> <leader>f :Neoformat              <cr>
-  au FileType javascript  noremap  <buffer> <Leader>l :JsDoc                  <cr>
+  au FileType vue         noremap  <buffer> <leader>f :Neoformat eslint_d <bar> silent! call DeleteTrailingWS() <bar> syntax sync fromstart      <cr>
+  au FileType javascript  noremap  <buffer> <leader>f :Neoformat eslint_d       <cr>
+  au FileType json        noremap  <buffer> <leader>f :Neoformat prettier       <cr>
+  au FileType markdown    noremap  <buffer> <leader>f :Neoformat prettier       <cr>
+  au FileType css         noremap  <buffer> <leader>f :Neoformat prettier       <cr>
+  au FileType scss        noremap  <buffer> <leader>f :Neoformat prettier       <cr>
+  au FileType html        noremap  <buffer> <leader>f :Neoformat                <cr>
+  au FileType javascript  noremap  <buffer> <Leader>l :JsDoc                    <cr>
   au FileType nerdtree    setlocal signcolumn=no nocursorline
   au FileType qf          setlocal cursorline
   au FileType javascript  setlocal signcolumn=yes
@@ -345,7 +353,7 @@ if exists('g:loaded_webdevicons')
 endif
 " }}}
 
-" {{{ Command
+" {{{ command
 command! Reveal  call <SID>RevealInFinder()
 command! HideAll call <SID>HideAll()
 command! ShowAll call <SID>ShowAll()

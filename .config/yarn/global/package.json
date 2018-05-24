@@ -5,6 +5,7 @@
     "@babel/core": "latest",
     "@vue/cli": "latest",
     "babel-eslint": "latest",
+    "brightness-cli": "latest",
     "eslint": "latest",
     "eslint-config-airbnb-base": "latest",
     "eslint-config-prettier": "latest",
