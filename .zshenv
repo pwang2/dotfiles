@@ -14,7 +14,7 @@ alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ima
 
 # {{{ functions
 function brew() {
-  if [[ $1 == 'cask' ]] && [[ $2 == 'install' || $2 == 'remove' ]] \
+  if [[ $1 == 'cask' ]] && [[ $2 == 'instal' || $2 == 'remove' ]] \
     || [[ $1 == 'install' || $1 == 'remove' ]] ; then
     command brew $@ && command brew bundle dump --global -f && command brew cleanup && brew cask cleanup
   else

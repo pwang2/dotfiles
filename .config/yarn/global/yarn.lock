@@ -5663,8 +5663,8 @@ normalize-url@2.0.1:
     sort-keys "^2.0.0"
 
 np@latest:
-  version "3.0.0"
-  resolved "https://artifactory.uptake.com:443/api/npm/npm/np/-/np-3.0.0.tgz?dl=https://registry.npmjs.org/np/-/np-3.0.0.tgz#dda94188294e36d481be729fc6db1aceb9427249"
+  version "3.0.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/np/-/np-3.0.1.tgz?dl=https://registry.npmjs.org/np/-/np-3.0.1.tgz#01c53773dd537f2896db8c2f6a0328a950171f93"
   dependencies:
     "@samverschueren/stream-to-observable" "^0.3.0"
     any-observable "^0.3.0"
