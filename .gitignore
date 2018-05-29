@@ -1,4 +1,4 @@
-**/*
+*
 !.zshenv
 !.zshrc
 !.vimrc
@@ -8,8 +8,12 @@
 !.gitignore
 !.eslintrc.json
 !.tern-config
+!.gitmodules
+!.config/
+!.config/yarn/
+!.config/yarn/global/
 !.config/yarn/global/package.json
 !.config/yarn/global/yarn.lock
 !.prettierrc
-!.extra/**/*
-
+!.extra/
+!.extra/com.googlecode.iterm2.plist
