@@ -13,3 +13,7 @@
 [submodule ".zsh_custom/themes/spaceship-prompt"]
 	path = .zsh_custom/themes/spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule ".extra/UltiSnips"]
+	path = .extra/UltiSnips
+	url = https://github.com/pwang2/UltiSnips.git
+	branch = master

@@ -11,3 +11,5 @@
 !.config/yarn/global/package.json
 !.config/yarn/global/yarn.lock
 !.prettierrc
+!.extra/**/*
+

@@ -14,8 +14,8 @@ alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ima
 
 # {{{ functions
 function brew() {
-  if [[ $1 == 'cask' ]] && [[ $2 == 'instal' || $2 == 'remove' ]] \
-    || [[ $1 == 'install' || $1 == 'remove' ]] ; then
+  if [[ $1 == 'cask' ]] && [[ $2 =~ '(re|un)?install?' || $2 == 'remove' ]] \
+    || [[ $1 =~ '(re|un)?install?' || $1 == 'remove' ]] ; then
     command brew $@ && command brew bundle dump --global -f && command brew cleanup && brew cask cleanup
   else
     command brew $@
@@ -28,7 +28,7 @@ function is_git_repo() {
 }
 
 function bitbucket_ssh_to_https() {
-  # ssh://git@git.uptake.com:7999/rep/xep-cli.git -> https://git.uptake.com/projects/REP/repos/xe-cli/browse
+  # ssh://git@git.corp.com:8888/projectname/reponame.git -> https://git.corp.com/projects/projectname/repos/reponame/browse
   if [[ "$1" =~ ssh:\/\/git@([^\/:]+)(:[[:digit:]]{4,})?\/([^\/]+)\/([^.]+)(\.git) ]]; then
     local branch=${2:=$(git rev-parse --abbrev-ref HEAD)}
     local url="https://$match[1]/projects/$match[3]/repos/$match[4]/browse"

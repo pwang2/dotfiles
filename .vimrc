@@ -170,11 +170,17 @@ let g:neoformat_vue_eslint_d = {
 let g:neoformat_enabled_vue = ['prettier', 'eslint_d']
 
 if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\e[4 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[1 q\<Esc>\\"
+    "let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    "let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI.="\e[5 q"
+    let &t_SR.="\e[4 q"
+    let &t_EI.="\e[1 q"
+    "let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    "let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 " }}}
 
@@ -265,7 +271,7 @@ endfunction
 function! s:patch_colors()
   hi Pmenu           cterm=none       ctermbg=4
   hi ExtraWhitespace cterm=none       ctermbg=darkgreen
-  hi NonText         cterm=none       ctermbg=none       ctermfg=235  guifg=bg
+  hi NonText         cterm=none       ctermbg=none       ctermfg=0    guifg=bg
   hi VertSplit       cterm=none       ctermbg=none       ctermfg=8    guifg=white
   hi CursorLine      cterm=underline  ctermbg=none       ctermfg=none
   hi CursorColumn    cterm=none       ctermbg=yellow     ctermfg=none

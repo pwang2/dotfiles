@@ -218,6 +218,22 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@shellscape/koa-send@^4.1.0":
+  version "4.1.3"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/@shellscape/koa-send/-/koa-send-4.1.3.tgz?dl=https://registry.npmjs.org/@shellscape/koa-send/-/koa-send-4.1.3.tgz#1a7c8df21f63487e060b7bfd8ed82e1d3c4ae0b0"
+  dependencies:
+    debug "^2.6.3"
+    http-errors "^1.6.1"
+    mz "^2.6.0"
+    resolve-path "^1.3.3"
+
+"@shellscape/koa-static@^4.0.4":
+  version "4.0.5"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/@shellscape/koa-static/-/koa-static-4.0.5.tgz?dl=https://registry.npmjs.org/@shellscape/koa-static/-/koa-static-4.0.5.tgz#b329b55bfd41056a6981c584ae6bace30b5b6b3b"
+  dependencies:
+    "@shellscape/koa-send" "^4.1.0"
+    debug "^2.6.8"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -381,6 +397,29 @@
     "@webassemblyjs/wast-parser" "1.4.3"
     long "^3.2.0"
 
+"@webpack-contrib/config-loader@^1.1.1":
+  version "1.1.2"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/@webpack-contrib/config-loader/-/config-loader-1.1.2.tgz?dl=https://registry.npmjs.org/@webpack-contrib/config-loader/-/config-loader-1.1.2.tgz#e711f5c0b5adcdb0cfa6952d287657d2f0aa5194"
+  dependencies:
+    "@webpack-contrib/schema-utils" "^1.0.0-beta.0"
+    chalk "^2.1.0"
+    cosmiconfig "^5.0.2"
+    loud-rejection "^1.6.0"
+    merge-options "^1.0.1"
+    resolve "^1.6.0"
+    webpack-log "^1.1.2"
+
+"@webpack-contrib/schema-utils@^1.0.0-beta.0":
+  version "1.0.0-beta.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/@webpack-contrib/schema-utils/-/schema-utils-1.0.0-beta.0.tgz?dl=https://registry.npmjs.org/@webpack-contrib/schema-utils/-/schema-utils-1.0.0-beta.0.tgz#bf9638c9464d177b48209e84209e23bee2eb4f65"
+  dependencies:
+    ajv "^6.1.0"
+    ajv-keywords "^3.1.0"
+    chalk "^2.3.2"
+    strip-ansi "^4.0.0"
+    text-table "^0.2.0"
+    webpack-log "^1.1.2"
+
 JSONStream@^1.3.2:
   version "1.3.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/JSONStream/-/JSONStream-1.3.3.tgz?dl=https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.3.tgz#27b4b8fbbfeab4e71bcf551e7f27be8d952239bf"
@@ -392,7 +431,7 @@ abbrev@1, abbrev@~1.1.1:
   version "1.1.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/abbrev/-/abbrev-1.1.1.tgz?dl=https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
 
-accepts@~1.3.4, accepts@~1.3.5:
+accepts@^1.2.2, accepts@~1.3.4, accepts@~1.3.5:
   version "1.3.5"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/accepts/-/accepts-1.3.5.tgz?dl=https://registry.npmjs.org/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
   dependencies:
@@ -513,6 +552,10 @@ any-observable@^0.3.0:
   version "0.3.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/any-observable/-/any-observable-0.3.0.tgz?dl=https://registry.npmjs.org/any-observable/-/any-observable-0.3.0.tgz#af933475e5806a67d0d7df090dd5e8bef65d119b"
 
+any-promise@^1.0.0, any-promise@^1.1.0:
+  version "1.3.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/any-promise/-/any-promise-1.3.0.tgz?dl=https://registry.npmjs.org/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
+
 anymatch@^2.0.0:
   version "2.0.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/anymatch/-/anymatch-2.0.0.tgz?dl=https://registry.npmjs.org/anymatch/-/anymatch-2.0.0.tgz#bcb24b4f37934d9aa7ac17b4adaf89e7c76ef2eb"
@@ -520,9 +563,17 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
+app-root-path@^2.0.1:
+  version "2.0.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/app-root-path/-/app-root-path-2.0.1.tgz?dl=https://registry.npmjs.org/app-root-path/-/app-root-path-2.0.1.tgz#cd62dcf8e4fd5a417efc664d2e5b10653c651b46"
+
 aproba@^1.0.3, aproba@^1.1.1, aproba@^1.1.2, aproba@~1.2.0:
   version "1.2.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/aproba/-/aproba-1.2.0.tgz?dl=https://registry.npmjs.org/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
+
+arch@^2.1.0:
+  version "2.1.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/arch/-/arch-2.1.0.tgz?dl=https://registry.npmjs.org/arch/-/arch-2.1.0.tgz#3613aa46149064b3c1f0607919bf1d4786e82889"
 
 archy@~1.0.0:
   version "1.0.0"
@@ -1759,7 +1810,7 @@ chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.4.1:
+chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.3.0, chalk@^2.3.2, chalk@^2.4.1:
   version "2.4.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/chalk/-/chalk-2.4.1.tgz?dl=https://registry.npmjs.org/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
@@ -1891,6 +1942,13 @@ cli-truncate@^0.2.1:
 cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/cli-width/-/cli-width-2.2.0.tgz?dl=https://registry.npmjs.org/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
+
+clipboardy@^1.2.2:
+  version "1.2.3"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/clipboardy/-/clipboardy-1.2.3.tgz?dl=https://registry.npmjs.org/clipboardy/-/clipboardy-1.2.3.tgz#0526361bf78724c1f20be248d428e365433c07ef"
+  dependencies:
+    arch "^2.1.0"
+    execa "^0.8.0"
 
 cliui@^4.0.0:
   version "4.1.0"
@@ -2106,11 +2164,11 @@ contains-path@^0.1.0:
   version "0.1.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/contains-path/-/contains-path-0.1.0.tgz?dl=https://registry.npmjs.org/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
 
-content-disposition@0.5.2:
+content-disposition@0.5.2, content-disposition@~0.5.0:
   version "0.5.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/content-disposition/-/content-disposition-0.5.2.tgz?dl=https://registry.npmjs.org/content-disposition/-/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
 
-content-type@~1.0.4:
+content-type@^1.0.0, content-type@~1.0.4:
   version "1.0.4"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/content-type/-/content-type-1.0.4.tgz?dl=https://registry.npmjs.org/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
 
@@ -2125,6 +2183,13 @@ cookie-signature@1.0.6:
 cookie@0.3.1:
   version "0.3.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/cookie/-/cookie-0.3.1.tgz?dl=https://registry.npmjs.org/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
+
+cookies@~0.7.0:
+  version "0.7.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/cookies/-/cookies-0.7.1.tgz?dl=https://registry.npmjs.org/cookies/-/cookies-0.7.1.tgz#7c8a615f5481c61ab9f16c833731bcb8f663b99b"
+  dependencies:
+    depd "~1.1.1"
+    keygrip "~1.0.2"
 
 copy-concurrently@^1.0.0:
   version "1.0.5"
@@ -2152,6 +2217,14 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
 corser@~2.0.0:
   version "2.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/corser/-/corser-2.0.1.tgz?dl=https://registry.npmjs.org/corser/-/corser-2.0.1.tgz#8eda252ecaab5840dcd975ceb90d9370c819ff87"
+
+cosmiconfig@^5.0.2:
+  version "5.0.5"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/cosmiconfig/-/cosmiconfig-5.0.5.tgz?dl=https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-5.0.5.tgz#a809e3c2306891ce17ab70359dc8bdf661fe2cd0"
+  dependencies:
+    is-directory "^0.3.1"
+    js-yaml "^3.9.0"
+    parse-json "^4.0.0"
 
 create-ecdh@^4.0.0:
   version "4.0.3"
@@ -2269,7 +2342,7 @@ debug@*, debug@3.1.0, debug@^3.1.0, debug@~3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
+debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/debug/-/debug-2.6.9.tgz?dl=https://registry.npmjs.org/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
@@ -2348,7 +2421,7 @@ decompress@^4.0.0:
     pify "^2.3.0"
     strip-dirs "^2.0.0"
 
-deep-equal@^1.0.1:
+deep-equal@^1.0.1, deep-equal@~1.0.1:
   version "1.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/deep-equal/-/deep-equal-1.0.1.tgz?dl=https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
 
@@ -2365,8 +2438,8 @@ deep-is@~0.1.3:
   resolved "https://artifactory.uptake.com:443/api/npm/npm/deep-is/-/deep-is-0.1.3.tgz?dl=https://registry.npmjs.org/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
 deepmerge@^2.0.1:
-  version "2.1.0"
-  resolved "https://artifactory.uptake.com:443/api/npm/npm/deepmerge/-/deepmerge-2.1.0.tgz?dl=https://registry.npmjs.org/deepmerge/-/deepmerge-2.1.0.tgz#511a54fff405fc346f0240bb270a3e9533a31102"
+  version "2.1.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/deepmerge/-/deepmerge-2.1.1.tgz?dl=https://registry.npmjs.org/deepmerge/-/deepmerge-2.1.1.tgz#e862b4e45ea0555072bf51e7fd0d9845170ae768"
 
 defaults@^1.0.3:
   version "1.0.3"
@@ -2435,7 +2508,7 @@ depd@1.1.1:
   version "1.1.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/depd/-/depd-1.1.1.tgz?dl=https://registry.npmjs.org/depd/-/depd-1.1.1.tgz#5783b4e1c459f06fa5ca27f991f3d06e7a310359"
 
-depd@~1.1.1, depd@~1.1.2:
+depd@^1.1.0, depd@~1.1.1, depd@~1.1.2:
   version "1.1.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/depd/-/depd-1.1.2.tgz?dl=https://registry.npmjs.org/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
 
@@ -2446,7 +2519,7 @@ des.js@^1.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
-destroy@~1.0.4:
+destroy@^1.0.3, destroy@~1.0.4:
   version "1.0.4"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/destroy/-/destroy-1.0.4.tgz?dl=https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
@@ -2731,6 +2804,10 @@ error-ex@^1.2.0, error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
+error-inject@~1.0.0:
+  version "1.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/error-inject/-/error-inject-1.0.0.tgz?dl=https://registry.npmjs.org/error-inject/-/error-inject-1.0.0.tgz#e2b3d91b54aed672f309d950d154850fa11d4f37"
+
 error@^7.0.2:
   version "7.0.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/error/-/error-7.0.2.tgz?dl=https://registry.npmjs.org/error/-/error-7.0.2.tgz#a5f75fff4d9926126ddac0ea5dc38e689153cb02"
@@ -2757,8 +2834,8 @@ es-to-primitive@^1.1.1:
     is-symbol "^1.0.1"
 
 es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.42"
-  resolved "https://artifactory.uptake.com:443/api/npm/npm/es5-ext/-/es5-ext-0.10.42.tgz?dl=https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.42.tgz#8c07dd33af04d5dcd1310b5cef13bea63a89ba8d"
+  version "0.10.43"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/es5-ext/-/es5-ext-0.10.43.tgz?dl=https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.43.tgz#c705e645253210233a270869aa463a2333b7ca64"
   dependencies:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
@@ -2789,7 +2866,7 @@ es6-symbol@^3.1.1, es6-symbol@~3.1.1:
     d "1"
     es5-ext "~0.10.14"
 
-escape-html@~1.0.3:
+escape-html@~1.0.1, escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/escape-html/-/escape-html-1.0.3.tgz?dl=https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
@@ -3391,7 +3468,7 @@ fresh@0.2.0:
   version "0.2.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/fresh/-/fresh-0.2.0.tgz?dl=https://registry.npmjs.org/fresh/-/fresh-0.2.0.tgz#bfd9402cf3df12c4a4c310c79f99a3dde13d34a7"
 
-fresh@0.5.2:
+fresh@0.5.2, fresh@^0.5.2:
   version "0.5.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/fresh/-/fresh-0.5.2.tgz?dl=https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
@@ -3509,6 +3586,10 @@ gentle-fs@^2.0.0, gentle-fs@^2.0.1:
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/get-caller-file/-/get-caller-file-1.0.2.tgz?dl=https://registry.npmjs.org/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+
+get-port@^3.2.0:
+  version "3.2.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/get-port/-/get-port-3.2.0.tgz?dl=https://registry.npmjs.org/get-port/-/get-port-3.2.0.tgz#dd7ce7de187c06c8bf353796ac71e099f0980ebc"
 
 get-proxy@^2.0.0:
   version "2.1.0"
@@ -3916,6 +3997,13 @@ html-entities@^1.2.0:
   version "1.2.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/html-entities/-/html-entities-1.2.1.tgz?dl=https://registry.npmjs.org/html-entities/-/html-entities-1.2.1.tgz#0df29351f0721163515dfb9e5543e5f6eed5162f"
 
+http-assert@^1.1.0:
+  version "1.3.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/http-assert/-/http-assert-1.3.0.tgz?dl=https://registry.npmjs.org/http-assert/-/http-assert-1.3.0.tgz#a31a5cf88c873ecbb5796907d4d6f132e8c01e4a"
+  dependencies:
+    deep-equal "~1.0.1"
+    http-errors "~1.6.1"
+
 http-cache-semantics@3.8.1, http-cache-semantics@^3.8.0, http-cache-semantics@^3.8.1:
   version "3.8.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/http-cache-semantics/-/http-cache-semantics-3.8.1.tgz?dl=https://registry.npmjs.org/http-cache-semantics/-/http-cache-semantics-3.8.1.tgz#39b0e16add9b605bf0a9ef3d9daaf4843b4cacd2"
@@ -3933,7 +4021,7 @@ http-errors@1.6.2:
     setprototypeof "1.0.3"
     statuses ">= 1.3.1 < 2"
 
-http-errors@~1.6.2:
+http-errors@^1.2.8, http-errors@^1.6.1, http-errors@~1.6.1, http-errors@~1.6.2:
   version "1.6.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/http-errors/-/http-errors-1.6.3.tgz?dl=https://registry.npmjs.org/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
   dependencies:
@@ -4295,6 +4383,10 @@ is-descriptor@^1.0.0, is-descriptor@^1.0.2:
     is-data-descriptor "^1.0.0"
     kind-of "^6.0.2"
 
+is-directory@^0.3.1:
+  version "0.3.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/is-directory/-/is-directory-0.3.1.tgz?dl=https://registry.npmjs.org/is-directory/-/is-directory-0.3.1.tgz#61339b6f2475fc772fd9c9d83f5c8575dc154ae1"
+
 is-dotfile@^1.0.0:
   version "1.0.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/is-dotfile/-/is-dotfile-1.0.3.tgz?dl=https://registry.npmjs.org/is-dotfile/-/is-dotfile-1.0.3.tgz#a6a2f32ffd2dfb04f5ca25ecd0f6b83cf798a1e1"
@@ -4338,6 +4430,10 @@ is-fullwidth-code-point@^1.0.0:
 is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz?dl=https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
+
+is-generator-function@^1.0.3:
+  version "1.0.7"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/is-generator-function/-/is-generator-function-1.0.7.tgz?dl=https://registry.npmjs.org/is-generator-function/-/is-generator-function-1.0.7.tgz#d2132e529bb0000a7f80794d4bdf5cd5e5813522"
 
 is-glob@^2.0.0, is-glob@^2.0.1:
   version "2.0.1"
@@ -4424,7 +4520,7 @@ is-path-inside@^1.0.0:
   dependencies:
     path-is-inside "^1.0.1"
 
-is-plain-obj@^1.0.0, is-plain-obj@^1.1.0:
+is-plain-obj@^1.0.0, is-plain-obj@^1.1, is-plain-obj@^1.1.0:
   version "1.1.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/is-plain-obj/-/is-plain-obj-1.1.0.tgz?dl=https://registry.npmjs.org/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
 
@@ -4582,7 +4678,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/js-tokens/-/js-tokens-3.0.2.tgz?dl=https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.10.0, js-yaml@^3.5.2, js-yaml@^3.9.1:
+js-yaml@^3.10.0, js-yaml@^3.5.2, js-yaml@^3.9.0, js-yaml@^3.9.1:
   version "3.11.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/js-yaml/-/js-yaml-3.11.0.tgz?dl=https://registry.npmjs.org/js-yaml/-/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
   dependencies:
@@ -4671,7 +4767,7 @@ json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz?dl=https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
 
-json-stringify-safe@~5.0.1:
+json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz?dl=https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -4701,6 +4797,10 @@ jsprim@^1.2.2:
     extsprintf "1.3.0"
     json-schema "0.2.3"
     verror "1.10.0"
+
+keygrip@~1.0.2:
+  version "1.0.2"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/keygrip/-/keygrip-1.0.2.tgz?dl=https://registry.npmjs.org/keygrip/-/keygrip-1.0.2.tgz#ad3297c557069dea8bcfe7a4fa491b75c5ddeb91"
 
 keypress@^0.2.1:
   version "0.2.1"
@@ -4741,6 +4841,66 @@ klaw-sync@^3.0.2:
   resolved "https://artifactory.uptake.com:443/api/npm/npm/klaw-sync/-/klaw-sync-3.0.2.tgz?dl=https://registry.npmjs.org/klaw-sync/-/klaw-sync-3.0.2.tgz#bf3a5ca463af5aec007201dbe8be7088ef29d067"
   dependencies:
     graceful-fs "^4.1.11"
+
+koa-compose@^3.0.0:
+  version "3.2.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa-compose/-/koa-compose-3.2.1.tgz?dl=https://registry.npmjs.org/koa-compose/-/koa-compose-3.2.1.tgz#a85ccb40b7d986d8e5a345b3a1ace8eabcf54de7"
+  dependencies:
+    any-promise "^1.1.0"
+
+koa-compose@^4.0.0:
+  version "4.1.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa-compose/-/koa-compose-4.1.0.tgz?dl=https://registry.npmjs.org/koa-compose/-/koa-compose-4.1.0.tgz#507306b9371901db41121c812e923d0d67d3e877"
+
+koa-convert@^1.2.0:
+  version "1.2.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa-convert/-/koa-convert-1.2.0.tgz?dl=https://registry.npmjs.org/koa-convert/-/koa-convert-1.2.0.tgz#da40875df49de0539098d1700b50820cebcd21d0"
+  dependencies:
+    co "^4.6.0"
+    koa-compose "^3.0.0"
+
+koa-is-json@^1.0.0:
+  version "1.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa-is-json/-/koa-is-json-1.0.0.tgz?dl=https://registry.npmjs.org/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
+
+koa-webpack@^4.0.0:
+  version "4.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa-webpack/-/koa-webpack-4.0.0.tgz?dl=https://registry.npmjs.org/koa-webpack/-/koa-webpack-4.0.0.tgz#1d9b83c109db106d8ef65db376f910a45ba964c7"
+  dependencies:
+    app-root-path "^2.0.1"
+    merge-options "^1.0.0"
+    webpack-dev-middleware "^3.0.0"
+    webpack-hot-client "^3.0.0"
+    webpack-log "^1.1.1"
+
+koa@^2.4.1:
+  version "2.5.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/koa/-/koa-2.5.1.tgz?dl=https://registry.npmjs.org/koa/-/koa-2.5.1.tgz#79f8b95f8d72d04fe9a58a8da5ebd6d341103f9c"
+  dependencies:
+    accepts "^1.2.2"
+    content-disposition "~0.5.0"
+    content-type "^1.0.0"
+    cookies "~0.7.0"
+    debug "*"
+    delegates "^1.0.0"
+    depd "^1.1.0"
+    destroy "^1.0.3"
+    error-inject "~1.0.0"
+    escape-html "~1.0.1"
+    fresh "^0.5.2"
+    http-assert "^1.1.0"
+    http-errors "^1.2.8"
+    is-generator-function "^1.0.3"
+    koa-compose "^4.0.0"
+    koa-convert "^1.2.0"
+    koa-is-json "^1.0.0"
+    mime-types "^2.0.7"
+    on-finished "^2.1.0"
+    only "0.0.2"
+    parseurl "^1.3.0"
+    statuses "^1.2.0"
+    type-is "^1.5.5"
+    vary "^1.0.0"
 
 latest-version@^3.0.0:
   version "3.1.0"
@@ -5016,7 +5176,7 @@ loglevel@^1.4.1:
   version "1.6.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/loglevel/-/loglevel-1.6.1.tgz?dl=https://registry.npmjs.org/loglevel/-/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
 
-loglevelnext@^1.0.1:
+loglevelnext@^1.0.1, loglevelnext@^1.0.2:
   version "1.0.5"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/loglevelnext/-/loglevelnext-1.0.5.tgz?dl=https://registry.npmjs.org/loglevelnext/-/loglevelnext-1.0.5.tgz#36fc4f5996d6640f539ff203ba819641680d75a2"
   dependencies:
@@ -5241,6 +5401,12 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/merge-descriptors/-/merge-descriptors-1.0.1.tgz?dl=https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
+merge-options@^1.0.0, merge-options@^1.0.1:
+  version "1.0.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/merge-options/-/merge-options-1.0.1.tgz?dl=https://registry.npmjs.org/merge-options/-/merge-options-1.0.1.tgz#2a64b24457becd4e4dc608283247e94ce589aa32"
+  dependencies:
+    is-plain-obj "^1.1"
+
 merge2@^1.2.1:
   version "1.2.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/merge2/-/merge2-1.2.2.tgz?dl=https://registry.npmjs.org/merge2/-/merge2-1.2.2.tgz#03212e3da8d86c4d8523cebd6318193414f94e34"
@@ -5296,7 +5462,7 @@ miller-rabin@^4.0.0:
   version "1.33.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/mime-db/-/mime-db-1.33.0.tgz?dl=https://registry.npmjs.org/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
 
-mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18:
+mime-types@^2.0.7, mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18:
   version "2.1.18"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/mime-types/-/mime-types-2.1.18.tgz?dl=https://registry.npmjs.org/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
   dependencies:
@@ -5481,9 +5647,28 @@ mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/mute-stream/-/mute-stream-0.0.7.tgz?dl=https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
+mz@^2.6.0:
+  version "2.7.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/mz/-/mz-2.7.0.tgz?dl=https://registry.npmjs.org/mz/-/mz-2.7.0.tgz#95008057a56cafadc2bc63dde7f9ff6955948e32"
+  dependencies:
+    any-promise "^1.0.0"
+    object-assign "^4.0.1"
+    thenify-all "^1.0.0"
+
 nan@^2.9.2:
   version "2.10.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/nan/-/nan-2.10.0.tgz?dl=https://registry.npmjs.org/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
+
+nanoassert@^1.1.0:
+  version "1.1.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/nanoassert/-/nanoassert-1.1.0.tgz?dl=https://registry.npmjs.org/nanoassert/-/nanoassert-1.1.0.tgz#4f3152e09540fde28c76f44b19bbcd1d5a42478d"
+
+nanobus@^4.3.1:
+  version "4.3.3"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/nanobus/-/nanobus-4.3.3.tgz?dl=https://registry.npmjs.org/nanobus/-/nanobus-4.3.3.tgz#a9635d38c687853641e2646bb2be6510cf966233"
+  dependencies:
+    nanotiming "^7.2.0"
+    remove-array-items "^1.0.0"
 
 nanolru@^1.0.0:
   version "1.0.0"
@@ -5505,6 +5690,19 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+nanoscheduler@^1.0.2:
+  version "1.0.3"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/nanoscheduler/-/nanoscheduler-1.0.3.tgz?dl=https://registry.npmjs.org/nanoscheduler/-/nanoscheduler-1.0.3.tgz#6ca027941bf3e04139ea4bab6227ea6ad803692f"
+  dependencies:
+    nanoassert "^1.1.0"
+
+nanotiming@^7.2.0:
+  version "7.3.1"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/nanotiming/-/nanotiming-7.3.1.tgz?dl=https://registry.npmjs.org/nanotiming/-/nanotiming-7.3.1.tgz#dc5cf8d9d8ad401a4394d1a9b7a16714bccfefda"
+  dependencies:
+    nanoassert "^1.1.0"
+    nanoscheduler "^1.0.2"
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -5995,7 +6193,7 @@ obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/obuf/-/obuf-1.1.2.tgz?dl=https://registry.npmjs.org/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
 
-on-finished@~2.3.0:
+on-finished@^2.1.0, on-finished@~2.3.0:
   version "2.3.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/on-finished/-/on-finished-2.3.0.tgz?dl=https://registry.npmjs.org/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
   dependencies:
@@ -6020,6 +6218,10 @@ onetime@^2.0.0:
   resolved "https://artifactory.uptake.com:443/api/npm/npm/onetime/-/onetime-2.0.1.tgz?dl=https://registry.npmjs.org/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"
   dependencies:
     mimic-fn "^1.0.0"
+
+only@0.0.2:
+  version "0.0.2"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/only/-/only-0.0.2.tgz?dl=https://registry.npmjs.org/only/-/only-0.0.2.tgz#2afde84d03e50b9a8edc444e30610a70295edfb4"
 
 opener@~1.4.0, opener@~1.4.3:
   version "1.4.3"
@@ -6278,7 +6480,7 @@ parseuri@0.0.5:
   dependencies:
     better-assert "~1.0.0"
 
-parseurl@~1.3.2:
+parseurl@^1.3.0, parseurl@~1.3.2:
   version "1.3.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/parseurl/-/parseurl-1.3.2.tgz?dl=https://registry.npmjs.org/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
@@ -6304,7 +6506,7 @@ path-exists@^3.0.0:
   version "3.0.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/path-exists/-/path-exists-3.0.0.tgz?dl=https://registry.npmjs.org/path-exists/-/path-exists-3.0.0.tgz#ce0ebeaa5f78cb18925ea7d810d7b59b010fd515"
 
-path-is-absolute@^1.0.0, path-is-absolute@^1.0.1:
+path-is-absolute@1.0.1, path-is-absolute@^1.0.0, path-is-absolute@^1.0.1:
   version "1.0.1"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/path-is-absolute/-/path-is-absolute-1.0.1.tgz?dl=https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
@@ -6910,6 +7112,10 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
+remove-array-items@^1.0.0:
+  version "1.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/remove-array-items/-/remove-array-items-1.0.0.tgz?dl=https://registry.npmjs.org/remove-array-items/-/remove-array-items-1.0.0.tgz#07bf42cb332f4cf6e85ead83b5e4e896d2326b21"
+
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz?dl=https://registry.npmjs.org/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
@@ -7022,6 +7228,13 @@ resolve-from@^3.0.0:
 resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/resolve-from/-/resolve-from-4.0.0.tgz?dl=https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
+
+resolve-path@^1.3.3:
+  version "1.4.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/resolve-path/-/resolve-path-1.4.0.tgz?dl=https://registry.npmjs.org/resolve-path/-/resolve-path-1.4.0.tgz#c4bda9f5efb2fce65247873ab36bb4d834fe16f7"
+  dependencies:
+    http-errors "~1.6.2"
+    path-is-absolute "1.0.1"
 
 resolve-url@^0.2.1:
   version "0.2.1"
@@ -7591,7 +7804,7 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-"statuses@>= 1.3.1 < 2", "statuses@>= 1.4.0 < 2":
+"statuses@>= 1.3.1 < 2", "statuses@>= 1.4.0 < 2", statuses@^1.2.0:
   version "1.5.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/statuses/-/statuses-1.5.0.tgz?dl=https://registry.npmjs.org/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
 
@@ -7852,6 +8065,18 @@ textextensions@2:
   version "2.2.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/textextensions/-/textextensions-2.2.0.tgz?dl=https://registry.npmjs.org/textextensions/-/textextensions-2.2.0.tgz#38ac676151285b658654581987a0ce1a4490d286"
 
+thenify-all@^1.0.0:
+  version "1.6.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/thenify-all/-/thenify-all-1.6.0.tgz?dl=https://registry.npmjs.org/thenify-all/-/thenify-all-1.6.0.tgz#1a1918d402d8fc3f98fbf234db0bcc8cc10e9726"
+  dependencies:
+    thenify ">= 3.1.0 < 4"
+
+"thenify@>= 3.1.0 < 4":
+  version "3.3.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/thenify/-/thenify-3.3.0.tgz?dl=https://registry.npmjs.org/thenify/-/thenify-3.3.0.tgz#e69e38a1babe969b0108207978b9f62b88604839"
+  dependencies:
+    any-promise "^1.0.0"
+
 through2@^2.0.0:
   version "2.0.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/through2/-/through2-2.0.3.tgz?dl=https://registry.npmjs.org/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -7866,6 +8091,10 @@ through@2, "through@>=2.2.7 <3", through@^2.3.6, through@^2.3.8:
 thunky@^1.0.2:
   version "1.0.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/thunky/-/thunky-1.0.2.tgz?dl=https://registry.npmjs.org/thunky/-/thunky-1.0.2.tgz#a862e018e3fb1ea2ec3fce5d55605cf57f247371"
+
+time-fix-plugin@^2.0.0:
+  version "2.0.3"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/time-fix-plugin/-/time-fix-plugin-2.0.3.tgz?dl=https://registry.npmjs.org/time-fix-plugin/-/time-fix-plugin-2.0.3.tgz#b6b1ead519099bc621e28edb77dac7531918b7e1"
 
 timed-out@^4.0.0, timed-out@^4.0.1:
   version "4.0.1"
@@ -7983,7 +8212,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-type-is@~1.6.15, type-is@~1.6.16:
+type-is@^1.5.5, type-is@~1.6.15, type-is@~1.6.16:
   version "1.6.16"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/type-is/-/type-is-1.6.16.tgz?dl=https://registry.npmjs.org/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
   dependencies:
@@ -8130,6 +8359,10 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/urix/-/urix-0.1.0.tgz?dl=https://registry.npmjs.org/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
 
+url-join@3.0.0:
+  version "3.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/url-join/-/url-join-3.0.0.tgz?dl=https://registry.npmjs.org/url-join/-/url-join-3.0.0.tgz#26e8113ace195ea30d0fc38186e45400f9cea672"
+
 url-join@^2.0.2:
   version "2.0.5"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/url-join/-/url-join-2.0.5.tgz?dl=https://registry.npmjs.org/url-join/-/url-join-2.0.5.tgz#5af22f18c052a000a48d7b82c5e9c2e2feeda728"
@@ -8217,7 +8450,7 @@ validate-npm-package-name@^3.0.0, validate-npm-package-name@~3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-vary@~1.1.2:
+vary@^1.0.0, vary@~1.1.2:
   version "1.1.2"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/vary/-/vary-1.1.2.tgz?dl=https://registry.npmjs.org/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
@@ -8343,7 +8576,7 @@ webpack-cli@latest:
     yeoman-environment "^2.1.1"
     yeoman-generator "^2.0.5"
 
-webpack-dev-middleware@3.1.3:
+webpack-dev-middleware@3.1.3, webpack-dev-middleware@^3.0.0:
   version "3.1.3"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/webpack-dev-middleware/-/webpack-dev-middleware-3.1.3.tgz?dl=https://registry.npmjs.org/webpack-dev-middleware/-/webpack-dev-middleware-3.1.3.tgz#8b32aa43da9ae79368c1bf1183f2b6cf5e1f39ed"
   dependencies:
@@ -8388,7 +8621,18 @@ webpack-dev-server@latest:
     webpack-log "^1.1.2"
     yargs "11.0.0"
 
-webpack-log@^1.0.1, webpack-log@^1.1.2:
+webpack-hot-client@^3.0.0:
+  version "3.0.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/webpack-hot-client/-/webpack-hot-client-3.0.0.tgz?dl=https://registry.npmjs.org/webpack-hot-client/-/webpack-hot-client-3.0.0.tgz#b714f257a264001275bc1491741685779cde12f2"
+  dependencies:
+    json-stringify-safe "^5.0.1"
+    loglevelnext "^1.0.2"
+    strip-ansi "^4.0.0"
+    uuid "^3.1.0"
+    webpack-log "^1.1.1"
+    ws "^4.0.0"
+
+webpack-log@^1.0.1, webpack-log@^1.1.1, webpack-log@^1.1.2:
   version "1.2.0"
   resolved "https://artifactory.uptake.com:443/api/npm/npm/webpack-log/-/webpack-log-1.2.0.tgz?dl=https://registry.npmjs.org/webpack-log/-/webpack-log-1.2.0.tgz#a4b34cda6b22b518dbb0ab32e567962d5c72a43d"
   dependencies:
@@ -8396,6 +8640,35 @@ webpack-log@^1.0.1, webpack-log@^1.1.2:
     log-symbols "^2.1.0"
     loglevelnext "^1.0.1"
     uuid "^3.1.0"
+
+webpack-serve@latest:
+  version "1.0.2"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/webpack-serve/-/webpack-serve-1.0.2.tgz?dl=https://registry.npmjs.org/webpack-serve/-/webpack-serve-1.0.2.tgz#cd7f040cac63300e8fff79f1d45aa2f3e5825492"
+  dependencies:
+    "@shellscape/koa-static" "^4.0.4"
+    "@webpack-contrib/config-loader" "^1.1.1"
+    chalk "^2.3.0"
+    clipboardy "^1.2.2"
+    cosmiconfig "^5.0.2"
+    debug "^3.1.0"
+    find-up "^2.1.0"
+    get-port "^3.2.0"
+    import-local "^1.0.0"
+    killable "^1.0.0"
+    koa "^2.4.1"
+    koa-webpack "^4.0.0"
+    lodash "^4.17.5"
+    loud-rejection "^1.6.0"
+    meow "^5.0.0"
+    nanobus "^4.3.1"
+    opn "^5.1.0"
+    resolve "^1.6.0"
+    time-fix-plugin "^2.0.0"
+    update-notifier "^2.3.0"
+    url-join "3.0.0"
+    v8-compile-cache "^2.0.0"
+    webpack-hot-client "^3.0.0"
+    webpack-log "^1.1.2"
 
 webpack-sources@^1.0.1, webpack-sources@^1.1.0:
   version "1.1.0"
@@ -8517,6 +8790,13 @@ write@^0.2.1:
   resolved "https://artifactory.uptake.com:443/api/npm/npm/write/-/write-0.2.1.tgz?dl=https://registry.npmjs.org/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
   dependencies:
     mkdirp "^0.5.1"
+
+ws@^4.0.0:
+  version "4.1.0"
+  resolved "https://artifactory.uptake.com:443/api/npm/npm/ws/-/ws-4.1.0.tgz?dl=https://registry.npmjs.org/ws/-/ws-4.1.0.tgz#a979b5d7d4da68bf54efe0408967c324869a7289"
+  dependencies:
+    async-limiter "~1.0.0"
+    safe-buffer "~5.1.0"
 
 ws@~3.3.1:
   version "3.3.3"
