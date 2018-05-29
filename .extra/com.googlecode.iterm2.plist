@@ -413,7 +413,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1169 110 445 755 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>704 602 796 473 0 0 1920 1080 </string>
+	<string>2473 566 796 473 1920 30 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 1680 1050 0 0 1680 1050 </string>
 	<key>New Bookmarks</key>
@@ -759,7 +759,7 @@
 			<key>Has Hotkey</key>
 			<true/>
 			<key>Hide After Opening</key>
-			<false/>
+			<true/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>HotKey Activated By Modifier</key>
@@ -779,7 +779,7 @@
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
-			<true/>
+			<false/>
 			<key>HotKey Window Dock Click Action</key>
 			<integer>0</integer>
 			<key>HotKey Window Floats</key>

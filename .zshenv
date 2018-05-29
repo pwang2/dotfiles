@@ -10,7 +10,8 @@ alias vim='mvim -v'
 alias dm='docker-machine'
 alias cls='clear'
 alias sudovi='sudo command vi -u NONE'
-alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"' alias dkill='docker ps  -qa | xargs docker rm -f'
+alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"' 
+alias dkill='docker ps  -qa | xargs docker rm -f'
 
 # {{{ functions
 function brew() {
@@ -89,7 +90,7 @@ function routine() {
 
   (cd $HOME/.vim/bundle/tern_for_vim && npm i -s --no-package-lock)
 
-  git -C $HOME submodule foreach 'git pull'
+  git -C $HOME submodule update --remote
   git -C $HOME add -A
   git -C $HOME commit -m "update $(date)"
   git -C $HOME push origin master
