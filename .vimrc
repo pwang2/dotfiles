@@ -167,7 +167,7 @@ let g:neoformat_vue_eslint_d = {
         \ 'stdin': 1
 \ }
 
-let g:neoformat_enabled_vue = ['prettier', 'eslint_d']
+let g:neoformat_enabled_vue = ['eslint_d']
 
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
