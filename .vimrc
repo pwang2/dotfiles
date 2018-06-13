@@ -1,6 +1,5 @@
 " vim: foldmethod=marker
 " {{{ flags
-set shell=/usr/local/bin/zsh\ -l
 set nocompatible
 set hidden
 set hlsearch
@@ -34,7 +33,6 @@ set backspace      =eol,start,indent
 set dir            =/var/tmp
 set rtp            ^=$HOME
 set fillchars      =""
-set guifont        =Sauce\ Code\ Pro\ Nerd\ Font\ Complete:h14
 " }}}
 
 " {{{ plugins
@@ -60,7 +58,7 @@ Plugin 'metakirby5/codi.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Valloric/MatchTagAlways'
-Plugin 'ryanoasis/vim-devicons'
+"Plugin 'ryanoasis/vim-devicons'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
@@ -92,7 +90,7 @@ Plugin 'guns/xterm-color-table.vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 
-"Plugin 'edkolev/tmuxline.vim'
+Plugin 'edkolev/tmuxline.vim'
 "Plugin 'edkolev/promptline.vim'
 "Plugin 'hex.vim'
 "Plugin 'Shougo/vimproc.vim'
@@ -123,7 +121,7 @@ let g:NERDTreeMapJumpPrevSibling                   = ''  " yield ctrl-k to tmux 
 let g:NERDCustomDelimiters                         = {'javascript' : { 'left': '// ', 'leftAlt': '/* ', 'rightAlt': ' */' }}
 let g:ackprg                                       = 'ag --vimgrep'
 let g:ackhighlight                                 = 1
-let g:airline_powerline_fonts                      = 1
+let g:airline_powerline_fonts                      = 0
 let g:airline#extensions#ale#enabled               = 1
 let g:airline#extensions#tabline#enabled           = 0
 let g:airline#extensions#tmuxline#enabled          = 0
@@ -248,7 +246,7 @@ augroup vimrc
 augroup END
 " }}}
 
-" {{{ functions
+"{{{ functions
 function! DeleteTrailingWS()
     exe "normal mz"
     %s/\s\+$//ge
@@ -354,9 +352,9 @@ call fake#define('sentense', 'fake#capitalize(' . 'join(map(range(fake#int(3,15)
 call fake#define('paragraph', 'join(map(range(fake#int(3,10)),"fake#gen(\"sentense\")"))')
 call fake#define('ipsum', 'fake#gen("paragraph")')
 
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
+"if exists('g:loaded_webdevicons')
+  "call webdevicons#refresh()
+"endif
 " }}}
 
 " {{{ command

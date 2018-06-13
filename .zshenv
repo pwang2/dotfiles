@@ -3,21 +3,14 @@ export KEYTIMEOUT=1
 export CLICOLOR=1
 export TERM=xterm-256color
 export LANG=en_US.UTF-8
-export EDITOR="mvim -v"
 
-alias vi='mvim -v'
-alias vim='mvim -v'
-alias dm='docker-machine'
 alias cls='clear'
 alias sudovi='sudo command vi -u NONE'
-alias dps='docker ps -a --format="table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"' 
-alias dkill='docker ps  -qa | xargs docker rm -f'
 
 # {{{ functions
 function brew() {
-  if [[ $1 == 'cask' ]] && [[ $2 =~ '(re|un)?install?' || $2 == 'remove' ]] \
-    || [[ $1 =~ '(re|un)?install?' || $1 == 'remove' ]] ; then
-    command brew $@ && command brew bundle dump --global -f && command brew cleanup && brew cask cleanup
+  if [[ $1 =~ '(re|un)?install?' || $1 == 'remove' ]] ; then
+    command brew $@ && command brew bundle dump --global -f && command brew cleanup
   else
     command brew $@
   fi
