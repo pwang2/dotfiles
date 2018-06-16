@@ -4,8 +4,7 @@ ZSH_THEME="robbyrussell"
 ZSH_HIGHLIGHT_MAXLENGTH=16
 plugins=(zsh-vim-mode docker yarn git tmux zsh-autosuggestions zsh-syntax-highlighting)
 
-
-export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
 export TERM="xterm-256color"
 export HOMEBREW_GITHUB_API_TOKEN="326cc9be987d5a30237b1ccc73b539d2a46ae7b1"
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
