@@ -1,0 +1,9 @@
+[submodule "hammerspoon"]
+	path = hammerspoon
+	url = https://gist.github.com/pwang2/97cdc931eca56d465705a48fe2891e74
+[submodule "init-mac"]
+	path = init-mac
+	url = https://gist.github.com/pwang2/80874bec38fd074b78731015b9e3ce08
+[submodule "neovim"]
+	path = neovim
+	url = https://gist.github.com/pwang2/d3c6cdf14d4495b5b34e36e4b4ebf537
