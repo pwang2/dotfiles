@@ -1,40 +1,5 @@
 return {
 	{
-		"williamboman/mason.nvim",
-		cmd = "Mason",
-		opts = {
-			ui = {
-				border = "rounded",
-			},
-		},
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"williamboman/mason.nvim",
-		},
-		config = function()
-			require("mason").setup()
-
-			require("mason-lspconfig").setup({
-				automatic_installation = true,
-				ensure_installed = {
-					"lua_ls",
-					"cssls",
-					"yamlls",
-					"jsonls",
-					"html",
-					"tsserver",
-					"pyright",
-					"volar",
-					"tailwindcss",
-					"rust_analyzer",
-				},
-			})
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"nvim-lua/popup.nvim",
@@ -60,7 +25,7 @@ return {
 				local km = vim.api.nvim_set_keymap
 				local kb_opts = { noremap = true, silent = true }
 				local mkmp = function(key, cmd)
-					vim.lsp.util.make_floating_popup_options(80, 20)
+					vim.lsp.util.make_floating_popup_options(80, 20, {})
 					bkm(bufnr, "n", key, "<cmd>lua vim.lsp.buf." .. cmd .. "()<CR>", kb_opts)
 				end
 
@@ -143,9 +108,32 @@ return {
 
 			lspconfig.lua_ls.setup({
 				settings = { Lua = { diagnostics = { globals = { "vim", "hs", "spoon" } } } },
+				on_init = function(client)
+					-- local path = client.workspace_folders[1].name
+					-- local uv = require("luv")
+					-- if uv.fs_stat(path .. "/.luarc.json") or uv.fs_stat(path .. "/.luarc.jsonc") then
+					-- 	return
+					-- end
+
+					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+						runtime = {
+							-- Tell the language server which version of Lua you're using
+							-- (most likely LuaJIT in the case of Neovim)
+							version = "LuaJIT",
+						},
+						-- Make the server aware of Neovim runtime files
+						workspace = {
+							checkThirdParty = false,
+							library = {
+								vim.env.VIMRUNTIME,
+							},
+						},
+					})
+				end,
 			})
 
 			lspconfig.nginx_language_server.setup({})
+			lspconfig.bashls.setup({})
 
 			-- lspconfig.tsserver.setup({ })
 

@@ -15,7 +15,7 @@ local function changeVolume(diff)
 			hs.audiodevice.defaultOutputDevice():setMuted(false)
 		end
 		if new % 5 ~= 0 then
-			new = math.min(100, (new // 5 + 1) * 5)
+			new = math.min(100, (math.floor(new / 5) + 1) * 5)
 		end
 		hs.alert.closeAll(0.0)
 		hs.alert.show("Volume " .. new .. "%", {}, 0.5)

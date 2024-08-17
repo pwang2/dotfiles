@@ -6,6 +6,7 @@ return {
 			javascript = { "eslint_d" },
 			vue = { "eslint_d" },
 			lua = { "luacheck" },
+			sh = { "shellcheck" },
 		}
 
 		vim.api.nvim_create_augroup("__lint__", { clear = true })

@@ -5,6 +5,7 @@ return {
 		local prettier = require("formatter.defaults.prettier")
 		require("formatter").setup({
 			filetype = {
+				sh = { require("formatter.filetypes.sh").shfmt },
 				rust = { require("formatter.filetypes.rust").rustfmt },
 				python = { require("formatter.filetypes.python").yapf },
 				lua = { require("formatter.filetypes.lua").stylua },
@@ -15,6 +16,7 @@ return {
 				jsonc = { prettier },
 				vue = { prettier },
 				html = { prettier },
+				yaml = { prettier },
 			},
 		})
 
