@@ -1,0 +1,89 @@
+ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+KEYTIMEOUT=1
+DISABLE_AUTO_TITLE=true
+DISABLE_MAGIC_FUNCTIONS=true
+IS_MACOS=$(uname -s | grep -i "darwin" | wc -l)
+if [ $IS_MACOS -eq 1 ]; then
+  BREW_PREFIX="/usr/local"
+else
+  BREW_PREFIX="/home/linuxbrew/.linuxbrew"
+fi
+
+PATHS=(
+  $BREW_PREFIX/bin
+  $BREW_PREFIX/sbin
+  $HOME/bin
+  $HOME/go/bin
+  $HOME/.yarn/bin
+  $HOME/.local/bin
+  $HOME/.luarocks/bin
+  $HOME/.cargo/bin
+  $HOME/.dotnet/tools
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/local/go/bin
+  /snap/bin
+  /usr/local/opt/{grep,coreutils,findutils}/libexec/gnubin
+)
+
+for i in "${PATHS[@]}"; do
+  [[ -d "$i" ]] && [[ ! ":$PATH:" =~ ":$i:" ]] && PATH="$i:$PATH"
+done
+
+# enable bash completion in zsh
+autoload -U +X bashcompinit && bashcompinit
+
+if [[ -z $plugins ]]; then
+  plugins=(
+    azure
+    rust
+    git
+    tmux
+    autojump
+    evalcache
+    zsh-vi-mode
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  )
+fi
+source $ZSH/oh-my-zsh.sh
+
+unset PATHS
+unset plugins
+
+# 3rd party completions
+command -v kubectl >/dev/null 2>&1 && _evalcache kubectl completion zsh
+command -v argo    >/dev/null 2>&1 && _evalcache argo completion zsh
+command -v gh      >/dev/null 2>&1 && _evalcache gh completion -s zsh
+command -v direnv  >/dev/null 2>&1 && _evalcache direnv hook zsh
+command -v az      >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
+
+alias vi="nvim"
+alias cls="clear"
+alias td="todo.sh"
+alias k="kubectl"
+alias x="exit"
+
+complete -F __start_kubectl k
+
+# auto suggestion tab accept word
+# bindkey '\t' vi-forward-word
+
+#tj/n
+export N_PREFIX=$HOME/.local
+export TODO_DIR=$HOME/.todo
+
+function! colortest() {
+  curl -sSLk https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw | bash
+}
+
+function! strongpass(){
+  if [[ $(uname) == "Darwin" && -x "$(command -v pbcopy)" ]]; then
+    openssl rand -base64 14 | pbcopy
+  elif [[ $(uname) == "Linux" && -x "$(command -v xclip)" ]]; then
+    openssl rand -base64 14 | xclip -selection clipboard
+  else
+    openssl rand -base64 14
+  fi
+}
