@@ -2,6 +2,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		lazy = true,
+		event = { "CmdLineEnter", "InsertEnter" },
 		dependencies = {
 			"onsails/lspkind-nvim",
 			"hrsh7th/cmp-nvim-lsp",
@@ -89,6 +90,7 @@ return {
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "buffer", max_item_count = 5, priority = 10 },
 					{ name = "emoji" },
+					{ name = "cmdline" },
 				}, {
 					-- { name = "buffer" },
 				}),
@@ -109,6 +111,37 @@ return {
 				experimental = {
 					ghost_text = true,
 				},
+			})
+
+			-- `?` cmdline setup.
+			cmp.setup.cmdline("?", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- `/` cmdline setup.
+			cmp.setup.cmdline("/", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			-- `:` cmdline setup.
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{
+						name = "cmdline",
+						option = {
+							ignore_cmds = { "Man", "!" },
+						},
+					},
+				}),
 			})
 		end,
 	},

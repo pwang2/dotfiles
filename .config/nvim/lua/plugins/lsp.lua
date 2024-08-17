@@ -13,6 +13,7 @@ return {
 			require("lspconfig.ui.windows").default_options.border = borderStyle
 
 			local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+			-- @diagnostic disable-next-line: duplicate-set-field
 			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
 				opts = opts or {}
 				opts.border = borderStyle
@@ -135,10 +136,15 @@ return {
 			lspconfig.nginx_language_server.setup({})
 			lspconfig.bashls.setup({})
 
-			-- lspconfig.tsserver.setup({ })
+			lspconfig.tsserver.setup({
+				filetypes = {
+					"javascript",
+					"typescript",
+				},
+			})
 
 			lspconfig.volar.setup({
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+				filetypes = { "vue" },
 				init_options = {
 					vue = {
 						hybridMode = false,
@@ -148,7 +154,7 @@ return {
 							name = "@vue/typescript-plugin",
 							-- location = "~/.nvm/versions/node/v18.20.3/lib/node_modules/@vue/typescript-plugin",
 							location = "",
-							languages = { "javascript", "typescript", "vue", "json" },
+							languages = { "vue" },
 						},
 					},
 				},

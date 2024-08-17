@@ -1,7 +1,13 @@
 return {
 	"folke/trouble.nvim",
+	cmd = "Trouble",
 	opts = { use_diagnostic_signs = true },
 	keys = {
+		{
+			"gr",
+			"<cmd>Trouble lsp_references<cr>",
+			desc = "Go to references (Trouble)",
+		},
 		{
 			"<leader>xx",
 			"<cmd>Trouble diagnostics toggle<cr>",

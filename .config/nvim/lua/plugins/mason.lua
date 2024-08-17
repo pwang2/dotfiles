@@ -10,7 +10,6 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			automatic_installation = false,
 			ensure_installed = {
@@ -25,15 +24,21 @@ return {
 				"volar",
 				"tailwindcss",
 				"rust_analyzer",
+			},
+		},
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		opts = {
+			ensure_installed = {
+				"eslint_d",
+				"pylint",
+				"luacheck",
+				"shellcheck",
 
-				--linters
-				-- "eslint_d"
-				-- "luacheck"
-				-- "shellcheck"
-
-				-- "formatters"
-				-- "prettier"
-				-- "stylua"
+				"prettier",
+				"stylua",
+				"black",
 			},
 		},
 	},

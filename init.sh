@@ -1,13 +1,17 @@
-cwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+#! /bin/bash
+# shellcheck disable=SC2086
 
-rm -rf $HOME/.config/{alacritty,nvim}
-rm -rf $HOME/{.tmux.conf,.tmuxline.conf}
+set -xe
 
-ln -s ${cwd}/.config/{alacritty,nvim} $HOME/.config
-ln -s ${cwd}/{.tmux.conf,.tmuxline.conf} $HOME
+CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-uname | grep -q Darwin
-if [ $? -eq 0 ]; then
-  rm -rf $HOME/.hammerspoon
-  ln -s ${cwd}/.hammerspoon $HOME
+rm -rf ${HOME}/.config/{alacritty,nvim}
+rm -rf ${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared}
+
+ln -s ${CWD}/.config/{alacritty,nvim} $HOME/.config
+ln -s ${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared} $HOME
+
+if uname | grep -q Darwin; then
+  rm -rf "$HOME/.hammerspoon"
+  ln -s "${CWD}/.hammerspoon" "$HOME"
 fi
