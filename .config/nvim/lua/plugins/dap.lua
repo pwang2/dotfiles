@@ -19,6 +19,7 @@ return {
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
 			"theHamsta/nvim-dap-virtual-text",
+			"mfussenegger/nvim-dap-python",
 		},
 		opts = {},
 		keys = {
@@ -33,6 +34,7 @@ return {
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
+			require("dap-python").setup("python3")
 			dapui.setup()
 
 			dap.listeners.before.attach.dapui_config = function()

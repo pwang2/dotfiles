@@ -16,6 +16,7 @@ return {
 					"vue",
 					"javascript",
 					"css",
+					"python",
 					"html",
 				},
 				sync_install = false,

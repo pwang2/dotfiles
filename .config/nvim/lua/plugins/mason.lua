@@ -39,6 +39,9 @@ return {
 				"prettier",
 				"stylua",
 				"black",
+
+				"codelldb",
+				"debugpy",
 			},
 		},
 	},
