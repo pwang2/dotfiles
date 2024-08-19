@@ -60,11 +60,17 @@ return {
 				dapui.close()
 			end
 
-			local sign = vim.fn.sign_define
-			sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
-			sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
-			sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-			sign("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+			local sign_define = vim.fn.sign_define
+			sign_define("DapBreakpoint", { text = "🔴", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+			sign_define(
+				"DapBreakpointCondition",
+				{ text = "🛑", texthl = "DapBreakpointCondition", linehl = "", numhl = "" }
+			)
+			sign_define("DapLogPoint", { text = "🔷", texthl = "DapLogPoint", linehl = "", numhl = "" })
+			sign_define(
+				"DapStopped",
+				{ text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
+			)
 
 			-- https://github.com/mxsdev/nvim-dap-vscode-js
 			require("dap-vscode-js").setup({
