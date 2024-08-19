@@ -4,6 +4,7 @@ return {
 		dependencies = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
+			"b0o/schemastore.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -50,6 +51,8 @@ return {
 			end
 
 			local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- need this to allow jsonls to complete from JSON scheme
+			default_capabilities.textDocument.completion.completionItem.snippetSupport = true
 			local capabilities = require("cmp_nvim_lsp").default_capabilities(default_capabilities)
 			lspConfigUtil.default_config = vim.tbl_extend("force", lspConfigUtil.default_config, {
 				on_attach = on_attach,
@@ -65,40 +68,29 @@ return {
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
-						schemas = {
-							-- kubernetes = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
-							["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json"] = "*-kind.yaml",
-							["https://raw.githubusercontent.com/distinction-dev/alacritty-schema/main/alacritty/reference.json"] = "alacritty.yml",
-						},
+						--https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
+						schemas = require("schemastore").yaml.schemas({
+							extra = {
+								{
+									description = "kubernetes config",
+									fileMatch = "*-kind.yaml",
+									name = "kind",
+									url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
+								},
+							},
+						}),
 					},
 				},
 			})
 
 			lspconfig.jsonls.setup({
+				-- prevent diagnostics related error
+				capabilities = default_capabilities,
+				filetypes = { "json", "jsonc" },
 				settings = {
 					json = {
-						schemas = {
-							{
-								description = "Tsconfig",
-								fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-								url = "http://json.schemastore.org/tsconfig",
-							},
-							{
-								description = "Lerna config",
-								fileMatch = { "lerna.json" },
-								url = "http://json.schemastore.org/lerna",
-							},
-							{
-								description = "ESLint config",
-								fileMatch = { ".eslintrc.json", ".eslintrc" },
-								url = "http://json.schemastore.org/eslintrc",
-							},
-							{
-								description = "Prettier config",
-								fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
-								url = "http://json.schemastore.org/prettierrc",
-							},
-						},
+						validate = { enable = true },
+						schemas = require("schemastore").json.schemas(),
 					},
 				},
 			})
@@ -110,16 +102,14 @@ return {
 			lspconfig.lua_ls.setup({
 				settings = { Lua = { diagnostics = { globals = { "vim", "hs", "spoon" } } } },
 				on_init = function(client)
-					-- local path = client.workspace_folders[1].name
-					-- local uv = require("luv")
-					-- if uv.fs_stat(path .. "/.luarc.json") or uv.fs_stat(path .. "/.luarc.jsonc") then
-					-- 	return
-					-- end
+					local path = client.workspace_folders[1].name
+					local uv = require("luv")
+					if uv.fs_stat(path .. "/.luarc.json") or uv.fs_stat(path .. "/.luarc.jsonc") then
+						return
+					end
 
 					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 						runtime = {
-							-- Tell the language server which version of Lua you're using
-							-- (most likely LuaJIT in the case of Neovim)
 							version = "LuaJIT",
 						},
 						-- Make the server aware of Neovim runtime files
@@ -134,6 +124,7 @@ return {
 			})
 
 			lspconfig.nginx_language_server.setup({})
+
 			lspconfig.bashls.setup({})
 
 			-- https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration

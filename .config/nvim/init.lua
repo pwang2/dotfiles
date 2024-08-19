@@ -26,9 +26,10 @@ vim.cmd([[
 ]])
 
 vim.cmd([[
-  autocmd BufNewFile,BufRead Dockerfile.* set filetype=dockerfile
-  autocmd BufNewFile,BufRead nginx.*      set filetype=nginx
-  autocmd FileType json,jsonc             set conceallevel=1
+  autocmd BufNewFile,BufRead Dockerfile.* setlocal filetype=dockerfile
+  autocmd BufNewFile,BufRead nginx.*      setlocal filetype=nginx
+  autocmd BufNewFile,BufRead *.json       setlocal filetype=jsonc
+  autocmd FileType json,jsonc             setlocal conceallevel=1
 ]])
 
 -- put the key binding here to allow using :Command to load the plugin in a lazy way
