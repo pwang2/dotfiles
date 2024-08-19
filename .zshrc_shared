@@ -11,8 +11,6 @@ else
 fi
 
 PATHS=(
-  $BREW_PREFIX/bin
-  $BREW_PREFIX/sbin
   $HOME/bin
   $HOME/go/bin
   $HOME/.yarn/bin
@@ -20,6 +18,8 @@ PATHS=(
   $HOME/.luarocks/bin
   $HOME/.cargo/bin
   $HOME/.dotnet/tools
+  $BREW_PREFIX/bin
+  $BREW_PREFIX/sbin
   /usr/local/bin
   /usr/local/sbin
   /usr/local/go/bin

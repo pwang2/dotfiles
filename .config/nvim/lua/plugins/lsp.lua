@@ -136,29 +136,25 @@ return {
 			lspconfig.nginx_language_server.setup({})
 			lspconfig.bashls.setup({})
 
-			lspconfig.tsserver.setup({
-				filetypes = {
-					"javascript",
-					"typescript",
-				},
-			})
+			-- https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration
+			local mason_registry = require("mason-registry")
+			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
 
-			lspconfig.volar.setup({
-				filetypes = { "vue" },
+			lspconfig.tsserver.setup({
 				init_options = {
-					vue = {
-						hybridMode = false,
-					},
 					plugins = {
 						{
 							name = "@vue/typescript-plugin",
-							-- location = "~/.nvm/versions/node/v18.20.3/lib/node_modules/@vue/typescript-plugin",
-							location = "",
+							location = vue_language_server_path,
 							languages = { "vue" },
 						},
 					},
 				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 			})
+
+			-- lspconfig.volar.setup({})
 		end,
 	},
 }

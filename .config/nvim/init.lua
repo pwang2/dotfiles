@@ -38,6 +38,7 @@ vim.cmd([[
   nnoremap <leader>fg <cmd>Telescope live_grep<CR>
   nnoremap <leader>fb <cmd>Telescope buffers<CR>
   nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+  nnoremap <leader>fk <cmd>Telescope keymaps<CR>
 
   nnoremap <leader>rr <cmd>LspRestart<CR>
   nnoremap <cr><cr>   :nohlsearch<CR>
