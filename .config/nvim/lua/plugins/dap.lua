@@ -111,8 +111,6 @@ return {
 			-- dap.configurations.vue = jsclient_config
 
 			require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
-			---@diagnostic disable-next-line: inject-field
-			dap.configurations.typescript.runtimeExecutable = "google-chrome"
 
 			dap.adapters.lldb = {
 				type = "server",
@@ -130,7 +128,7 @@ return {
 					request = "launch",
 					program = function()
 						local exe_name = get_last_segment(vim.fn.getcwd(), "/")
-						return vim.fn.getcwd() .. "/target/debug/" .. exe_name
+						return vim.fn.input("Executable:", vim.fn.getcwd() .. "/target/debug/" .. exe_name, "file")
 					end,
 					cwd = "${workspaceFolder}",
 					stopOnEntry = false,
