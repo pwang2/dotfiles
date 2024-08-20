@@ -5,6 +5,7 @@ return {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 			"b0o/schemastore.nvim",
+      "mason-org/mason-registry"
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
