@@ -39,6 +39,10 @@ return {
 			{ "<S-F10>", "<cmd>lua require('dap').step_out()<cr>" },
 			{ "<leader>ev", "<cmd>lua require('dapui').eval()<cr>", mode = "v" },
 			{ "<leader>wa", "<cmd>lua require('dapui').elements.watches.add()<cr>", mode = "v" },
+
+			{ "<leader>j", "<cmd>lua require('dap').step_over()<cr>" },
+			{ "<leader>k", "<cmd>lua require('dap').step_into()<cr>" },
+			{ "<leader>l", "<cmd>lua require('dap').step_out()<cr>" },
 		},
 		config = function()
 			local dap = require("dap")
