@@ -3,6 +3,7 @@ return {
 	{ "edkolev/tmuxline.vim" },
 	{ "ggandor/lightspeed.nvim" },
 	{ "simeji/winresizer" },
+	{ "tpope/vim-repeat" },
 	{ "nvim-tree/nvim-web-devicons" },
 	{
 		"norcalli/nvim-colorizer.lua",

@@ -10,7 +10,7 @@ return {
 		}
 
 		vim.api.nvim_create_augroup("__lint__", { clear = true })
-		vim.api.nvim_create_autocmd({ "TextChanged", "BufEnter", "BufWritePost" }, {
+		vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "BufEnter", "BufWritePost" }, {
 			group = "__lint__",
 			callback = function()
 				require("lint").try_lint()
