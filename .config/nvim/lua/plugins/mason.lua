@@ -30,8 +30,9 @@ return {
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
+			-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
 			ensure_installed = {
-				"eslint_d",
+				{ "eslint_d", verison = "13.1.2", auto_update = false },
 				"pylint",
 				"luacheck",
 				"shellcheck",
@@ -39,6 +40,7 @@ return {
 				"prettier",
 				"stylua",
 				"black",
+				"shfmt",
 
 				"codelldb",
 				"debugpy",

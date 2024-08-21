@@ -4,7 +4,7 @@ vim.cmd([[
   hi link FoldColumn Comment
 
   hi WinSeparator                          guifg=#585858
-  hi Visual                 guifg=#ffffd7                gui=reverse
+  hi Visual                                guibg=#0087af
   hi Folded                 guibg=NONE     guifg=#569cd6
 
   hi FloatBorder            guibg=NONE     guifg=#569cd6

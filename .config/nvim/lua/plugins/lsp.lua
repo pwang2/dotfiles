@@ -5,7 +5,7 @@ return {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 			"b0o/schemastore.nvim",
-      "mason-org/mason-registry"
+			"mason-org/mason-registry",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -143,10 +143,18 @@ return {
 						},
 					},
 				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
 			})
 
-			-- lspconfig.volar.setup({})
+			--  hybrid mode set to false to have volar take care of vue file only.
+			-- typescript server will take care of *.ts/js files
+			lspconfig.volar.setup({
+				init_options = {
+					vue = {
+						hybridMode = false,
+					},
+				},
+			})
 		end,
 	},
 }

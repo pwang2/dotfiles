@@ -71,7 +71,6 @@ return {
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 					["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-					["<C-y>"] = cmp.config.disable,
 					["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
 					["<C-k>"] = cmp.mapping.confirm({ select = true }),
 					["<C-j>"] = cmp.mapping(function(fallback)
@@ -88,9 +87,8 @@ return {
 					{ name = "vsnip", max_item_count = 3, priority = 50 },
 					{ name = "nvim_lsp", max_item_count = 10, priority = 40 },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "buffer", max_item_count = 5, priority = 10 },
+					-- { name = "buffer", max_item_count = 5, priority = 10 },
 					{ name = "emoji" },
-					{ name = "cmdline" },
 				}, {
 					-- { name = "buffer" },
 				}),
