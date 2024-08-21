@@ -51,10 +51,16 @@ return {
 				km("n", "gv", "<cmd>:vsplit | lua vim.lsp.buf.definition()<CR>", kb_opts)
 			end
 
-			local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 			-- need this to allow jsonls to complete from JSON scheme
-			default_capabilities.textDocument.completion.completionItem.snippetSupport = true
-			local capabilities = require("cmp_nvim_lsp").default_capabilities(default_capabilities)
+			-- default_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+			-- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38#issuecomment-1815265121
+			local capabilities = vim.tbl_deep_extend(
+				"force",
+				vim.lsp.protocol.make_client_capabilities(),
+				require("cmp_nvim_lsp").default_capabilities()
+			)
 			lspConfigUtil.default_config = vim.tbl_extend("force", lspConfigUtil.default_config, {
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -85,8 +91,6 @@ return {
 			})
 
 			lspconfig.jsonls.setup({
-				-- prevent diagnostics related error
-				capabilities = default_capabilities,
 				filetypes = { "json", "jsonc" },
 				settings = {
 					json = {
@@ -146,8 +150,6 @@ return {
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
 			})
 
-			--  hybrid mode set to false to have volar take care of vue file only.
-			-- typescript server will take care of *.ts/js files
 			lspconfig.volar.setup({
 				init_options = {
 					vue = {
