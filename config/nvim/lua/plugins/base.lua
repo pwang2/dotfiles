@@ -12,7 +12,6 @@ return {
 			require("colorizer").setup()
 		end,
 	},
-	{ "akinsho/bufferline.nvim", event = "BufReadPost", opts = {} },
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
 	{ "stevearc/dressing.nvim", event = "VeryLazy" },
 	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen" }, keys = { { "<leader>df", "<cmd>DiffviewOpen<cr>" } } },
