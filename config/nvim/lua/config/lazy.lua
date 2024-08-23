@@ -38,6 +38,7 @@ vim.opt.updatetime = 500
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wildignore:append("node_modules/**,.git/**,dist/**")
 vim.opt.fillchars:append("eob: ")
+-- vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.

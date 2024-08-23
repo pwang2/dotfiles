@@ -41,6 +41,7 @@ vim.cmd([[
   nnoremap <leader>fb <cmd>Telescope buffers<CR>
   nnoremap <leader>fh <cmd>Telescope help_tags<CR>
   nnoremap <leader>fk <cmd>Telescope keymaps<CR>
+  nnoremap <leader>fs <cmd>Telescope session-lens<CR>
 
   nnoremap <leader>rr <cmd>LspRestart<CR>
   nnoremap <cr><cr>   :nohlsearch<CR>
