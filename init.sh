@@ -15,3 +15,11 @@ if uname | grep -q Darwin; then
   rm -rf "$HOME/hammerspoon"
   ln -s "${CWD}/hammerspoon" "$HOME"
 fi
+
+ZPLUGINS=$HOME/.oh-my-zsh/custom/plugins
+[ ! -d $ZPLUGINS/zsh-autosuggestions ] && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
+[ ! -d $ZPLUGINS/zsh-syntax-highlighting ] && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
+[ ! -d $ZPLUGINS/zsh-vi-mode ] && git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode $ZPLUGINS/zsh-vi-mode
+[ ! -d $ZPLUGINS/zsh-evalcache ] && git clone --depth=1 https://github.com/mroth/evalcache $ZPLUGINS/zsh-evalcache
+
+[ ! -f $HOME/.zshrc ] && echo "source $HOME/.zshrc_shared" >$HOME/.zshrc

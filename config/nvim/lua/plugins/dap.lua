@@ -11,6 +11,13 @@ local function get_last_segment(str, delimiter)
 	return segments[#segments] -- Return the last segment
 end
 
+local function dap_continue()
+	if vim.fn.filereadable(".vscode/launch.json") then
+		require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
+	end
+	require("dap").continue()
+end
+
 return {
 	{
 		"mfussenegger/nvim-dap",
@@ -28,10 +35,11 @@ return {
 		},
 		opts = {},
 		keys = {
+			{ "<F5>", dap_continue, desc = "DAP Continue" },
+			{ "<leader>g", dap_continue, desc = "DAP Continue" },
+
 			{ "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<cr>" },
 			{ "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<cr>" },
-			{ "<leader>g", "<cmd>lua require('dap').continue()<cr>" },
-			{ "<F5>", "<cmd>lua require('dap').continue()<cr>" },
 			{ "<leader>cc", "<cmd>lua require('dap').run_to_cursor()<cr>" },
 			{ "<F8>", "<cmd>lua require('dap').run_to_cursor()<cr>" },
 			{ "<F10>", "<cmd>lua require('dap').step_over()<cr>" },
@@ -98,27 +106,6 @@ return {
 				-- Logging level for output to console. Set to false to disable console output.
 				log_console_level = vim.log.levels.ERROR,
 			})
-
-			-- local jsclient_config = {
-			-- 	{
-			-- 		type = "pwa-chrome",
-			-- 		request = "launch",
-			-- 		name = "Launch Chrome to debug client side code",
-			-- 		url = "http://localhost:5173", -- default vite dev server url
-			-- 		sourceMaps = true,
-			-- 		resolveSourceMapLocations = {
-			-- 			"${workspaceFolder}/**",
-			-- 			"!**/node_modules/**",
-			-- 		},
-			-- 		webRoot = "${workspaceFolder}/src",
-			-- 		protocol = "inspector",
-			-- 		port = 9222,
-			-- 		skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
-			-- 	},
-			-- }
-			-- dap.configurations.typescript = jsclient_config
-			-- dap.configurations.javascript = jsclient_config
-			-- dap.configurations.vue = jsclient_config
 
 			require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
 
