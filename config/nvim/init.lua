@@ -11,7 +11,7 @@ vim.cmd([[
   hi Pmenu                  guibg=NONE     guifg=#898989
   hi PmenuSel               guibg=NONE     guifg=#6ac0ff gui=reverse
   hi Normal                 guibg=NONE
-  hi NormalFloat            guibg=NONE
+  hi NormalFloat            guibg=NONE     guifg=#b7cad4
   hi CmpItemAbbrDeprecated  guibg=NONE     guifg=#808080 gui=strikethrough
   hi CmpItemAbbrMatch       guibg=NONE     guifg=#56d690
   hi CmpItemAbbrMatchFuzzy  guibg=NONE     guifg=#569CD6

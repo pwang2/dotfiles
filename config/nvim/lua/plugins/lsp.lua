@@ -80,7 +80,7 @@ return {
 							extra = {
 								{
 									description = "kubernetes config",
-									fileMatch = "*-kind.yaml",
+									fileMatch = "deployment/**/*.yaml",
 									name = "kind",
 									url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
 								},
