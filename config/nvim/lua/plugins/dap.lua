@@ -11,6 +11,32 @@ local function get_last_segment(str, delimiter)
 	return segments[#segments] -- Return the last segment
 end
 
+local function setup_debug_ui()
+	local dap = require("dap")
+	local dapui = require("dapui")
+	dapui.setup()
+	dap.listeners.before.attach.dapui_config = function()
+		dapui.open()
+	end
+	dap.listeners.before.launch.dapui_config = function()
+		dapui.open()
+	end
+	dap.listeners.before.event_terminated.dapui_config = function()
+		dapui.close()
+	end
+	dap.listeners.before.event_exited.dapui_config = function()
+		dapui.close()
+	end
+end
+
+local function setup_debug_sign()
+	local sign_define = vim.fn.sign_define
+	sign_define("DapBreakpoint", { text = "🔴", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+	sign_define("DapBreakpointCondition", { text = "🛑", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+	sign_define("DapLogPoint", { text = "🔷", texthl = "DapLogPoint", linehl = "", numhl = "" })
+	sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
+end
+
 local function dap_continue()
 	if vim.fn.filereadable(".vscode/launch.json") then
 		require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
@@ -53,45 +79,12 @@ return {
 			{ "<leader>l", "<cmd>lua require('dap').step_out()<cr>" },
 		},
 		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			dapui.setup()
-
-			require("dap-python").setup("python3")
-
-			dap.listeners.before.attach.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.launch.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated.dapui_config = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited.dapui_config = function()
-				dapui.close()
-			end
-
-			local sign_define = vim.fn.sign_define
-			sign_define("DapBreakpoint", { text = "🔴", texthl = "DapBreakpoint", linehl = "", numhl = "" })
-			sign_define(
-				"DapBreakpointCondition",
-				{ text = "🛑", texthl = "DapBreakpointCondition", linehl = "", numhl = "" }
-			)
-			sign_define("DapLogPoint", { text = "🔷", texthl = "DapLogPoint", linehl = "", numhl = "" })
-			sign_define(
-				"DapStopped",
-				{ text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" }
-			)
+			setup_debug_ui()
+			setup_debug_sign()
 
 			-- https://github.com/mxsdev/nvim-dap-vscode-js
 			require("dap-vscode-js").setup({
 				debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-				-- Path of node executable. Defaults to $NODE_PATH, and then "node"
-				node_path = "node",
-				-- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-				-- debugger_cmd = { "js-debug-adapter" },
-				-- which adapters to register in nvim-dap
 				adapters = {
 					"pwa-node",
 					"pwa-chrome",
@@ -99,16 +92,14 @@ return {
 					"node-terminal",
 					"pwa-extensionHost",
 				},
-				-- Path for file logging
 				log_file_path = vim.fn.stdpath("cache") .. "/dap_vscode_js.log",
-				-- Logging level for output to file. Set to false to disable file logging.
 				log_file_level = 0,
-				-- Logging level for output to console. Set to false to disable console output.
 				log_console_level = vim.log.levels.ERROR,
 			})
 
 			require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
 
+			local dap = require("dap")
 			dap.adapters.lldb = {
 				type = "server",
 				port = 13000,
@@ -132,6 +123,7 @@ return {
 					args = {},
 				},
 			}
+			require("dap-python").setup("python3")
 		end,
 	},
 }
