@@ -1,5 +1,4 @@
 return {
-	{ "numToStr/Comment.nvim" },
 	{ "edkolev/tmuxline.vim" },
 	{ "ggandor/lightspeed.nvim" },
 	{ "simeji/winresizer" },

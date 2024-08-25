@@ -57,6 +57,7 @@ command -v kubectl >/dev/null 2>&1 && _evalcache kubectl completion zsh
 command -v argo    >/dev/null 2>&1 && _evalcache argo completion zsh
 command -v gh      >/dev/null 2>&1 && _evalcache gh completion -s zsh
 command -v direnv  >/dev/null 2>&1 && _evalcache direnv hook zsh
+command -v fnm     >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v az      >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
 
 alias vi="nvim"
