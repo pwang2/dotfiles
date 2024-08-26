@@ -120,6 +120,23 @@ return {
 					end,
 					cwd = "${workspaceFolder}",
 					stopOnEntry = false,
+					args = function()
+						local args = {}
+						local file = io.open(vim.fn.getcwd() .. "/args.txt", "r")
+						if file then
+							for line in file:lines() do
+								table.insert(args, line)
+							end
+							file:close()
+						end
+						return args
+					end,
+				},
+				{
+					name = "Attach to process",
+					type = "rust", -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+					request = "attach",
+					pid = require("dap.utils").pick_process,
 					args = {},
 				},
 			}

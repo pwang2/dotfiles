@@ -14,6 +14,7 @@ return {
 			local lspConfigUtil = require("lspconfig.util")
 			require("lspconfig.ui.windows").default_options.border = borderStyle
 
+			-- https://neovim.io/doc/user/lsp.html#lsp-handlers
 			local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 			---@diagnostic disable-next-line: duplicate-set-field
 			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -28,18 +29,17 @@ return {
 				local km = vim.api.nvim_set_keymap
 				local kb_opts = { noremap = true, silent = true }
 				local mkmp = function(key, cmd)
-					vim.lsp.util.make_floating_popup_options(80, 20, {})
 					bkm(bufnr, "n", key, "<cmd>lua vim.lsp.buf." .. cmd .. "()<CR>", kb_opts)
 				end
 
 				mkmp("gD", "declaration")
 				mkmp("gd", "definition")
-				mkmp("K", "hover")
 				mkmp("gi", "implementation")
 				mkmp("<space>k", "signature_help")
 				mkmp("<space>D", "type_definition")
 				mkmp("<space>rn", "rename")
-				mkmp("<space>ca", "code_action")
+				-- mkmp("K", "hover")  --use lspsaga.hover_doc
+				-- mkmp("<space>ca", "code_action") --use lspsaga.code_action
 				-- mkmp("<space>f", "format")
 				-- mkmp("<localleader>f", "format") -- use formatter.nvim
 				-- mkmp('gr', 'references') -- use trouble gr
