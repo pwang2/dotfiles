@@ -43,11 +43,10 @@ return {
 				-- mkmp("<space>f", "format")
 				-- mkmp("<localleader>f", "format") -- use formatter.nvim
 				-- mkmp('gr', 'references') -- use trouble gr
-
+				-- km("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", kb_opts) --use trouble xx
 				km("n", "<space>e", "<cmd>lua vim.diagnostic.open_float({width = 80})<CR>", kb_opts)
 				km("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", kb_opts)
 				km("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", kb_opts)
-				km("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", kb_opts)
 				km("n", "gv", "<cmd>:vsplit | lua vim.lsp.buf.definition()<CR>", kb_opts)
 			end
 

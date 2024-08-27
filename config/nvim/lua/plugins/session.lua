@@ -13,8 +13,8 @@ return {
 	},
 	config = function()
 		require("auto-session").setup({
-			auto_session_allowed_dirs = { "~/*" },
-			bypass_session_save_file_types = { "alpha", "dashboard" },
+			allowed_dirs = { "~/*" },
+			bypass_save_filetypes = { "alpha", "dashboard" },
 			-- Telescope.nvim integreation. defaults:
 			session_lens = {
 				load_on_setup = true,

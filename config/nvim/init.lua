@@ -34,6 +34,8 @@ vim.cmd([[
 
 -- put the key binding here to allow using :Command to load the plugin in a lazy way
 vim.cmd([[
+  nnoremap <leader>q   <cmd>bd<CR>
+
   nnoremap <F1>       <cmd>Telescope<CR>
   nnoremap <C-p>      <cmd>Telescope find_files<CR>
   nnoremap <leader>ff <cmd>Telescope find_files<CR>
