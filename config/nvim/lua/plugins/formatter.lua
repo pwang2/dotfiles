@@ -7,7 +7,7 @@ return {
 			filetype = {
 				sh = { require("formatter.filetypes.sh").shfmt },
 				rust = { require("formatter.filetypes.rust").rustfmt },
-				python = { require("formatter.filetypes.python").black },
+				python = { require("formatter.filetypes.python").ruff }, --black
 				lua = { require("formatter.filetypes.lua").stylua },
 				typescript = { prettier },
 				javascript = { prettier },

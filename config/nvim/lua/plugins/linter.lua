@@ -7,6 +7,8 @@ return {
 			vue = { "eslint_d" },
 			lua = { "luacheck" },
 			sh = { "shellcheck" },
+			python = { "ruff" }, --pylint
+			yaml = { "yamllint" },
 		}
 
 		vim.api.nvim_create_augroup("__lint__", { clear = true })
