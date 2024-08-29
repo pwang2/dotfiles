@@ -32,20 +32,9 @@ vim.cmd([[
   autocmd FileType json,jsonc             setlocal conceallevel=1
 ]])
 
--- put the key binding here to allow using :Command to load the plugin in a lazy way
 vim.cmd([[
-  nnoremap <leader>q   <cmd>bd<CR>
-
-  nnoremap <F1>       <cmd>Telescope<CR>
-  nnoremap <C-p>      <cmd>Telescope find_files<CR>
-  nnoremap <leader>ff <cmd>Telescope find_files<CR>
-  nnoremap <leader>f  <cmd>Telescope resume<CR>
-  nnoremap <leader>fg <cmd>Telescope live_grep<CR>
-  nnoremap <leader>fb <cmd>Telescope buffers<CR>
-  nnoremap <leader>fh <cmd>Telescope help_tags<CR>
-  nnoremap <leader>fk <cmd>Telescope keymaps<CR>
-  nnoremap <leader>fs <cmd>Telescope session-lens<CR>
-
-  nnoremap <leader>rr <cmd>LspRestart<CR>
-  nnoremap <cr><cr>   :nohlsearch<CR>
+  nnoremap <cr><cr>     <cmd>nohl<CR>
+  nnoremap <leader>q    <cmd>bd<CR>
+  nnoremap <leader>rr   <cmd>LspRestart<CR>
+  nnoremap <leader>aa   <cmd>tabnew<bar>Alpha<CR>
 ]])

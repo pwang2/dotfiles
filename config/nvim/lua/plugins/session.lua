@@ -15,6 +15,7 @@ return {
 		require("auto-session").setup({
 			allowed_dirs = { "~/*" },
 			bypass_save_filetypes = { "alpha", "dashboard" },
+      silent_restore = false,
 			-- Telescope.nvim integreation. defaults:
 			session_lens = {
 				load_on_setup = true,
@@ -25,6 +26,9 @@ return {
 					alternate_session = { "i", "<C-S>" },
 				},
 			},
+			pre_save_cmds = { "NvimTreeClose" },
+			save_extra_cmds = { "NvimTreeOpen" },
+			post_restore_cmds = { "NvimTreeOpen" },
 		})
 	end,
 }

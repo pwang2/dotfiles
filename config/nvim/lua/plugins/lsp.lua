@@ -7,6 +7,9 @@ return {
 			"b0o/schemastore.nvim",
 			"mason-org/mason-registry",
 		},
+		keys = {
+			{ "<leader>rr", "<cmd>LspRestart<cr>", { silent = true } },
+		},
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
