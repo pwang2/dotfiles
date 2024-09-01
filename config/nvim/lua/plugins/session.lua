@@ -11,24 +11,23 @@ return {
 		{ "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
 		{ "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
 	},
-	config = function()
-		require("auto-session").setup({
-			allowed_dirs = { "~/*" },
-			bypass_save_filetypes = { "alpha", "dashboard" },
-      silent_restore = false,
-			-- Telescope.nvim integreation. defaults:
-			session_lens = {
-				load_on_setup = true,
-				theme_conf = { border = true },
-				previewer = false,
-				mappings = {
-					delete_session = { "i", "<C-D>" },
-					alternate_session = { "i", "<C-S>" },
-				},
+	opts = {
+		allowed_dirs = { "~/*" },
+		bypass_save_filetypes = { "alpha", "dashboard" },
+		continue_restore_on_error = false,
+		post_restore_cmds = { "NvimTreeOpen" },
+		pre_save_cmds = { "NvimTreeClose" },
+		save_extra_cmds = { "NvimTreeOpen" },
+		session_lens = {
+			load_on_setup = true,
+			mappings = {
+				alternate_session = { "i", "<C-S>" },
+				delete_session = { "i", "<C-D>" },
 			},
-			pre_save_cmds = { "NvimTreeClose" },
-			save_extra_cmds = { "NvimTreeOpen" },
-			post_restore_cmds = { "NvimTreeOpen" },
-		})
-	end,
+			previewer = false,
+			theme_conf = {
+				border = true,
+			},
+		},
+	},
 }
