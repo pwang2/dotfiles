@@ -56,7 +56,7 @@ return {
 			{
 				-- https://theosteiner.de/debugging-javascript-frameworks-in-neovim
 				"microsoft/vscode-js-debug",
-				build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+				build = "npm i && npm run compile vsDebugServerBundle && rm -rf out && mv dist out",
 			},
 		},
 		opts = {},

@@ -17,7 +17,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- This is also a good place to setup other settings (vim.opt)
 vim.opt.title = true
 vim.opt.wrap = true
 vim.opt.splitright = true
@@ -41,12 +40,8 @@ vim.opt.wildignore:append("node_modules/**,.git/**,dist/**")
 vim.opt.fillchars:append("eob: ")
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
-
--- disable these providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 

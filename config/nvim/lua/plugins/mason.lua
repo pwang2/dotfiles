@@ -1,6 +1,7 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		priority = 900,
 		cmd = "Mason",
 		opts = {
 			ui = {

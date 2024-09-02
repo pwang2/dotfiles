@@ -17,6 +17,9 @@ return {
 		config = function()
 			local trouble = require("trouble.sources.telescope")
 			local troublemaker = trouble.open
+			vim.cmd([[
+        highlight TelescopeBorder guifg=#585858
+      ]])
 
 			require("telescope").setup({
 				defaults = {
