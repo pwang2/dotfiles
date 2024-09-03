@@ -15,6 +15,7 @@ return {
 			"hrsh7th/cmp-vsnip",
 			"hrsh7th/vim-vsnip",
 			"rafamadriz/friendly-snippets",
+			"vscode-kubernetes-tools/vscode-kubernetes-tools",
 		},
 		config = function()
 			local cmp = require("cmp")

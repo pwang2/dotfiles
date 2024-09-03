@@ -19,9 +19,15 @@ vim.cmd([[
   autocmd BufNewFile,BufRead nginx.*      setlocal filetype=nginx
   autocmd BufNewFile,BufRead *.json       setlocal filetype=jsonc
   autocmd FileType json,jsonc             setlocal conceallevel=1
+  autocmd FileType markdown               setlocal wrap linebreak
+
+  "FileType will not work here.
 ]])
 
 vim.cmd([[
+  nnoremap <expr> j     v:count ? 'j' : 'gj'
+  nnoremap <expr> k     v:count ? 'k' : 'gk'
+
   nnoremap <cr><cr>     <cmd>nohl<CR>
   nnoremap <leader>q    <cmd>bd <bar> bn<CR>
 ]])

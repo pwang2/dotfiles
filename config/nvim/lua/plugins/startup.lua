@@ -94,6 +94,7 @@ return {
 				end
 
 				if #short_fn > target_width then
+					---@diagnostic disable-next-line: param-type-mismatch
 					short_fn = path.new(short_fn):shorten(1, { -2, -1 })
 					if #short_fn > target_width then
 						short_fn = path.new(short_fn):shorten(1, { -1 })

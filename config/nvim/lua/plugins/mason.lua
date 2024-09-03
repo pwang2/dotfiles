@@ -35,6 +35,7 @@ return {
 			ensure_installed = {
 				{ "eslint_d", verison = "13.1.2", auto_update = false },
 				"pylint",
+				"yamllint",
 				"luacheck",
 				"shellcheck",
 
