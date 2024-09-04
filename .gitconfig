@@ -134,3 +134,18 @@
 [init]
 	defaultBranch = main
 
+[diff]
+  tool = difft
+  external = difft
+
+[difftool]
+  prompt = false
+
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+  difftool = true
+[user]
+	name = Peng Wang
+	email = pwang2@live.com

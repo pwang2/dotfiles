@@ -6,7 +6,7 @@ return {
 			javascript = { "eslint_d" },
 			vue = { "eslint_d" },
 			lua = { "luacheck" },
-			sh = { "shellcheck" },
+			-- sh = { "shellcheck" }, --bashls already have this as diagnose
 			python = { "ruff" }, --pylint
 			yaml = { "yamllint" },
 		}

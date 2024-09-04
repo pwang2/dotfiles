@@ -13,6 +13,16 @@ return {
 	},
 	{ "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
 	{ "stevearc/dressing.nvim", event = "VeryLazy" },
-	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen" }, keys = { { "<leader>df", "<cmd>DiffviewOpen<cr>" } } },
+	{
+		"sindrets/diffview.nvim",
+		opts = {
+			enhanced_diff_hl = true,
+		},
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		keys = {
+			{ "<leader>df", "<cmd>DiffviewOpen<cr>" },
+			{ "<leader>dh", "<cmd>DiffviewFileHistory<cr>" },
+		},
+	},
 	{ "windwp/nvim-ts-autotag", lazy = "true", event = { "BufReadPre", "BufNewFile" }, opts = {} },
 }
