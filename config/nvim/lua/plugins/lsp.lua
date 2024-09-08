@@ -136,7 +136,7 @@ return {
 		-- https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration
 		-- local vue_lsp_location= require("mason-registry").get_package("vue-language-server"):get_install_path()
 		-- .. "/node_modules/@vue/language-server"
-		lspconfig.tsserver.setup({
+		lspconfig.ts_ls.setup({
 			init_options = {
 				plugins = {
 					{

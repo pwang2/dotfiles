@@ -13,6 +13,8 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
 			automatic_installation = false,
+			-- only use names from the left column of
+			-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 			ensure_installed = {
 				"lua_ls",
 				"cssls",
@@ -25,6 +27,7 @@ return {
 				"volar",
 				"tailwindcss",
 				"rust_analyzer",
+				"nginx_language_server",
 			},
 		},
 	},
@@ -43,6 +46,7 @@ return {
 				"stylua",
 				"black",
 				"shfmt",
+				"yamlfmt",
 
 				"codelldb",
 				"debugpy",

@@ -1,24 +1,24 @@
 #! /bin/bash
-# shellcheck disable=SC2086
-
+# shellcheck disable=SC2012,SC2086
 set -xe
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-rm -rf ${HOME}/.config/{alacritty,nvim}
-rm -rf ${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}
+configs="$(ls -1 | tr "\n" ",")"
+for config in ${configs}; do
+  rm -rf "${HOME}/.config/${config}"
+  ln -s "${CWD}/config/${config}" "$HOME/.config"
+done
 
-ln -s ${CWD}/config/{alacritty,nvim} $HOME/.config
-ln -s ${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared} $HOME
-
-ln -s ${CWD}/gitconfig  $HOME/.gitconfig
+rm -rf "${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}"
+ln -s "${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}" "$HOME"
 
 if uname | grep -q Darwin; then
   rm -rf "$HOME/hammerspoon"
   ln -s "${CWD}/hammerspoon" "$HOME"
 fi
 
-if [ ! -d $HOME/.oh-my-zsh ]; then
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   ZPLUGINS=$HOME/.oh-my-zsh/custom/plugins
   [ ! -d $ZPLUGINS/zsh-autosuggestions ] && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions

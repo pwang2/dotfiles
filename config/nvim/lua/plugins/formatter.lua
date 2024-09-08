@@ -16,7 +16,7 @@ return {
 				jsonc = { prettier },
 				vue = { prettier },
 				html = { prettier },
-				yaml = { prettier },
+				yaml = { require("formatter.filetypes.yaml").yamlfmt },
 			},
 		})
 

@@ -1,6 +1,6 @@
 return {
 	"goolord/alpha-nvim",
-	enabled = false,
+	-- enabled = false,
 	config = function()
 		local config_path = vim.fn.stdpath("config")
 		local nwd = require("nvim-web-devicons")
