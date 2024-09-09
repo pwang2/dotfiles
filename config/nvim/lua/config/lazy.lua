@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.opt.title = true
 vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.splitright = true
 vim.opt.expandtab = true
 vim.opt.signcolumn = "yes"

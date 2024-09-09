@@ -26,6 +26,10 @@ return {
 			tmux = {
 				enabled = true,
 			},
+			alacritty = {
+				enabled = false,
+				font = "20", -- font size
+			},
 		},
 	},
 	keys = {
