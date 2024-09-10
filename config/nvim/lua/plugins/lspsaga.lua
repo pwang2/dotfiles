@@ -15,6 +15,9 @@ return {
 			ui = {
 				code_action = "💡",
 			},
+			symbol_in_winbar = {
+				enable = false,
+			},
 			hover = {
 				max_width = 0.4,
 			},

@@ -3,14 +3,7 @@
 program = "ubuntu.exe"
 args = ["run", "(tmux a || tmux new -c ~ )"]
 
-
 [font]
-size= 11
+size = 11
 normal.family = "JetBrainsMono Nerd Font"
 normal.style = "Light"
-
-
-
-
-
-

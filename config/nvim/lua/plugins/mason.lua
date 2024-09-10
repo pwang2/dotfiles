@@ -22,7 +22,7 @@ return {
 				"yamlls",
 				"jsonls",
 				"html",
-				"tsserver",
+				"ts_ls",
 				"pyright",
 				"volar",
 				"tailwindcss",
