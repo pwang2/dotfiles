@@ -35,6 +35,5 @@ vim.cmd([[
   nnoremap <expr> k     v:count ? 'k' : 'gk'
 
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
-  nnoremap <silent> <leader>q    <cmd>bd <bar> bn<CR>
   nnoremap <silent> <leader>rl   <cmd>set ff=unix<CR> :e ++ff=dos<CR>
 ]])
