@@ -161,7 +161,7 @@ return {
 				{
 					type = "group",
 					val = function()
-						return { mru(1, cdir, 9) }
+						return { mru(1, cdir, 5) }
 					end,
 					opts = { shrink_margin = false },
 				},
@@ -176,10 +176,10 @@ return {
 					val = "Quick links",
 					opts = { hl = "SpecialComment", position = "center" },
 				},
-				{ type = "padding", val = 1 },
-				dashboard.button("f", "󰀶  Find file", ":Telescope find_files <CR>", {}),
-				{ type = "padding", val = 1 },
-				dashboard.button("F", "󰊄  Find text", ":Telescope live_grep <CR>", {}),
+				-- { type = "padding", val = 1 },
+				-- dashboard.button("f", "󰀶  Find file", ":Telescope find_files <CR>", {}),
+				-- { type = "padding", val = 1 },
+				-- dashboard.button("F", "󰊄  Find text", ":Telescope live_grep <CR>", {}),
 				{ type = "padding", val = 1 },
 				dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>", {}),
 				{ type = "padding", val = 1 },
@@ -189,7 +189,7 @@ return {
 				{ type = "padding", val = 1 },
 				dashboard.button("h", "  Check Health", ":checkhealth<CR>", {}),
 				{ type = "padding", val = 1 },
-				dashboard.button("q", "🚅 Quit", ":qa<CR>", {}),
+				dashboard.button("q", "✕ Quit", ":qa<CR>", {}),
 			},
 			position = "center",
 		}
