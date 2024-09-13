@@ -1,5 +1,6 @@
 return {
 	"nvimdev/lspsaga.nvim",
+	enabled = false,
 	event = { "LspAttach" },
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter", -- optional

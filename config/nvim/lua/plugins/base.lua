@@ -2,7 +2,6 @@ return {
 	{ "edkolev/tmuxline.vim" },
 	{ "ggandor/lightspeed.nvim" },
 	{ "simeji/winresizer" },
-  
 	{ "tpope/vim-repeat" },
 	{ "terryma/vim-multiple-cursors" },
 	{ "nvim-tree/nvim-web-devicons" },
