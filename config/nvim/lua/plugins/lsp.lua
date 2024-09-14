@@ -17,7 +17,9 @@ return {
     local lspsetup = require("utils.lspsetup")
 
     lspsetup.setup(lspconfigutil)
-
+    lspconfig.azure_pipelines_ls.setup({
+      root_dir = lspconfig.util.root_pattern("azure-pipelines.y*l"),
+    })
     lspconfig.rust_analyzer.setup({})
     lspconfig.gopls.setup({})
     lspconfig.pyright.setup({})
@@ -34,7 +36,7 @@ return {
               {
                 description = "kubernetes config",
                 fileMatch = "deployment/**/*.yaml",
-                name = "kind",
+                name = "k8s",
                 url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
               },
             },
@@ -58,7 +60,9 @@ return {
       on_init = function(client)
         local path = client.workspace_folders[1].name
         local uv = require("luv")
-        if uv.fs_stat(path .. "/.luarc.json") or uv.fs_stat(path .. "/.luarc.jsonc") then return end
+        if uv.fs_stat(path .. "/.luarc.json") or uv.fs_stat(path .. "/.luarc.jsonc") then
+          return
+        end
 
         client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
           runtime = {
