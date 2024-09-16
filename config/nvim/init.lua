@@ -26,7 +26,7 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.json       setlocal filetype=jsonc
   autocmd BufWritePost       *.toml       silent execute("!taplo format % >/dev/null 2>&1")
 
-  autocmd FileType json,jsonc             setlocal conceallevel=1
+  autocmd FileType json,jsonc,markdown    setlocal conceallevel=1
   autocmd FileType markdown               setlocal wrap linebreak
 ]])
 
