@@ -3,8 +3,6 @@ local get_cmp_sources = function()
     { name = "vsnip", max_item_count = 3, priority = 50 },
     { name = "nvim_lsp", max_item_count = 10, priority = 40 },
     { name = "nvim_lsp_signature_help" },
-    { name = "emoji" },
-    -- { name = "buffer", max_item_count = 5, priority = 10 },
   }
   if os.getenv("CODEIUM_ENABLED") == "1" then
     table.insert(defaults, 1, { name = "codeium" })
@@ -46,6 +44,7 @@ return {
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
       end
 
+      --use cmp.config.default() to get default config
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -101,23 +100,21 @@ return {
             end
           end),
         },
-        sources = cmp.config.sources(get_cmp_sources()),
+        sources = cmp.config.sources(get_cmp_sources(), {
+          { name = "emoji" },
+          { name = "buffer", max_item_count = 5, priority = 10 },
+        }),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
           select = false,
         },
         window = {
-          documentation = {
-            border = "rounded",
-            winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-          },
-          completion = {
-            border = "rounded",
-            winhighlight = "NormalFloat:Pmenu,NormalFloat:Pmenu,CursorLine:PmenuSel,Search:None",
-          },
+          documentation = cmp.config.window.bordered(),
+          completion = cmp.config.window.bordered(),
         },
         experimental = {
-          ghost_text = true,
+          --disable this will allow codeium's ghost_text not appear at the same time
+          ghost_text = false,
         },
       })
 

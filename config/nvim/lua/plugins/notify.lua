@@ -7,7 +7,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
   keys = {
-    { "<leader>fm", "<cmd>Telescope notify<cr>" },
+    { "<leader>fn", "<cmd>Telescope notify<cr>" },
   },
   config = function()
     local opts = {
