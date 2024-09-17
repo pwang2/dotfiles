@@ -11,6 +11,13 @@ return {
   },
   config = function()
     local opts = {
+      views = {
+        cmdline_popup = {
+          border = {
+            padding = { 1, 2 },
+          },
+        },
+      },
       routes = {
         {
           filter = {

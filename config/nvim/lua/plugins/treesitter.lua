@@ -10,6 +10,10 @@ return {
         ignore_install = {},
         auto_install = true,
         ensure_installed = {
+          "markdown",
+          "markdown_inline",
+          "json",
+          "jsonc",
           "c",
           "bash",
           "regex",
