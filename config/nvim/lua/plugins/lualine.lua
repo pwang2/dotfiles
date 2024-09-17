@@ -1,24 +1,3 @@
-local get_lualine_x = function()
-  local defaults = {
-    "encoding",
-    "fileformat",
-    "filetype",
-  }
-
-  if os.getenv("CODEIUM_ENABLED") == "true" then
-    -- TODO check funtion is callable instead
-    local codeium = {
-      function()
-        return vim.api.nvim_call_function("codeium#GetStatusString", {})
-      end,
-      icon = "👽:",
-    }
-    table.insert(defaults, 1, codeium)
-  end
-
-  return defaults
-end
-
 local get_active_lsp = function()
   local msg = "No Lsp"
   local buf_ft = vim.api.nvim_get_option_value("filetype", {})
@@ -38,6 +17,33 @@ local get_active_lsp = function()
   return string.sub(lsps, 2)
 end
 
+local get_lualine_y = function()
+  local defaults = {
+    {
+      get_active_lsp,
+      icon = "",
+    },
+    {
+      "diagnostics",
+      sources = { "nvim_diagnostic", "nvim_lsp" },
+      symbols = { error = "🆇 ", warn = "🔴 ", info = "❕", hint = " " },
+    },
+  }
+
+  if os.getenv("CODEIUM_ENABLED") == "1" then
+    -- TODO check funtion is callable instead
+    local codeium = {
+      function()
+        return vim.api.nvim_call_function("codeium#GetStatusString", {})
+      end,
+      icon = "👽",
+    }
+    table.insert(defaults, 1, codeium)
+  end
+
+  return defaults
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   opts = {
@@ -47,19 +53,7 @@ return {
       section_separators = { left = "", right = "" },
     },
     sections = {
-      lualine_x = get_lualine_x(),
-      lualine_y = {
-        {
-          get_active_lsp,
-          icon = "",
-        },
-        {
-          "diagnostics",
-          sources = { "nvim_diagnostic", "nvim_lsp" },
-          symbols = { error = "🆇 ", warn = "🔴 ", info = "❕", hint = " " },
-        },
-      },
-
+      lualine_y = get_lualine_y(),
       lualine_z = {
         "location",
         "progress",

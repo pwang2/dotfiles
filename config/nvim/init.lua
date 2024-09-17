@@ -24,6 +24,7 @@ vim.cmd([[
   autocmd BufNewFile,BufRead Dockerfile.* setlocal filetype=dockerfile
   autocmd BufNewFile,BufRead nginx.*      setlocal filetype=nginx
   autocmd BufNewFile,BufRead *.json       setlocal filetype=jsonc
+  autocmd BufNewFile,BufRead .envrc       setlocal filetype=sh
   autocmd BufWritePost       *.toml       silent execute("!taplo format % >/dev/null 2>&1")
 
   autocmd FileType json,jsonc,markdown    setlocal conceallevel=1

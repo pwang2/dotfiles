@@ -74,8 +74,6 @@ complete -F __start_kubectl k
 # auto suggestion tab accept word
 # bindkey '\t' vi-forward-word
 
-#tj/n
-export N_PREFIX=$HOME/.local
 export TODO_DIR=$HOME/.todo
 
 colortest() {
