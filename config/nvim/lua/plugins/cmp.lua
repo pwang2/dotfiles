@@ -1,16 +1,15 @@
 local get_cmp_sources = function()
-  local sourcesFn = require("cmp.config.sources")
   local defaults = {
     { name = "vsnip", max_item_count = 3, priority = 50 },
     { name = "nvim_lsp", max_item_count = 10, priority = 40 },
     { name = "nvim_lsp_signature_help" },
-    -- { name = "buffer", max_item_count = 5, priority = 10 },
     { name = "emoji" },
+    -- { name = "buffer", max_item_count = 5, priority = 10 },
   }
-  if true or os.getenv("CODEIUM_ENABLED") == "true" then
+  if os.getenv("CODEIUM_ENABLED") == "1" then
     table.insert(defaults, 1, { name = "codeium" })
   end
-  return sourcesFn(defaults)
+  return defaults
 end
 
 return {
@@ -89,7 +88,7 @@ return {
           ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
           ["<C-k>"] = cmp.mapping.confirm({ select = true }),
           ["<C-j>"] = cmp.mapping(function(fallback)
-            cmp.mapping.abort()
+            -- cmp.mapping.abort()
             -- local copilot_keys = vim.fn["copilot#Accept"]()
             -- if copilot_keys ~= "" then
             -- 	vim.api.nvim_feedkeys(copilot_keys, "i", true)
@@ -102,13 +101,7 @@ return {
             end
           end),
         },
-        sources = {
-          { name = "vsnip", max_item_count = 3, priority = 50 },
-          { name = "nvim_lsp", max_item_count = 10, priority = 40 },
-          { name = "nvim_lsp_signature_help" },
-          -- { name = "buffer", max_item_count = 5, priority = 10 },
-          { name = "emoji" },
-        },
+        sources = cmp.config.sources(get_cmp_sources()),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
           select = false,
