@@ -17,9 +17,9 @@ return {
     local lspsetup = require("utils.lspsetup")
 
     lspsetup.setup(lspconfigutil)
-    lspconfig.azure_pipelines_ls.setup({
-      root_dir = lspconfig.util.root_pattern("azure-pipelines.y*l"),
-    })
+    -- lspconfig.azure_pipelines_ls.setup({
+    --   root_dir = lspconfig.util.root_pattern("azure-pipelines.y*l"),
+    -- })
     lspconfig.rust_analyzer.setup({})
     lspconfig.gopls.setup({})
     lspconfig.pyright.setup({})
@@ -30,14 +30,30 @@ return {
     lspconfig.yamlls.setup({
       settings = {
         yaml = {
+          validate = { enable = true },
           --https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
           schemas = require("schemastore").yaml.schemas({
             extra = {
               {
                 description = "kubernetes config",
-                fileMatch = "deployment/**/*.yaml",
+                fileMatch = {
+                  "deployment/**/*.yaml",
+                },
                 name = "k8s",
                 url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
+              },
+              {
+                description = "Azure Pipelines",
+                fileMatch = {
+                  "**/*.azure-pipelines.yml",
+                  "**/azure-pipelines.*.yml",
+                  "**/azure-pipelines.yml",
+                  "**/azure-pipelines.*.yaml",
+                  "**/*.azure-pipelines.yaml",
+                  "**/azure-pipelines.yaml",
+                },
+                name = "azure-pipelines",
+                url = "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json",
               },
             },
           }),
