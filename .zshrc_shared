@@ -45,6 +45,7 @@ if [[ -z $plugins ]]; then
     tmux
     autojump
     evalcache
+    web-search
     zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
