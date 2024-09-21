@@ -1,5 +1,24 @@
 local M = {}
 
+vim.api.nvim_create_user_command("LspCap", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  if #clients == 0 then
+    vim.api.nvim_echo({ { "No LSP client attached", "ErrorMsg" } }, true, {})
+    return
+  end
+  local newBuffer = vim.api.nvim_create_buf(false, true)
+  local current_line = 0
+  for _, client in pairs(clients) do
+    local header = string.rep("-", (120 - #client.name) / 2) .. client.name .. string.rep("-", (120 - #client.name) / 2)
+    local cap_lines = vim.split(vim.inspect(client.server_capabilities), "\n")
+    vim.api.nvim_buf_set_lines(newBuffer, current_line, current_line, false, { header })
+    vim.api.nvim_buf_set_lines(newBuffer, current_line + 1, -1, false, cap_lines)
+    current_line = current_line + 1 + #cap_lines
+  end
+  vim.api.nvim_set_current_buf(newBuffer)
+end, {})
+
 M.setup = function(lspconfigutil)
   local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
   require("lspconfig.ui.windows").default_options.border = borderStyle

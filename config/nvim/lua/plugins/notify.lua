@@ -20,6 +20,7 @@ return {
       },
       routes = {
         {
+          ---@type NoiceFilter
           filter = {
             event = "msg_show",
             any = {
@@ -32,12 +33,29 @@ return {
           },
           opts = { skip = true },
         },
+        ---@type NoiceFilter
         {
           filter = {
             event = "notify",
             find = "No information available",
           },
           opts = { skip = true },
+        },
+        ---@type NoiceFilter
+        {
+          filter = {
+            event = "notify",
+            find = "No ESLint configuration found in ",
+          },
+          opts = { skip = true },
+        },
+        ---@type NoiceFilter
+        {
+          view = "mini",
+          filter = {
+            event = "notify",
+            find = "Failed to run formatter",
+          },
         },
       },
       lsp = {

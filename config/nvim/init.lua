@@ -35,6 +35,11 @@ vim.cmd([[
   nnoremap <expr> j     v:count ? 'j' : 'gj'
   nnoremap <expr> k     v:count ? 'k' : 'gk'
 
+  " silly human mistakes
+  nnoremap <leader>w  :w<CR>
+  nnoremap :W         :w
+  nnoremap :Wqa       :wqa
+
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
   nnoremap <silent> <leader>rl   <cmd>set ff=unix<CR> :e ++ff=dos<CR>
 ]])

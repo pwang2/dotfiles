@@ -23,15 +23,16 @@ return {
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   keys = {
     { "<leader>df", "<cmd>DiffviewOpen<cr>" },
+    { "<leader>dfc", "<cmd>DiffviewClose<cr>" },
     { "<leader>dh", "<cmd>DiffviewFileHistory<cr>" },
   },
   config = function()
-    vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#0c4532" })
-    vim.api.nvim_set_hl(0, "DiffChange", { bg = "#188a64" })
-    vim.api.nvim_set_hl(0, "DiffText", { bg = "#188a64", fg = "#61afef" })
-    vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#4c232d", fg = "#e8b9b8" })
-    vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { bg = "#431313" })
-    vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { bg = "none", fg = "#141414" })
+    vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#263834" })
+    vim.api.nvim_set_hl(0, "DiffChange", { bg = "#263834" })
+    vim.api.nvim_set_hl(0, "DiffText", { bg = "#335d3d", fg = "#d1d7e0" })
+    vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#3e2e34" })
+    vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { bg = "#3e2e34" })
+    vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { bg = "#3e2e34", fg = "#cacad3" })
   end,
 }
 
