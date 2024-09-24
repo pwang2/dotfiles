@@ -3,6 +3,7 @@ local get_cmp_sources = function()
     { name = "vsnip", max_item_count = 3, priority = 50 },
     { name = "nvim_lsp", max_item_count = 10, priority = 40 },
     { name = "nvim_lsp_signature_help" },
+    { name = "emoji" },
   }
   if os.getenv("CODEIUM_ENABLED") == "1" then
     table.insert(defaults, 1, { name = "codeium" })
@@ -101,7 +102,6 @@ return {
           end),
         },
         sources = cmp.config.sources(get_cmp_sources(), {
-          { name = "emoji" },
           { name = "buffer", max_item_count = 5, priority = 10 },
         }),
         confirm_opts = {

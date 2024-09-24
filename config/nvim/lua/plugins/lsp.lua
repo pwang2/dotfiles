@@ -17,16 +17,25 @@ return {
     local lspsetup = require("utils.lspsetup")
 
     lspsetup.setup(lspconfigutil)
-    -- lspconfig.azure_pipelines_ls.setup({
-    --   root_dir = lspconfig.util.root_pattern("azure-pipelines.y*l"),
-    -- })
-    lspconfig.rust_analyzer.setup({})
+    lspconfig.rust_analyzer.setup({
+      settings = {
+        ["rust-analyzer"] = {
+          diagnostics = {
+            enable = true,
+          },
+        },
+      },
+    })
     lspconfig.gopls.setup({})
     lspconfig.pyright.setup({})
     lspconfig.tailwindcss.setup({ filetypes = { "vue", "html", "css", "javascript", "typescript" } })
     lspconfig.nginx_language_server.setup({})
     lspconfig.bashls.setup({})
     lspconfig.cssls.setup({})
+
+    -- lspconfig.azure_pipelines_ls.setup({
+    --   root_dir = lspconfig.util.root_pattern("azure-pipelines.y*l"),
+    -- })
     lspconfig.yamlls.setup({
       settings = {
         yaml = {

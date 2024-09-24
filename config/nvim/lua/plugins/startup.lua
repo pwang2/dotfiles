@@ -189,7 +189,7 @@ return {
         { type = "padding", val = 1 },
         dashboard.button("h", "  Check Health", ":checkhealth<CR>", {}),
         { type = "padding", val = 1 },
-        dashboard.button("q", "✕ Quit", ":qa<CR>", {}),
+        dashboard.button("q", "💨 Quit", ":qa<CR>", {}),
       },
       position = "center",
     }
