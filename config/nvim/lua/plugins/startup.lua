@@ -1,5 +1,6 @@
 return {
   "goolord/alpha-nvim",
+  lazy = false,
   -- enabled = false,
   config = function()
     local config_path = vim.fn.stdpath("config")

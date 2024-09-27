@@ -3,6 +3,7 @@ return {
   { "ggandor/lightspeed.nvim" },
   { "simeji/winresizer" },
   { "tpope/vim-repeat" },
+  { "tpope/vim-fugitive" },
   { "terryma/vim-multiple-cursors" },
   { "nvim-tree/nvim-web-devicons" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
