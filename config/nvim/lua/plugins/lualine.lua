@@ -31,7 +31,6 @@ local get_lualine_y = function()
   }
 
   if os.getenv("CODEIUM_ENABLED") == "1" then
-    -- TODO check funtion is callable instead
     local codeium = {
       function()
         return vim.api.nvim_call_function("codeium#GetStatusString", {})
@@ -44,11 +43,56 @@ local get_lualine_y = function()
   return defaults
 end
 
+local colors = {
+  darkgray = "#16161d",
+  gray = "#a8a8a8",
+  innerbg = nil,
+  outerbg = "#16161D",
+  normal = "#6ac0ff",
+  insert = "#98bb6c",
+  visual = "#ffa066",
+  replace = "#e46876",
+  command = "#e6c384",
+}
+local transparent = {
+  inactive = {
+    a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+  visual = {
+    a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+  replace = {
+    a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+  normal = {
+    a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+  insert = {
+    a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+  command = {
+    a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
+    b = { fg = colors.gray, bg = colors.outerbg },
+    c = { fg = colors.gray, bg = colors.innerbg },
+  },
+}
+
 return {
   "nvim-lualine/lualine.nvim",
   opts = {
     options = {
-      theme = "auto",
+      theme = transparent,
+      -- theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },

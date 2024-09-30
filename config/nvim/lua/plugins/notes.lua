@@ -1,7 +1,7 @@
 return {
   "epwalsh/obsidian.nvim",
   version = "*",
-  lazy = false,
+  lazy = true,
   ft = { "markdown" },
   -- event = {
   --   "BufReadPre " .. vim.fn.expand("~") .. "/vaults/*.md",

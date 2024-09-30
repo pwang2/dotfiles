@@ -78,7 +78,7 @@ complete -F __start_kubectl k
 export TODO_DIR=$HOME/.todo
 
 colortest() {
-  curl -sSLk https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw | bash
+  curl -sSLk -H "Cache-Control: no-cache, no-store" https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw\?t=$(date +%s) | bash
 }
 
 strongpass() {
