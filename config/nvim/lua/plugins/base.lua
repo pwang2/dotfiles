@@ -8,6 +8,11 @@ return {
   { "nvim-tree/nvim-web-devicons" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
+
+  -- it seems windows terminal did a great job to make clipboard yank works very well,
+  -- need to test macOs later on this
+  -- { "ibhagwan/smartyank.nvim" } ,
+
   { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>" } } },
   {
     "norcalli/nvim-colorizer.lua",

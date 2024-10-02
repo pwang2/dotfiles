@@ -1,3 +1,4 @@
+
 return {
   "epwalsh/obsidian.nvim",
   version = "*",
