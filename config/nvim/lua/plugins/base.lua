@@ -5,6 +5,7 @@ return {
   { "tpope/vim-repeat" },
   { "tpope/vim-fugitive" },
   { "terryma/vim-multiple-cursors" },
+  { "heavenshell/vim-jsdoc", build = "make install" },
   { "nvim-tree/nvim-web-devicons" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },

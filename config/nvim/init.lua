@@ -10,12 +10,12 @@ vim.cmd([[
   hi link FoldColumn Comment
 
   hi WinSeparator                          guifg=#585858
-  hi Visual                                guibg=#0087af
+  hi Visual                                guibg=#474e5d
   hi Folded                 guibg=NONE     guifg=#569cd6
 
   hi FloatBorder            guibg=NONE     guifg=#569cd6
-  hi Pmenu                  guibg=NONE     guifg=#898989
-  hi PmenuSel               guibg=NONE     guifg=#6ac0ff gui=reverse
+  hi Pmenu                  guibg=NONE     guifg=#98a3ad
+  hi PmenuSel               guibg=#6ac0ff  guifg=#f1f1f1
   hi Normal                 guibg=NONE
   hi NormalFloat            guibg=NONE     guifg=#b7cad4
 ]])

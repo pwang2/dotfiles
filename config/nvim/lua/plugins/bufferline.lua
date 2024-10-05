@@ -54,7 +54,7 @@ return {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
         style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
         themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
-        numbers = "ordinal", -- "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+        numbers = "both", -- "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
         diagnostics = "nvim_lsp",
         diagnostics_update_on_event = true, -- use nvim's diagnostic handler
         diagnostics_indicator = function(count)

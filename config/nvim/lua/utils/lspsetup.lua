@@ -2,6 +2,7 @@ local M = {}
 
 vim.api.nvim_create_user_command("LspCap", function()
   local bufnr = vim.api.nvim_get_current_buf()
+  ---@type vim.lsp.Client[]
   local clients = vim.lsp.get_clients({ bufnr = bufnr })
   if #clients == 0 then
     vim.api.nvim_echo({ { "No LSP client attached", "ErrorMsg" } }, true, {})
@@ -28,7 +29,8 @@ M.setup = function(lspconfigutil)
   local patch_float_window = function(contents, syntax, opts, ...)
     opts = opts or {}
     opts.border = borderStyle
-    opts.max_width = opts.max_width or 80
+    -- opts.max_width = opts.max_width or 80
+    opts.max_width = 80
     return origin_ofp(contents, syntax, opts, ...)
   end
   vim.lsp.util.open_floating_preview = patch_float_window
