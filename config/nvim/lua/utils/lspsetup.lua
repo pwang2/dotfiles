@@ -42,16 +42,17 @@ M.setup = function(lspconfigutil)
       vim.keymap.set("n", key, cmd, opts)
     end
 
-    mk("gd", vim.lsp.buf.definition)
+    -- mk("gd", vim.lsp.buf.definition)  --use trouble
     mk("gv", function()
       vim.cmd([[vsplit]])
       vim.lsp.buf.definition()
     end)
-    mk("gD", vim.lsp.buf.declaration)
-    mk("gi", vim.lsp.buf.implementation)
+    -- mk("gD", vim.lsp.buf.declaration)
+    -- mk("gi", vim.lsp.buf.implementation)
     mk("<leader>k", vim.lsp.buf.signature_help)
     mk("<leader>D", vim.lsp.buf.type_definition)
     mk("<leader>rn", vim.lsp.buf.rename)
+
     mk("K", vim.lsp.buf.hover)
     mk("<space>e", vim.diagnostic.open_float)
     -- mk("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx

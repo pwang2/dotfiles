@@ -13,11 +13,6 @@ return {
       git = {
         enable = false,
       },
-      actions = {
-        open_file = {
-          resize_window = true,
-        },
-      },
       view = {
         width = {
           max = 36,
