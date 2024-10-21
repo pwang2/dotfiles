@@ -22,6 +22,13 @@ return {
   },
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   keys = {
+    file_panel = {
+      ["gf"] = function()
+        local actions = require("diffview.actions")
+        actions.goto_file()
+        vim.cmd("tabclose #")
+      end,
+    },
     { "<leader>df", "<cmd>DiffviewOpen<cr>" },
     { "<leader>dfc", "<cmd>DiffviewClose<cr>" },
     { "<leader>dh", "<cmd>DiffviewFileHistory<cr>" },

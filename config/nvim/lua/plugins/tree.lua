@@ -11,7 +11,10 @@ return {
   config = function()
     local opts = {
       git = {
-        enable = false,
+        enable = true,
+      },
+      renderer = {
+        highlight_git = "name",
       },
       view = {
         width = {
