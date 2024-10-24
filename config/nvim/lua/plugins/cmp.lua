@@ -52,6 +52,14 @@ return {
             vim.fn["vsnip#anonymous"](args.body)
           end,
         },
+        completion = {
+          autocomplete = {
+            cmp.TriggerEvent.TextChanged,
+            cmp.TriggerEvent.InsertEnter,
+          },
+          completeopt = "menu,menuone,noinsert,noselect",
+          keyword_length = 1,
+        },
         formatting = {
           format = function(entry, item)
             item.kind = lspkind.symbolic(item.kind, { mode = "symbol_text" })
@@ -86,7 +94,17 @@ return {
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-          ["<C-k>"] = cmp.mapping.confirm({ select = true }),
+          -- ["<C-k>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-k>"] = cmp.mapping({
+            i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+              else
+                fallback()
+              end
+            end,
+          }),
           ["<C-j>"] = cmp.mapping(function(fallback)
             -- cmp.mapping.abort()
             -- local copilot_keys = vim.fn["copilot#Accept"]()

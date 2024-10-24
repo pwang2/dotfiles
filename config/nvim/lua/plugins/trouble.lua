@@ -14,7 +14,7 @@ return {
       desc = "Go to definitions(Trouble)",
     },
     {
-      "gtd",
+      "gt",
       "<cmd>Trouble lsp_type_definitions<cr>",
       desc = "Go to type definitions(Trouble)",
     },
