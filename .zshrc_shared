@@ -1,0 +1,93 @@
+#!/usr/bin/env zsh
+
+#shellcheck shell=bash disable=2034,2206,2086,1091
+ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+KEYTIMEOUT=1
+DISABLE_AUTO_TITLE=true
+DISABLE_MAGIC_FUNCTIONS=true
+IS_MACOS=$(uname -s | grep -c "darwin")
+if [ $IS_MACOS -eq 1 ]; then
+  BREW_PREFIX="/usr/local"
+else
+  BREW_PREFIX="/home/linuxbrew/.linuxbrew"
+fi
+
+PATHS=(
+  $HOME/bin
+  $HOME/go/bin
+  $HOME/.yarn/bin
+  $HOME/.local/bin
+  $HOME/.luarocks/bin
+  $HOME/.cargo/bin
+  $HOME/.dotnet/tools
+  $BREW_PREFIX/bin
+  $BREW_PREFIX/sbin
+  /usr/local/bin
+  /usr/local/sbin
+  /usr/local/go/bin
+  /snap/bin
+  /usr/local/opt/{grep,coreutils,findutils}/libexec/gnubin
+)
+
+for i in "${PATHS[@]}"; do
+  [[ -d "$i" ]] && [[ ! $PATH == *"$i"* ]] && PATH="$i:$PATH"
+done
+
+# enable bash completion in zsh
+autoload -U +X bashcompinit && bashcompinit
+
+if [[ -z $plugins ]]; then
+  plugins=(
+    azure
+    rust
+    git
+    tmux
+    autojump
+    evalcache
+    web-search
+    zsh-vi-mode
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  )
+fi
+source $ZSH/oh-my-zsh.sh
+
+unset PATHS
+unset plugins
+
+# 3rd party completions
+command -v kubectl >/dev/null 2>&1 && _evalcache kubectl completion zsh
+command -v argo >/dev/null 2>&1 && _evalcache argo completion zsh
+command -v gh >/dev/null 2>&1 && _evalcache gh completion -s zsh
+command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
+command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
+command -v fnm >/dev/null 2>&1 && eval "$(fnm env --use-on-cd --shell zsh)"
+command -v az >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
+
+alias vi="nvim"
+alias cls="clear"
+alias td="todo.sh"
+alias k="kubectl"
+alias x="exit"
+
+complete -F __start_kubectl k
+
+# auto suggestion tab accept word
+# bindkey '\t' vi-forward-word
+
+export TODO_DIR=$HOME/.todo
+
+colortest() {
+  curl -sSLk -H "Cache-Control: no-cache, no-store" https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw\?t=$(date +%s) | bash
+}
+
+strongpass() {
+  if [[ $(uname) == "Darwin" && -x "$(command -v pbcopy)" ]]; then
+    openssl rand -base64 14 | pbcopy
+  elif [[ $(uname) == "Linux" && -x "$(command -v xclip)" ]]; then
+    openssl rand -base64 14 | xclip -selection clipboard
+  else
+    openssl rand -base64 14
+  fi
+}
