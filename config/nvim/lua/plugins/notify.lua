@@ -33,6 +33,17 @@ return {
           },
           opts = { skip = true },
         },
+
+        ---@type NoiceFilter
+        {
+          --https://github.com/folke/trouble.nvim/issues/329
+          filter = {
+            event = "notify",
+            find = "Cursor position outside buffer",
+          },
+          opts = { skip = true },
+        },
+
         ---@type NoiceFilter
         {
           filter = {

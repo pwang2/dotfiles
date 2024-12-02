@@ -154,7 +154,7 @@ return {
     lspconfig.volar.setup({
       init_options = {
         vue = {
-          hybridmode = true,
+          hybridMode = true,
         },
       },
       root_dir = function(fname)
