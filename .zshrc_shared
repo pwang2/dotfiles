@@ -13,6 +13,8 @@ else
   BREW_PREFIX="/home/linuxbrew/.linuxbrew"
 fi
 
+export PYENV_ROOT="$HOME/.pyenv"
+
 PATHS=(
   $HOME/bin
   $HOME/go/bin
@@ -23,6 +25,7 @@ PATHS=(
   $HOME/.dotnet/tools
   $BREW_PREFIX/bin
   $BREW_PREFIX/sbin
+  $PYENV_ROOT/bin
   /usr/local/bin
   /usr/local/sbin
   /usr/local/go/bin
@@ -64,6 +67,7 @@ command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
 command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v fnm >/dev/null 2>&1 && eval "$(fnm env --use-on-cd --shell zsh)"
 command -v az >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 
 alias vi="nvim"
 alias cls="clear"
