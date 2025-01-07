@@ -23,12 +23,18 @@ return {
 
       require("telescope").setup({
         defaults = {
+          max_results = 400,
           mappings = {
             i = { ["<leader>t"] = troublemaker },
             n = { ["<leader>t"] = troublemaker },
           },
         },
         pickers = {
+          live_grep = {
+            -- additional_args = function()
+            --   return { "--max-count=10" }
+            -- end,
+          },
           find_files = {
             hidden = true,
             file_ignore_patterns = { ".git", "node_modules" },
