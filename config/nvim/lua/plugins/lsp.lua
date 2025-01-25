@@ -142,11 +142,12 @@ return {
       filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
       root_dir = function(fname)
         -- this is workaround for monorepo where the typescript is installed to the root node_modules
-        local gitRoot = lspconfigutil.find_git_ancestor(fname)
+        local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+
         if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
           return gitRoot
         end
-        return lspconfigutil.find_node_modules_ancestor(fname)
+        return vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
       end,
     })
 
@@ -156,14 +157,24 @@ return {
         vue = {
           hybridMode = true,
         },
+        typescript = {
+          tsdk = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/typescript/lib",
+        },
       },
+      on_new_config = function(new_config, new_root_dir)
+        local lib_path = new_root_dir .. "/node_modules/typescript/lib"
+        if lib_path then
+          new_config.init_options.typescript.tsdk = lib_path
+        end
+      end,
       root_dir = function(fname)
         -- this is workaround for monorepo where the typescript is installed to the root node_modules
-        local gitRoot = lspconfigutil.find_git_ancestor(fname)
+        local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
         if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
           return gitRoot
         end
-        return lspconfigutil.find_node_modules_ancestor(fname)
+        local node_modules_path = vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
+        return node_modules_path
       end,
     })
   end,
