@@ -90,6 +90,7 @@
 	# Speed up commands involving untracked files such as `git status`.
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
 	untrackedCache = true
+	excludesFile = ~/.gitignore
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
@@ -130,6 +131,7 @@
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+	autoSetupRemote = true
 
 [init]
 	defaultBranch = main

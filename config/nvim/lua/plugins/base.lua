@@ -12,7 +12,7 @@ return {
 
   -- it seems windows terminal did a great job to make clipboard yank works very well,
   -- need to test macOs later on this
-  -- { "ibhagwan/smartyank.nvim" } ,
+  -- { "ibhagwan/smartyank.nvim" },
 
   { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>" } } },
   {

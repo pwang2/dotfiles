@@ -68,6 +68,7 @@ command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v fnm >/dev/null 2>&1 && eval "$(fnm env --use-on-cd --shell zsh)"
 command -v az >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 
 alias vi="nvim"
 alias cls="clear"
