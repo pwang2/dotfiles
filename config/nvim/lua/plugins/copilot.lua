@@ -22,9 +22,10 @@ return {
         desc = "toggle chat window",
       },
       {
-        "<leader>ca",
+        "<leader>a",
         "<cmd>CodeCompanionAction<cr>",
-        desc = "Open CodeCompanionAction",
+        desc = "toggle codecompanion action window",
+        noremap = true,
       },
     },
   },

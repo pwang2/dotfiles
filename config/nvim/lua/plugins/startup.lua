@@ -209,7 +209,7 @@ return {
     alpha.setup(opts)
 
     vim.cmd([[
-        nnoremap <leader>aa   <cmd>tabnew<bar>Alpha<CR>
+        " nnoremap <leader>aa   <cmd>tabnew<bar>Alpha<CR>
       ]])
   end,
 }
