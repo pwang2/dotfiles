@@ -20,6 +20,7 @@ vim.cmd([[
   hi PmenuSel               guibg=#6ac0ff  guifg=#f1f1f1
   hi Normal                 guibg=NONE
   hi NormalFloat            guibg=NONE     guifg=#b7cad4
+  hi NonText                guibg=NONE     guifg=#81a46b
 ]])
 
 vim.cmd([[

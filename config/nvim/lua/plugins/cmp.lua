@@ -5,9 +5,9 @@ local get_cmp_sources = function()
     -- { name = "nvim_lsp_signature_help" },
     { name = "emoji" },
   }
-  if os.getenv("CODEIUM_ENABLED") == "1" then
-    table.insert(defaults, 1, { name = "codeium" })
-  end
+  -- if os.getenv("CODEIUM_ENABLED") == "1" then
+  --   table.insert(defaults, 1, { name = "codeium" })
+  -- end
   return defaults
 end
 
@@ -106,15 +106,15 @@ return {
             end,
           }),
           ["<C-j>"] = cmp.mapping(function(fallback)
-            -- cmp.mapping.abort()
-            -- local copilot_keys = vim.fn["copilot#Accept"]()
-            -- if copilot_keys ~= "" then
-            --   vim.api.nvim_feedkeys(copilot_keys, "i", true)
-            -- else
-            local copilot_keys = vim.fn["codeium#Accept"]()
+            cmp.mapping.abort()
+            local copilot_keys = vim.fn["copilot#Accept"]()
             if copilot_keys ~= "" then
               vim.api.nvim_feedkeys(copilot_keys, "i", true)
             else
+              -- local copilot_keys = vim.fn["codeium#Accept"]()
+              -- if copilot_keys ~= "" then
+              --   vim.api.nvim_feedkeys(copilot_keys, "i", true)
+              -- else
               fallback()
             end
           end),
