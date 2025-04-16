@@ -10,7 +10,6 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
-    opts = {},
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -20,6 +19,7 @@ return {
         "<leader>c",
         "<cmd>CodeCompanionChat toggle<cr>",
         desc = "toggle chat window",
+        noremap = true,
       },
       {
         "<leader>a",
@@ -28,5 +28,30 @@ return {
         noremap = true,
       },
     },
+    config = function()
+      require("codecompanion").setup({
+        strategies = {
+          chat = {
+            keymaps = {
+              send = { modes = { n = "<C-s>", i = "<C-s>" } },
+              close = { modes = { n = "<C-c>", i = "<C-c>" } },
+            },
+          },
+        },
+        display = {
+          chat = {
+            window = {
+              position = "right",
+              width = 80,
+            },
+          },
+          action_palette = {
+            prompt = "Prompt",
+            provider = "default",
+          },
+        },
+      })
+      vim.cmd([[cab cc CodeCompanion]])
+    end,
   },
 }

@@ -68,13 +68,15 @@ M.setup = function(lspconfigutil)
   end
 
   -- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38#issuecomment-1815265121
+  ---@class lsp.ClientCapabilities
+  local capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    require("cmp_nvim_lsp").default_capabilities()
+  )
   lspconfigutil.default_config = vim.tbl_extend("force", lspconfigutil.default_config, {
     on_attach = on_attach,
-    capabilities = vim.tbl_deep_extend(
-      "force",
-      vim.lsp.protocol.make_client_capabilities(),
-      require("cmp_nvim_lsp").default_capabilities()
-    ),
+    capabilities = capabilities,
   })
 end
 return M
