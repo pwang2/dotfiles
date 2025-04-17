@@ -32,6 +32,15 @@ return {
       require("codecompanion").setup({
         strategies = {
           chat = {
+            tools = {
+              ["mcp"] = {
+                -- Prevent mcphub from loading before needed
+                callback = function()
+                  return require("mcphub.extensions.codecompanion")
+                end,
+                description = "Call tools and resources from the MCP Servers",
+              },
+            },
             keymaps = {
               send = { modes = { n = "<C-s>", i = "<C-s>" } },
               close = { modes = { n = "<C-c>", i = "<C-c>" } },
@@ -40,9 +49,19 @@ return {
         },
         display = {
           chat = {
+            icons = {
+              pinned_buffer = " ",
+              watched_buffer = "👀 ",
+            },
+            show_settings = true,
+            start_in_insert_mode = true,
             window = {
+              layout = "float", -- float|vertical|horizontal|buffer
+              border = "single",
+              height = 0.8,
+              relative = "editor",
               position = "right",
-              width = 80,
+              width = 120,
             },
           },
           action_palette = {
