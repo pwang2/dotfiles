@@ -8,6 +8,19 @@ return {
       vim.g.copilot_tab_fallback = ""
     end,
   },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   init = function()
+  --     vim.g.copilot_no_tab_map = true
+  --     vim.g.copilot_assume_mapped = true
+  --     vim.g.copilot_tab_fallback = ""
+  --   end,
+  --   config = function()
+  --     require("copilot").setup({})
+  --   end,
+  -- },
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
@@ -30,11 +43,35 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        adapters = {
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              -- Add any additional configuration options here
+              -- For example, you can set the adapter to use a specific model
+              schema = {
+                model = {
+                  -- default = "o3-mini",
+                },
+                reasoning_effort = {
+                  default = "medium",
+                },
+              },
+            })
+          end,
+        },
         strategies = {
           chat = {
+            roles = {
+              llm = function(adapter)
+                return "🤖 " .. adapter.name
+              end,
+
+              ---The header name for your messages
+              ---@type string
+              user = "💖 ",
+            },
             tools = {
               ["mcp"] = {
-                -- Prevent mcphub from loading before needed
                 callback = function()
                   return require("mcphub.extensions.codecompanion")
                 end,
@@ -42,8 +79,8 @@ return {
               },
             },
             keymaps = {
-              send = { modes = { n = "<C-s>", i = "<C-s>" } },
-              close = { modes = { n = "<C-c>", i = "<C-c>" } },
+              send = { modes = { n = "<CR>", i = "<C-s>" } },
+              -- close = { modes = { n = "<C-c>", i = "<C-c>" } },
             },
           },
         },
@@ -53,15 +90,31 @@ return {
               pinned_buffer = " ",
               watched_buffer = "👀 ",
             },
-            show_settings = true,
-            start_in_insert_mode = true,
+            auto_scroll = false,
+            intro_message = "AI will take your job soon. 🔔 🤖  ",
+            show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+            -- separator = "─", -- The separator between the different messages in the chat buffer
+            show_settings = false,
+            start_in_insert_mode = false,
             window = {
               layout = "float", -- float|vertical|horizontal|buffer
-              border = "single",
               height = 0.8,
               relative = "editor",
               position = "right",
               width = 120,
+              border = {
+                { "╭", "Comment" },
+                { "─", "Comment" },
+                { "╮", "Comment" },
+                { "│", "Comment" },
+                { "╯", "Comment" },
+                { "─", "Comment" },
+                { "╰", "Comment" },
+                { "│", "Comment" },
+              },
+              opts = {
+                signcolumn = "yes",
+              },
             },
           },
           action_palette = {

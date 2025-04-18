@@ -4,6 +4,7 @@ local get_cmp_sources = function()
     { name = "nvim_lsp" },
     -- { name = "nvim_lsp_signature_help" },
     { name = "emoji" },
+    { name = "copilot" },
   }
   -- if os.getenv("CODEIUM_ENABLED") == "1" then
   --   table.insert(defaults, 1, { name = "codeium" })
