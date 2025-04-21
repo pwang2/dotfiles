@@ -43,33 +43,25 @@ return {
     },
     config = function()
       require("codecompanion").setup({
-        adapters = {
-          copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {
-              -- Add any additional configuration options here
-              -- For example, you can set the adapter to use a specific model
-              schema = {
-                model = {
-                  -- default = "o3-mini",
-                },
-                reasoning_effort = {
-                  default = "medium",
-                },
-              },
-            })
-          end,
-        },
+        -- adapters = {
+        --   copilot = function()
+        --     return require("codecompanion.adapters").extend("copilot", {
+        --       -- Add any additional configuration options here
+        --       -- For example, you can set the adapter to use a specific model
+        --       schema = {
+        --         model = {
+        --           default = "gpt-4o",
+        --         },
+        --         reasoning_effort = {
+        --           default = "medium",
+        --         },
+        --       },
+        --     })
+        --   end,
+        -- },
+        --
         strategies = {
           chat = {
-            roles = {
-              llm = function(adapter)
-                return "🤖 " .. adapter.name
-              end,
-
-              ---The header name for your messages
-              ---@type string
-              user = "💖 ",
-            },
             tools = {
               ["mcp"] = {
                 callback = function()
@@ -79,7 +71,7 @@ return {
               },
             },
             keymaps = {
-              send = { modes = { n = "<CR>", i = "<C-s>" } },
+              -- send = { modes = { n = "<CR>", i = "<C-s>" } },
               -- close = { modes = { n = "<C-c>", i = "<C-c>" } },
             },
           },
@@ -87,11 +79,11 @@ return {
         display = {
           chat = {
             icons = {
-              pinned_buffer = " ",
+              pinned_buffer = "📌 ",
               watched_buffer = "👀 ",
             },
             auto_scroll = false,
-            intro_message = "AI will take your job soon. 🔔 🤖  ",
+            intro_message = "AI will take your job soon.",
             show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
             -- separator = "─", -- The separator between the different messages in the chat buffer
             show_settings = false,
