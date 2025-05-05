@@ -6,9 +6,11 @@ return {
     "nvim-lua/plenary.nvim",
   },
   cmd = "MCPHub", -- lazy load by default
-  build = "npm install -g mcp-hub@latest", -- Installs globally
+  build = "bundled_build.lua",
+  -- build = "npm install -g mcp-hub@latest", -- Installs globally
   ---@class mcphub.Config
   opts = {
+    use_bundled_binary = true,
     config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Config file path
     native_servers = {}, -- add your native servers here
     -- Extension configurations

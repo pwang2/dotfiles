@@ -98,8 +98,6 @@ return {
         log_console_level = vim.log.levels.ERROR,
       })
 
-      require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
-
       local dap = require("dap")
       dap.adapters.lldb = {
         type = "server",

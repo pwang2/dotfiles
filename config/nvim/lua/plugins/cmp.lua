@@ -2,13 +2,10 @@ local get_cmp_sources = function()
   local defaults = {
     { name = "vsnip", max_item_count = 3, priority = 50 },
     { name = "nvim_lsp" },
-    -- { name = "nvim_lsp_signature_help" },
-    { name = "emoji" },
+    { name = "nvim_lsp_signature_help" },
+    -- { name = "emoji" },
     { name = "copilot" },
   }
-  -- if os.getenv("CODEIUM_ENABLED") == "1" then
-  --   table.insert(defaults, 1, { name = "codeium" })
-  -- end
   return defaults
 end
 
@@ -23,7 +20,6 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      -- "hrsh7th/cmp-emoji",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-vsnip",
