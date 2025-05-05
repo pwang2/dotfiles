@@ -31,7 +31,7 @@ return {
     },
     { "<leader>df", "<cmd>DiffviewOpen<cr>" },
     { "<leader>dfc", "<cmd>DiffviewClose<cr>" },
-    { "<leader>dh", "<cmd>DiffviewFileHistory<cr>" },
+    { "<leader>dfh", "<cmd>DiffviewFileHistory %<cr>" },
   },
   config = function()
     vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#263834" })

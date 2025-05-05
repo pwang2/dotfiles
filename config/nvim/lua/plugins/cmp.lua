@@ -58,7 +58,7 @@ return {
             cmp.TriggerEvent.TextChanged,
             cmp.TriggerEvent.InsertEnter,
           },
-          completeopt = "menu,menuone,noinsert,noselect",
+          completeopt = "menu,menuone,noinsert",
           keyword_length = 1,
         },
         formatting = {
@@ -125,7 +125,7 @@ return {
         }),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
-          select = false,
+          select = true,
         },
         window = {
           documentation = cmp.config.window.bordered(),

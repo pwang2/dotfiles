@@ -89,6 +89,10 @@ local transparent = {
 
 return {
   "nvim-lualine/lualine.nvim",
+  dependencies = {
+    "ravitemer/mcphub.nvim",
+    "nvim-tree/nvim-web-devicons",
+  },
   opts = {
     options = {
       theme = transparent,
@@ -97,6 +101,10 @@ return {
       section_separators = { left = "", right = "" },
     },
     sections = {
+      lualine_x = {
+        -- Other lualine components in "x" section
+        -- { require("mcphub.extensions.lualine") },
+      },
       lualine_y = get_lualine_y(),
       lualine_z = {
         "location",

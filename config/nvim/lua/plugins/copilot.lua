@@ -6,21 +6,10 @@ return {
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_tab_fallback = ""
+      vim.g.copilot_settings = { selectedCompletionModel = "gpt-4.1-copilot" }
+      vim.g.copilot_integration_id = "vscode-chat"
     end,
   },
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   init = function()
-  --     vim.g.copilot_no_tab_map = true
-  --     vim.g.copilot_assume_mapped = true
-  --     vim.g.copilot_tab_fallback = ""
-  --   end,
-  --   config = function()
-  --     require("copilot").setup({})
-  --   end,
-  -- },
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
@@ -43,37 +32,31 @@ return {
     },
     config = function()
       require("codecompanion").setup({
-        -- adapters = {
-        --   copilot = function()
-        --     return require("codecompanion.adapters").extend("copilot", {
-        --       -- Add any additional configuration options here
-        --       -- For example, you can set the adapter to use a specific model
-        --       schema = {
-        --         model = {
-        --           default = "gpt-4o",
-        --         },
-        --         reasoning_effort = {
-        --           default = "medium",
-        --         },
-        --       },
-        --     })
-        --   end,
-        -- },
-        --
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              show_result_in_chat = true, -- Show the mcp tool result in the chat buffer
+              make_vars = true, -- make chat #variables from MCP server resources
+              make_slash_commands = true, -- make /slash_commands from MCP server prompts
+            },
+          },
+        },
+
         strategies = {
           chat = {
-            tools = {
-              ["mcp"] = {
-                callback = function()
-                  return require("mcphub.extensions.codecompanion")
-                end,
-                description = "Call tools and resources from the MCP Servers",
+            slash_commands = {
+              ["file"] = {
+                -- Location to the slash command in CodeCompanion
+                callback = "strategies.chat.slash_commands.file",
+                description = "Select a file using Telescope",
+                opts = {
+                  provider = "telescope", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks"
+                  contains_code = true,
+                },
               },
             },
-            keymaps = {
-              -- send = { modes = { n = "<CR>", i = "<C-s>" } },
-              -- close = { modes = { n = "<C-c>", i = "<C-c>" } },
-            },
+            tools = {},
           },
         },
         display = {
@@ -84,12 +67,13 @@ return {
             },
             auto_scroll = false,
             intro_message = "AI will take your job soon.",
-            show_header_separator = false, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+            show_header_separator = false,
             -- separator = "─", -- The separator between the different messages in the chat buffer
             show_settings = false,
+            show_references = true,
             start_in_insert_mode = false,
             window = {
-              layout = "float", -- float|vertical|horizontal|buffer
+              layout = "vertical", -- float|vertical|horizontal|buffer
               height = 0.8,
               relative = "editor",
               position = "right",
