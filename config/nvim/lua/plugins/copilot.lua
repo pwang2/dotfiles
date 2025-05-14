@@ -2,16 +2,17 @@ return {
   {
     "github/copilot.vim",
     enabled = true,
+    lazy = false,
     init = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_tab_fallback = ""
-      vim.g.copilot_settings = { selectedCompletionModel = "gpt-4.1-copilot" }
       vim.g.copilot_integration_id = "vscode-chat"
     end,
   },
   {
     "olimorris/codecompanion.nvim",
+    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -32,6 +33,9 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        opts = {
+          log_level = "DEBUG", -- or "TRACE"
+        },
         extensions = {
           mcphub = {
             callback = "mcphub.extensions.codecompanion",

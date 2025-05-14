@@ -1,11 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "nvim-lua/popup.nvim",
-    "nvim-lua/plenary.nvim",
     "b0o/schemastore.nvim",
-    "mason-org/mason-registry",
-    "Chaitanyabsprip/fastaction.nvim",
   },
   keys = {
     { "<leader>rr", "<cmd>LspRestart<cr>", { silent = true } },

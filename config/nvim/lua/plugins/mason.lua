@@ -1,6 +1,8 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
+    version = "1.11.0",
+
     priority = 900,
     cmd = "Mason",
     opts = {
@@ -8,7 +10,8 @@ return {
     },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    version = "1.32.0",
     opts = {
       automatic_installation = false,
       -- only use names from the left column of
@@ -35,7 +38,7 @@ return {
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {
-        { "eslint_d", verison = "13.1.2", auto_update = false },
+        "eslint_d",
         "pylint",
         "yamllint",
         "luacheck",

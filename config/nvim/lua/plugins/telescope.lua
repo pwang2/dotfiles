@@ -47,6 +47,8 @@ return {
           },
         },
       })
+
+      vim.cmd([[cab t Telescope]])
     end,
   },
 }

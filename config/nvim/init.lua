@@ -42,6 +42,7 @@ vim.cmd([[
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
   nnoremap <silent> <leader>cab  <cmd>execute('%bd<bar>e#<bar>bd#')<cr>
 
+  nnoremap <silent> <leader>aa   <cmd>Alpha<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
   nnoremap <silent> <leader>rl   <cmd>set ff=unix<CR> :e ++ff=dos<CR>
 ]])
