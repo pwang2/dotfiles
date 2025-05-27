@@ -15,7 +15,7 @@ return {
     vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "BufEnter", "BufWritePost" }, {
       group = "__lint__",
       callback = function()
-        require("lint").try_lint()
+        pcall(require, "lint.try_lint")
       end,
     })
   end,

@@ -49,6 +49,17 @@ return {
 
         strategies = {
           chat = {
+            roles = {
+              ---The header name for the LLM's messages
+              ---@type string|fun(adapter: CodeCompanion.Adapter): string
+              llm = function(adapter)
+                return adapter.formatted_name
+              end,
+
+              ---The header name for your messages
+              ---@type string
+              user = "Peng",
+            },
             slash_commands = {
               ["file"] = {
                 -- Location to the slash command in CodeCompanion

@@ -46,8 +46,10 @@ vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpo
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
+
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.loaded_python_provider = 0
 
 require("lazy").setup({
   spec = {

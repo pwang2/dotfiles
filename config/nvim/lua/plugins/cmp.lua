@@ -54,7 +54,7 @@ return {
             cmp.TriggerEvent.TextChanged,
             cmp.TriggerEvent.InsertEnter,
           },
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,preinsert",
           keyword_length = 1,
         },
         formatting = {
@@ -65,7 +65,7 @@ return {
             return item
           end,
         },
-        -- preselect = cmp.PreselectMode.Item,
+        preselect = cmp.PreselectMode.Item,
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
