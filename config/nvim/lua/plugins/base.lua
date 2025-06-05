@@ -2,6 +2,7 @@ return {
   { "edkolev/tmuxline.vim" },
   { "ggandor/lightspeed.nvim" },
   { "simeji/winresizer" },
+  { "mbbill/undotree" },
   { "tpope/vim-repeat" },
   { "tpope/vim-fugitive" },
   { "nvim-lua/popup.nvim" },

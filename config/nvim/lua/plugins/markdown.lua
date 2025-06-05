@@ -8,15 +8,18 @@ return {
     end,
     ft = { "markdown", "codecompanion" },
   },
-  -- {
-  --   "MeanderingProgrammer/render-markdown.nvim",
-  --   ft = { "markdown", "codecompanion" },
-  --   config = function()
-  --     vim.api.nvim_set_hl(0, "RenderMarkdownDash", { fg = "#282c34", bg = "#282c34" })
-  --   end,
-  -- },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+    opts = {
+      code = {
+        left_pad = 2,
+      },
+    },
+  },
   {
     "OXY2DEV/markview.nvim",
+    enabled = false,
     lazy = false,
     opts = {
       preview = {

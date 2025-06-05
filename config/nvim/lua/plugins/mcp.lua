@@ -9,7 +9,7 @@ return {
   build = "bundled_build.lua",
   -- build = "npm install -g mcp-hub@latest", -- Installs globally
   config = function()
-    ---@class mcphub.Config
+    ---@class MCPHub.Config
     local opts = {
       use_bundled_binary = true,
       config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Config file path

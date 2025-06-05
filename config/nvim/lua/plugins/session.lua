@@ -1,6 +1,6 @@
 return {
   "rmagatti/auto-session",
-  enabled = false,
+  enabled = true,
   lazy = false,
   dependencies = {
     "nvim-telescope/telescope.nvim",
@@ -12,7 +12,12 @@ return {
     { "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
     { "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
   },
+
+  ---enables autocomplete for opts
+  ---@module "auto-session"
+  ---@type AutoSession.Config
   opts = {
+    suppressed_dirs = { "~/" },
     allowed_dirs = { "~/*" },
     bypass_save_filetypes = { "alpha", "dashboard" },
     continue_restore_on_error = false,

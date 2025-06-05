@@ -1,14 +1,3 @@
-local get_cmp_sources = function()
-  local defaults = {
-    { name = "vsnip", max_item_count = 3, priority = 50 },
-    { name = "nvim_lsp" },
-    { name = "nvim_lsp_signature_help" },
-    -- { name = "emoji" },
-    { name = "copilot" },
-  }
-  return defaults
-end
-
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -116,7 +105,13 @@ return {
             end
           end),
         },
-        sources = cmp.config.sources(get_cmp_sources(), {
+        sources = cmp.config.sources({
+          { name = "vsnip", max_item_count = 3, priority = 50 },
+          { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
+          -- { name = "emoji" },
+          { name = "copilot" },
+        }, {
           { name = "buffer", max_item_count = 5, priority = 10 },
         }),
         confirm_opts = {
