@@ -58,6 +58,7 @@ M.setup = function(lspconfigutil)
     -- mk("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
     mk("[d", vim.diagnostic.goto_prev)
     mk("]d", vim.diagnostic.goto_next)
+
     vim.keymap.set("n", "<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', opts)
     vim.keymap.set("v", "<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', opts)
 

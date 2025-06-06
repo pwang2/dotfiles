@@ -15,7 +15,7 @@ return {
 
   ---enables autocomplete for opts
   ---@module "auto-session"
-  ---@type AutoSession.Config
+  ---@class AutoSession.Config
   opts = {
     suppressed_dirs = { "~/" },
     allowed_dirs = { "~/*" },

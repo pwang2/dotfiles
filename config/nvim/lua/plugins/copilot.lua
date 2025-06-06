@@ -38,6 +38,13 @@ return {
           log_level = "DEBUG", -- or "TRACE"
         },
         extensions = {
+          vectorcode = {
+            opts = {
+              add_tool = true,
+              add_slash_command = true,
+              tool_opts = {},
+            },
+          },
           mcphub = {
             callback = "mcphub.extensions.codecompanion",
             opts = {
