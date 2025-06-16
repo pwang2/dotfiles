@@ -37,9 +37,7 @@ done
 if [[ -z $plugins ]]; then
   plugins=(
     azure
-    rust
     git
-    tmux
     autojump
     evalcache
     web-search
@@ -52,11 +50,10 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # enable bash completion in zsh
-autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-zmodload zsh/complist
+# autoload -U +X bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+# zmodload zsh/complist
 
-bindkey '^I' expand-or-complete
 bindkey '^[|' zsh_gh_copilot_explain  # bind Alt+shift+\ to explain
 bindkey '^[\' zsh_gh_copilot_suggest  # bind Alt+\ to suggest
 
@@ -71,7 +68,7 @@ command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
 command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v pyenv >/dev/null 2>&1 && _evalcache pyenv init -
 command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
-command -v az >/dev/null 2>&1 && source $BREW_PREFIX/etc/bash_completion.d/az
+# command -v az >/dev/null 2>&1 && _evalcache cat "$BREW_PREFIX/etc/bash_completion.d/az"
 
 alias x="exit"
 alias vi="nvim"
