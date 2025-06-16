@@ -6,22 +6,25 @@ local get_active_lsp = function()
     return msg
   end
 
-  local lsps = ""
+  local lsps = {}
   for _, client in ipairs(clients) do
+    ---@class vim.lsp.ClientConfig
+    local config = client.config
     ---@diagnostic disable-next-line: undefined-field
-    local filetypes = client.config.filetypes
+    local filetypes = config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      lsps = lsps .. "|" .. client.name
+      local short_name = string.gsub(client.name, "_?ls", "")
+      table.insert(lsps, short_name)
     end
   end
-  return string.sub(lsps, 2)
+  return table.concat(lsps, "·")
 end
 
 local get_lualine_y = function()
   local defaults = {
     {
       get_active_lsp,
-      icon = "",
+      icon = "🌀",
     },
     {
       "diagnostics",

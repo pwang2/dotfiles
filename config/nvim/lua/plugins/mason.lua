@@ -1,7 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
-    version = "1.11.0",
+    -- version = "1.11.0",
 
     priority = 900,
     cmd = "Mason",
@@ -11,8 +11,9 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    version = "1.32.0",
+    -- version = "1.32.0",
     opts = {
+      automatic_enable = false,
       automatic_installation = false,
       -- only use names from the left column of
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
@@ -25,7 +26,7 @@ return {
         "html",
         "ts_ls",
         "pyright",
-        "volar",
+        "vue_ls",
         "tailwindcss",
         "rust_analyzer",
         "nginx_language_server",
@@ -35,6 +36,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    lazy = true,
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {

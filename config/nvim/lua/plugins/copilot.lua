@@ -12,7 +12,8 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
-    lazy = false,
+    lazy = true,
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionAction" },
     dependencies = {
       "ravitemer/mcphub.nvim",
       "nvim-lua/plenary.nvim",
@@ -96,7 +97,7 @@ return {
             show_references = true,
             start_in_insert_mode = false,
             window = {
-              layout = "float", -- float|vertical|horizontal|buffer
+              -- layout = "float", -- float|vertical|horizontal|buffer
               height = 0.8,
               relative = "editor",
               position = "right",
