@@ -18,6 +18,7 @@ return {
       -- only use names from the left column of
       -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
       ensure_installed = {
+        "jdtls",
         "lua_ls",
         "cssls",
         "bashls",
@@ -54,6 +55,9 @@ return {
 
         "codelldb",
         "debugpy",
+        "java-debug-adapter",
+
+        "java-test",
       },
     },
   },

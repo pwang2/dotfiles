@@ -18,10 +18,13 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lspconfig = require("lspconfig")
-    local lspconfigutil = require("lspconfig.util")
     local lspsetup = require("utils.lspsetup")
 
-    lspsetup.setup(lspconfigutil)
+    lspsetup.setup(lspconfig.util)
+    lspconfig.jdtls.setup({
+      filetypes = { "java" },
+      root_dir = lspconfig.util.root_pattern("build.gradle", "pom.xml", ".git"),
+    })
     lspconfig.rust_analyzer.setup({
       settings = {
         ["rust-analyzer"] = {

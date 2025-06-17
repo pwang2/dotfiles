@@ -54,6 +54,7 @@ return {
       "nvim-neotest/nvim-nio",
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
+      "mfussenegger/nvim-jdtls",
       "mxsdev/nvim-dap-vscode-js",
       {
         -- https://theosteiner.de/debugging-javascript-frameworks-in-neovim
@@ -141,6 +142,20 @@ return {
         },
       }
       require("dap-python").setup("python3")
+
+      dap.configurations.java = {
+        {
+          type = "java",
+          request = "launch",
+          name = "Launch Java Main",
+          mainClass = function()
+            return vim.fn.input("Main class > ")
+          end,
+          projectName = function()
+            return vim.fn.input("Project name (optional) > ")
+          end,
+        },
+      }
     end,
   },
 }
