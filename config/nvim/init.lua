@@ -46,3 +46,8 @@ vim.cmd([[
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
   nnoremap <silent> <leader>rl   <cmd>set ff=unix<CR> :e ++ff=dos<CR>
 ]])
+
+vim.cmd([[
+  cab cc CodeCompanion
+  cab t Telescope
+]])

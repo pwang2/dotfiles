@@ -1,8 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
-    -- version = "1.11.0",
-
+    lazy = true,
     priority = 900,
     cmd = "Mason",
     opts = {
@@ -11,14 +10,11 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    -- version = "1.32.0",
     opts = {
       automatic_enable = false,
       automatic_installation = false,
-      -- only use names from the left column of
-      -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+      -- use name in mason-registry
       ensure_installed = {
-        "jdtls",
         "lua_ls",
         "cssls",
         "bashls",
@@ -55,9 +51,6 @@ return {
 
         "codelldb",
         "debugpy",
-        "java-debug-adapter",
-
-        "java-test",
       },
     },
   },

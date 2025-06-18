@@ -2,7 +2,7 @@ return {
   {
     "github/copilot.vim",
     enabled = true,
-    lazy = false,
+    lazy = true,
     init = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
@@ -142,7 +142,6 @@ return {
       end
 
       vim.api.nvim_create_user_command("CodeCompanionChatSave", save_codecompanion_chat, {})
-      vim.cmd([[cab cc CodeCompanion]])
     end,
   },
 }
