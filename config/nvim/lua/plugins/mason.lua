@@ -1,7 +1,6 @@
 return {
   {
     "mason-org/mason.nvim",
-    lazy = true,
     priority = 900,
     cmd = "Mason",
     opts = {
@@ -10,6 +9,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       automatic_enable = false,
       automatic_installation = false,

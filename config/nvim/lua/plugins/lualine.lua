@@ -29,20 +29,9 @@ local get_lualine_y = function()
     {
       "diagnostics",
       sources = { "nvim_diagnostic", "nvim_lsp" },
-      symbols = { error = "🆇 ", warn = "🔴 ", info = "❕", hint = " " },
+      symbols = { error = "❌", warn = "🚨 ", info = "ℹ️", hint = "💡 " },
     },
   }
-
-  if os.getenv("CODEIUM_ENABLED") == "1" then
-    local codeium = {
-      function()
-        return vim.api.nvim_call_function("codeium#GetStatusString", {})
-      end,
-      icon = "👽",
-    }
-    table.insert(defaults, 1, codeium)
-  end
-
   return defaults
 end
 
@@ -92,6 +81,7 @@ local transparent = {
 
 return {
   "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
   dependencies = {
     "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -99,15 +89,11 @@ return {
   opts = {
     options = {
       theme = transparent,
-      -- theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },
     sections = {
-      lualine_x = {
-        -- Other lualine components in "x" section
-        -- { require("mcphub.extensions.lualine") },
-      },
+      lualine_x = {},
       lualine_y = get_lualine_y(),
       lualine_z = {
         "location",

@@ -1,8 +1,9 @@
 return {
   {
     "github/copilot.vim",
-    enabled = true,
-    lazy = true,
+    event = "InsertEnter",
+    -- need to be loaded first or the code completion will not work properly
+    lazy = false,
     init = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true

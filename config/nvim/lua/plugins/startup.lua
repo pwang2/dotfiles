@@ -1,7 +1,6 @@
 return {
   "goolord/alpha-nvim",
-  lazy = false,
-  -- enabled = false,
+  event = "VimEnter",
   config = function()
     local config_path = vim.fn.stdpath("config")
     local nwd = require("nvim-web-devicons")

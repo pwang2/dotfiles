@@ -1,6 +1,6 @@
 return {
-  { "edkolev/tmuxline.vim" },
-  { "ggandor/lightspeed.nvim" },
+  { "edkolev/tmuxline.vim", cmd = "Tmuxline" },
+  { "ggandor/lightspeed.nvim", event = "BufRead" },
   { "simeji/winresizer" },
   { "mbbill/undotree" },
   { "tpope/vim-repeat" },
@@ -15,6 +15,7 @@ return {
   { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>" } } },
   {
     "norcalli/nvim-colorizer.lua",
+    ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
     config = function()
       local opts = { "*", css = { css = true, css_fn = true } }
       require("colorizer").setup(opts)

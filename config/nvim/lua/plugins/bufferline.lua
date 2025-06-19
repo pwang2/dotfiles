@@ -1,6 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
-  lazy = false,
+  event = "BufReadPost",
   keys = {
     { "<leader>1", "<cmd>lua require('bufferline').go_to(1, true)<cr>", silent = true },
     { "<leader>2", "<cmd>lua require('bufferline').go_to(2, true)<cr>", silent = true },
