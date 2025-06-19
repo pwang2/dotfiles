@@ -15,6 +15,7 @@ return {
       automatic_installation = false,
       -- use name in mason-registry
       ensure_installed = {
+        "jdtls",
         "lua_ls",
         "cssls",
         "bashls",
