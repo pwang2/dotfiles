@@ -32,6 +32,11 @@ vim.cmd([[
 
   autocmd FileType json,jsonc,markdown    setlocal conceallevel=1
   autocmd FileType markdown               setlocal wrap linebreak
+
+ autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 ]])
 
 vim.cmd([[

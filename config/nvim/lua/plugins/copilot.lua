@@ -4,6 +4,13 @@ return {
     event = "InsertEnter",
     -- need to be loaded first or the code completion will not work properly
     lazy = false,
+    config = function()
+      local opts = { expr = true, silent = true, noremap = true }
+      vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', opts)
+      vim.api.nvim_set_keymap("i", "<C-k>", "copilot#Dismiss()", opts)
+      vim.api.nvim_set_keymap("i", "<C-l>", "copilot#Next()", opts)
+      vim.api.nvim_set_keymap("i", "<C-h>", "copilot#Previous()", opts)
+    end,
     init = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true

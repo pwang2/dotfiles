@@ -9,6 +9,7 @@ return {
         rust = { require("formatter.filetypes.rust").rustfmt },
         python = { require("formatter.filetypes.python").ruff }, --black
         lua = { require("formatter.filetypes.lua").stylua },
+        java = { require("formatter.filetypes.java").google_java_format },
         typescript = { prettier },
         javascript = { prettier },
         css = { prettier },
@@ -25,9 +26,4 @@ return {
     augroup("__formatter__", { clear = true })
     autocmd("BufWritePost", { group = "__formatter__", command = ":FormatWrite" })
   end,
-
-  keys = {
-    { "<leader>f", "<cmd>FormatWrite<CR>", { silent = true } },
-    { "<localleader>f", "<cmd>FormatWrite<CR>", { silent = true } },
-  },
 }

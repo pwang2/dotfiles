@@ -21,7 +21,7 @@ return {
     local lspsetup = require("utils.lspsetup")
 
     lspsetup.setup(lspconfig.util)
-    lspconfig.jdtls.setup()
+    lspconfig.jdtls.setup({})
     lspconfig.rust_analyzer.setup({
       settings = {
         ["rust-analyzer"] = {

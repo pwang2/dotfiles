@@ -24,17 +24,6 @@ M.setup = function(lspconfigutil)
   local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
   require("lspconfig.ui.windows").default_options.border = borderStyle
 
-  -- https://neovim.io/doc/user/lsp.html#lsp-handlers
-  local origin_ofp = vim.lsp.util.open_floating_preview
-  local patch_float_window = function(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.border = borderStyle
-    -- opts.max_width = opts.max_width or 80
-    opts.max_width = 80
-    return origin_ofp(contents, syntax, opts, ...)
-  end
-  vim.lsp.util.open_floating_preview = patch_float_window
-
   local on_attach = function(_, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
@@ -75,9 +64,11 @@ M.setup = function(lspconfigutil)
     vim.lsp.protocol.make_client_capabilities(),
     require("cmp_nvim_lsp").default_capabilities()
   )
+
   lspconfigutil.default_config = vim.tbl_extend("force", lspconfigutil.default_config, {
     on_attach = on_attach,
     capabilities = capabilities,
   })
 end
+
 return M

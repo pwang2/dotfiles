@@ -49,6 +49,7 @@ return {
         "black",
         "shfmt",
         "yamlfmt",
+        "google-java-format",
 
         "codelldb",
         "debugpy",

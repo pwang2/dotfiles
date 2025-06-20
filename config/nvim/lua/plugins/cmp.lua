@@ -9,7 +9,6 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
-      "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
@@ -22,7 +21,7 @@ return {
 
       local has_words_before = function()
         --luacheck: ignore unpack
-        unpack = unpack or table.unpack
+        local unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
@@ -76,11 +75,11 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          ["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-          -- ["<C-k>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
           ["<C-k>"] = cmp.mapping({
             i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
             c = function(fallback)
@@ -91,19 +90,6 @@ return {
               end
             end,
           }),
-          ["<C-j>"] = cmp.mapping(function(fallback)
-            cmp.mapping.abort()
-            local copilot_keys = vim.fn["copilot#Accept"]()
-            if copilot_keys ~= "" then
-              vim.api.nvim_feedkeys(copilot_keys, "i", true)
-            else
-              -- local copilot_keys = vim.fn["codeium#Accept"]()
-              -- if copilot_keys ~= "" then
-              --   vim.api.nvim_feedkeys(copilot_keys, "i", true)
-              -- else
-              fallback()
-            end
-          end),
         },
         sources = cmp.config.sources({
           { name = "vsnip", max_item_count = 3, priority = 50 },
