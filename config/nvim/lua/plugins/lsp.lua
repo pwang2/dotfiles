@@ -1,5 +1,9 @@
 return {
   "neovim/nvim-lspconfig",
+  keys = {
+    { "<leader>rr", "<cmd>LspRestart<cr>", { silent = true } },
+  },
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "b0o/schemastore.nvim",
     {
@@ -12,10 +16,6 @@ return {
       end,
     },
   },
-  keys = {
-    { "<leader>rr", "<cmd>LspRestart<cr>", { silent = true } },
-  },
-  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lspconfig = require("lspconfig")
     local lspsetup = require("utils.lspsetup")

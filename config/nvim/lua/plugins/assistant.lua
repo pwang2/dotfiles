@@ -20,18 +20,18 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
-    lazy = true,
-    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionAction" },
+    event = "VeryLazy",
     dependencies = {
       "ravitemer/mcphub.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "ravitemer/codecompanion-history.nvim",
     },
     keys = {
       {
         "<leader>c",
-        "<cmd>CodeCompanionChat toggle<cr>",
-        desc = "toggle chat window",
+        "<cmd>CodeCompanionChat copilot toggle<cr>",
+        desc = "toggle chat window(copilot)",
         noremap = true,
       },
       {
@@ -43,10 +43,19 @@ return {
     },
     config = function()
       require("codecompanion").setup({
-        opts = {
-          log_level = "DEBUG", -- or "TRACE"
+        adapters = {
+          deepseek = function()
+            return require("codecompanion.adapters").extend("deepseek", {
+              env = {
+                api_key = os.getenv("DEEPSEEK_API_KEY"),
+              },
+            })
+          end,
         },
         extensions = {
+          history = {
+            enabled = true,
+          },
           vectorcode = {
             opts = {
               add_tool = true,
@@ -64,33 +73,6 @@ return {
           },
         },
 
-        strategies = {
-          chat = {
-            roles = {
-              ---The header name for the LLM's messages
-              ---@type string|fun(adapter: CodeCompanion.Adapter): string
-              llm = function(adapter)
-                return adapter.formatted_name
-              end,
-
-              ---The header name for your messages
-              ---@type string
-              user = "Peng",
-            },
-            slash_commands = {
-              ["file"] = {
-                -- Location to the slash command in CodeCompanion
-                callback = "strategies.chat.slash_commands.file",
-                description = "Select a file using Telescope",
-                opts = {
-                  provider = "telescope", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks"
-                  contains_code = true,
-                },
-              },
-            },
-            tools = {},
-          },
-        },
         display = {
           chat = {
             icons = {
@@ -100,7 +82,7 @@ return {
             auto_scroll = false,
             intro_message = "AI will take your job soon.",
             show_header_separator = false,
-            -- separator = "─", -- The separator between the different messages in the chat buffer
+            separator = "─", -- The separator between the different messages in the chat buffer
             show_settings = false,
             show_references = true,
             start_in_insert_mode = false,

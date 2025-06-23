@@ -1,6 +1,7 @@
 return {
   {
     "kosayoda/nvim-lightbulb",
+    event = "LspAttach",
     config = function()
       -- https://github.com/kosayoda/nvim-lightbulb?tab=readme-ov-file#configuration
       require("nvim-lightbulb").setup({
@@ -10,6 +11,7 @@ return {
   },
   {
     "Chaitanyabsprip/fastaction.nvim",
+    event = "LspAttach",
     config = function()
       -- https://github.com/Chaitanyabsprip/fastaction.nvim?tab=readme-ov-file#configuration
       require("fastaction").setup({

@@ -55,18 +55,16 @@ return {
         style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
         themable = true, -- allows highlight groups to be overriden i.e. sets highlights as default
         numbers = "both", -- "none" | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-        diagnostics = "nvim_lsp",
-        diagnostics_update_on_event = true, -- use nvim's diagnostic handler
-        diagnostics_indicator = function(count)
-          return "(" .. count .. ")"
-        end,
+        -- --NOTE: lsp is causing the tab rendering have some weird background colors
+        --
+        -- diagnostics = "nvim_lsp",
+        -- diagnostics_update_on_event = true, -- use nvim's diagnostic handler
+        -- diagnostics_indicator = function(count)
+        --   return "(" .. count .. ")"
+        -- end,
         color_icons = true,
         separator_style = "slant", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
-        always_show_bufferline = false,
-        indicator = {
-          icon = "▎", -- this should be omitted if indicator style is not 'icon'
-          style = "icon", --"icon" | "underline" | "none",
-        },
+        always_show_bufferline = true,
         offsets = {
           {
             filetype = "NvimTree",

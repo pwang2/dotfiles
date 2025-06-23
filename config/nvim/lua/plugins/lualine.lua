@@ -81,7 +81,7 @@ local transparent = {
 
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  event = "BufReadPost",
   dependencies = {
     "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",

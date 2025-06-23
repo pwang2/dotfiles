@@ -1,7 +1,6 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    lazy = true,
     event = { "CmdLineEnter", "InsertEnter" },
     dependencies = {
       "onsails/lspkind-nvim",
@@ -13,7 +12,6 @@ return {
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
       "rafamadriz/friendly-snippets",
-      "vscode-kubernetes-tools/vscode-kubernetes-tools",
     },
     config = function()
       local cmp = require("cmp")
@@ -108,26 +106,23 @@ return {
           documentation = cmp.config.window.bordered(),
           completion = cmp.config.window.bordered(),
         },
-        experimental = {
-          --disable this will allow codeium's ghost_text not appear at the same time
-          ghost_text = false,
-        },
+        -- -- delete me next time if you find no use
+        -- experimental = {
+        --   --disable this will allow codeium's ghost_text not appear at the same time
+        --   ghost_text = false,
+        -- },
       })
 
       -- `?` cmdline setup.
       cmp.setup.cmdline("?", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
+        sources = { { name = "buffer" } },
       })
 
       -- `/` cmdline setup.
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
+        sources = { { name = "buffer" } },
       })
 
       -- `:` cmdline setup.

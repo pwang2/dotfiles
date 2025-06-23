@@ -1,6 +1,6 @@
 return {
   "goolord/alpha-nvim",
-  event = "VimEnter",
+  cmd = { "Alpha" },
   config = function()
     local config_path = vim.fn.stdpath("config")
     local nwd = require("nvim-web-devicons")
@@ -212,7 +212,7 @@ return {
     alpha.setup(opts)
 
     vim.cmd([[
-        " nnoremap <leader>aa   <cmd>tabnew<bar>Alpha<CR>
-      ]])
+      nnoremap <leader>aa   <cmd>tabnew<bar>Alpha<CR>
+    ]])
   end,
 }
