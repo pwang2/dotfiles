@@ -5,6 +5,7 @@ return {
     local prettier = require("formatter.defaults.prettier")
     require("formatter").setup({
       filetype = {
+        zsh = { require("formatter.filetypes.sh").shfmt },
         sh = { require("formatter.filetypes.sh").shfmt },
         rust = { require("formatter.filetypes.rust").rustfmt },
         python = { require("formatter.filetypes.python").ruff }, --black
