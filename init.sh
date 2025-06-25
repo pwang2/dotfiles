@@ -10,6 +10,10 @@ for config in ${configs}; do
   ln -s "${CWD}/config/${config}" "$HOME/.config"
 done
 
+BRAVE_API_KEY="$BRAVE_API_KEY" envsubst <"$CWD/config/mcphub/servers-no-cred.json" >/home/pwang2/.config/mcphub/servers.json
+
+#later when the .config/mcphub/servers.json is updated, incron will update the file in dotfiles
+
 rm -rf "${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}"
 ln -s "${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}" "$HOME"
 

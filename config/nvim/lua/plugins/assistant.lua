@@ -1,7 +1,7 @@
 return {
   {
     "github/copilot.vim",
-    event = "InsertEnter",
+    -- event = "InsertEnter",
     -- need to be loaded first or the code completion will not work properly
     lazy = false,
     config = function()
@@ -22,7 +22,6 @@ return {
     "olimorris/codecompanion.nvim",
     event = "VeryLazy",
     dependencies = {
-      "ravitemer/mcphub.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/codecompanion-history.nvim",
@@ -57,6 +56,7 @@ return {
             enabled = true,
           },
           vectorcode = {
+            enabled = false,
             opts = {
               add_tool = true,
               add_slash_command = true,
