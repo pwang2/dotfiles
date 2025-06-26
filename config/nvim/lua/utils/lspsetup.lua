@@ -27,29 +27,35 @@ M.setup = function(lspconfigutil)
   local on_attach = function(_, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
-    local mk = function(key, cmd)
-      vim.keymap.set("n", key, cmd, opts)
+    local mk = function(key, cmd, desc, mode)
+      if desc then
+        opts.desc = desc
+      end
+      if mode == nil then
+        mode = "n"
+      end
+      vim.keymap.set(mode, key, cmd, opts)
     end
 
     -- mk("gd", vim.lsp.buf.definition)  --use trouble
     mk("gv", function()
       vim.cmd([[vsplit]])
       vim.lsp.buf.definition()
-    end)
+    end, "Go to definition in vertical split")
     -- mk("gD", vim.lsp.buf.declaration)
     -- mk("gi", vim.lsp.buf.implementation)
-    mk("<leader>k", vim.lsp.buf.signature_help)
-    mk("<leader>D", vim.lsp.buf.type_definition)
-    mk("<leader>rn", vim.lsp.buf.rename)
+    mk("<leader>k", vim.lsp.buf.signature_help, "Signature help")
+    mk("<leader>D", vim.lsp.buf.type_definition, "Type definition")
+    mk("<leader>rn", vim.lsp.buf.rename, "Rename")
 
-    mk("K", vim.lsp.buf.hover)
-    mk("<space>e", vim.diagnostic.open_float)
+    mk("K", vim.lsp.buf.hover, "Hover documentation")
+    mk("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
     -- mk("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
-    mk("[d", vim.diagnostic.goto_prev)
-    mk("]d", vim.diagnostic.goto_next)
+    mk("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    mk("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
 
-    vim.keymap.set("n", "<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', opts)
-    vim.keymap.set("v", "<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', opts)
+    mk("<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', "Code action")
+    mk("<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', "Range code action", "v")
 
     --mk("<leader>ca", vim.lsp.code_action) --use fastaction.code_action
     --mk("<leader>f", vim.lsp.format) --use formatter.nvim

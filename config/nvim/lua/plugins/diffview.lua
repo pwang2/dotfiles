@@ -29,9 +29,11 @@ return {
         vim.cmd("tabclose #")
       end,
     },
-    { "<leader>df", "<cmd>DiffviewOpen<cr>" },
-    { "<leader>dfc", "<cmd>DiffviewClose<cr>" },
-    { "<leader>dfh", "<cmd>DiffviewFileHistory %<cr>" },
+    { "<leader>df", "<cmd>DiffviewOpen<cr>",  desc = "Open Diffview"  },
+    { "<leader>dfc", "<cmd>DiffviewClose<cr>",  desc = "Close Diffview"  },
+    { "<leader>dfh", "<cmd>DiffviewFileHistory %<cr>",  desc = "File History"  },
+    { "<leader>dfH", "<cmd>DiffviewFileHistory<cr>",  desc = "File History (All Files)"  },
+    { "<leader>dfs", "<cmd>DiffviewToggleFiles<cr>",  desc = "Toggle File Panel"  },
   },
   config = function()
     vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#263834" })

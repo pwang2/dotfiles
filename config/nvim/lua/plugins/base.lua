@@ -12,7 +12,7 @@ return {
   { "nvim-tree/nvim-web-devicons" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
-  { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>" } } },
+  { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>", desc="Delete Buffer" } } },
   {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },

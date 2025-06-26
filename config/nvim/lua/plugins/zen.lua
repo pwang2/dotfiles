@@ -34,6 +34,7 @@ return {
     },
   },
   keys = {
-    { "<leader><leader>", "<cmd>ZenMode<CR>", { silent = true } },
+    { "<leader><leader>", "<cmd>ZenMode<CR>", { silent = true }, desc = "Toggle Zen Mode" },
+    { "<leader>z", "<cmd>ZenMode<CR>", { silent = true }, desc = "Toggle Zen Mode" },
   },
 }
