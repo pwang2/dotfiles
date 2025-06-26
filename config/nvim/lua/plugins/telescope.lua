@@ -11,7 +11,6 @@ return {
       { "<F1>", "<cmd>Telescope<CR>", { silent = true } },
       { "<C-p>", "<cmd>Telescope find_files<CR>", { silent = true } },
       { "<leader>f", "<cmd>Telescope resume<CR>", { silent = true } },
-      { "<leader>s", "<cmd>Telescope symbols<CR>", { silent = true } },
       { "<leader>ff", "<cmd>Telescope find_files<CR>", { silent = true } },
       { "<leader>fg", "<cmd>Telescope live_grep<CR>", { silent = true } },
       { "<leader>fb", "<cmd>Telescope buffers<CR>", { silent = true } },
@@ -22,6 +21,7 @@ return {
     config = function()
       local trouble = require("trouble.sources.telescope")
       local troublemaker = trouble.open
+
       vim.cmd([[
         highlight TelescopeBorder guifg=#585858
       ]])
@@ -47,7 +47,6 @@ return {
           },
         },
       })
-
     end,
   },
 }

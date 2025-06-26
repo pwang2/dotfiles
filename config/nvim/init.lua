@@ -40,7 +40,6 @@ vim.cmd([[
 ]])
 
 vim.cmd([[
-  nnoremap  <silent> <leader>sv    <cmd>source $MYVIMRC<CR>
   nnoremap <expr> j     v:count ? 'j' : 'gj'
   nnoremap <expr> k     v:count ? 'k' : 'gk'
 
@@ -49,7 +48,6 @@ vim.cmd([[
 
   nnoremap <silent> <leader>aa   <cmd>Alpha<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
-  nnoremap <silent> <leader>rl   <cmd>set ff=unix<CR> :e ++ff=dos<CR>
 ]])
 
 vim.cmd([[
