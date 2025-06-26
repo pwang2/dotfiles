@@ -14,7 +14,7 @@ return {
   ---@class AutoSession.Config
   opts = {
     suppressed_dirs = { "~/" },
-    allowed_dirs = { "~/dotfiles", "~/emd-mono" },
+    allowed_dirs = { "~/dotfiles", "~/emd-mono/UI" },
     bypass_save_filetypes = { "alpha", "dashboard", "codecompanion" },
   },
 }
