@@ -37,7 +37,7 @@ return {
       desc = "Go to references (Trouble)",
     },
     {
-      "<leader>xx",
+      "<leader>x",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics (Trouble)",
     },

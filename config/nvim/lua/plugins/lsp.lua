@@ -21,7 +21,15 @@ return {
     local lspsetup = require("utils.lspsetup")
 
     lspsetup.setup(lspconfig.util)
-    lspconfig.jdtls.setup({})
+    --see lsp server names: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+    lspconfig.jdtls.setup({
+      cmd = { "jdtls" },
+      root_dir = lspconfig.util.root_pattern("pom.xml", "build.gradle", ".git"),
+      init_options = {
+        bundles = vim.split(vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/*.jar"), "\n"),
+      },
+    })
+    lspconfig.omnisharp.setup({ cmd = { "OmniSharp" } })
     lspconfig.rust_analyzer.setup({
       settings = {
         ["rust-analyzer"] = {
@@ -31,6 +39,7 @@ return {
         },
       },
     })
+
     lspconfig.gopls.setup({})
     lspconfig.pyright.setup({})
     lspconfig.tailwindcss.setup({ filetypes = { "vue", "html", "css", "javascript", "typescript" } })

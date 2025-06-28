@@ -18,6 +18,11 @@ return {
     event = "InsertEnter",
     cmd = "Spectre",
     keys = { { "<leader>s", "<cmd>Spectre<CR>", desc = "Replace in files" } },
+    opts = {
+      line_sep_start = string.rep("~", 80),
+      result_padding = "  ",
+      line_sep = string.rep("~", 80),
+    },
   },
   { "folke/which-key.nvim", event = "VeryLazy" },
   { "folke/trouble.nvim", cmd = "TroubleToggle" },
@@ -32,6 +37,8 @@ return {
       require("colorizer").setup(opts)
     end,
   },
+  --used to make lsp gd working
+  { "Hoffs/omnisharp-extended-lsp.nvim" },
   -- it seems windows terminal did a great job to make clipboard yank works very well,
   -- need to test macOs later on this
   -- { "ibhagwan/smartyank.nvim" },

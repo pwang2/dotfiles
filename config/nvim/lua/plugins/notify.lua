@@ -14,12 +14,20 @@ return {
     ---@class NoiceConfig
     local opts = {
       views = {
+        popup = {
+          size = {
+            width = "80",
+            height = "auto",
+            max_width = 160,
+          },
+        },
         cmdline_popup = {
           border = {
             padding = { 1, 2 },
           },
         },
       },
+
       routes = {
         {
           ---@class NoiceFilter

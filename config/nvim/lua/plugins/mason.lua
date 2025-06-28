@@ -1,19 +1,23 @@
 return {
   {
-    "mason-org/mason.nvim",
-    priority = 900,
-    cmd = "Mason",
-    opts = {
-      ui = { border = "rounded" },
-    },
-  },
-  {
     "mason-org/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      {
+        "mason-org/mason.nvim",
+        priority = 900,
+        cmd = "Mason",
+        opts = {
+          ui = { border = "rounded" },
+        },
+      },
+      "neovim/nvim-lspconfig",
+    },
     opts = {
       automatic_enable = false,
       automatic_installation = false,
       -- use name in mason-registry
+      --only accepts LSP servers and - more importantly - only accepts`nvim-lspconfig` server names
       ensure_installed = {
         "jdtls",
         "lua_ls",
@@ -21,9 +25,11 @@ return {
         "bashls",
         "yamlls",
         "jsonls",
+        "omnisharp",
         "html",
         "ts_ls",
         "pyright",
+        -- "vtsls",
         "vue_ls",
         "tailwindcss",
         "rust_analyzer",

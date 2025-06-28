@@ -24,10 +24,10 @@ M.setup = function(lspconfigutil)
   local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
   require("lspconfig.ui.windows").default_options.border = borderStyle
 
-  local on_attach = function(_, bufnr)
+  local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
-    local mk = function(key, cmd, desc, mode)
+    local keygen = function(key, cmd, desc, mode)
       if desc then
         opts.desc = desc
       end
@@ -37,30 +37,47 @@ M.setup = function(lspconfigutil)
       vim.keymap.set(mode, key, cmd, opts)
     end
 
-    -- mk("gd", vim.lsp.buf.definition)  --use trouble
-    mk("gv", function()
+    -- keygen("gd", vim.lsp.buf.definition)  --use trouble
+    keygen("gv", function()
       vim.cmd([[vsplit]])
       vim.lsp.buf.definition()
     end, "Go to definition in vertical split")
-    -- mk("gD", vim.lsp.buf.declaration)
-    -- mk("gi", vim.lsp.buf.implementation)
-    mk("<leader>k", vim.lsp.buf.signature_help, "Signature help")
-    mk("<leader>D", vim.lsp.buf.type_definition, "Type definition")
-    mk("<leader>rn", vim.lsp.buf.rename, "Rename")
+    -- keygen("gD", vim.lsp.buf.declaration)
+    -- keygen("gi", vim.lsp.buf.implementation)
+    keygen("<leader>k", vim.lsp.buf.signature_help, "Signature help")
+    keygen("<leader>D", vim.lsp.buf.type_definition, "Type definition")
+    keygen("rn", vim.lsp.buf.rename, "Rename")
 
-    mk("K", vim.lsp.buf.hover, "Hover documentation")
-    mk("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
-    -- mk("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
-    mk("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
-    mk("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+    keygen("K", vim.lsp.buf.hover, "Hover documentation")
+    keygen("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
+    -- keygen("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
+    keygen("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
+    keygen("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
 
-    mk("<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', "Code action")
-    mk("<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', "Range code action", "v")
+    keygen("<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', "Code action")
+    keygen("<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', "Range code action", "v")
+    keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
 
-    --mk("<leader>ca", vim.lsp.code_action) --use fastaction.code_action
-    --mk("<leader>f", vim.lsp.format) --use formatter.nvim
-    --mk("<leader>f", vim.lsp.format) --use formatter.nvim
-    --mk('gr', vim.lsp.references)  --use trouble gr
+    --keygen("<leader>ca", vim.lsp.code_action) --use fastaction.code_action
+    --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
+    --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
+    --keygen('gr', vim.lsp.references)  --use trouble gr
+    if client.server_capabilities.codeLensProvider then
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = bufnr,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+
+    --if current buffer filetype is C# and OmniSharp is attached, set omnisharp keymaps
+    if client.name == "omnisharp" and vim.bo[bufnr].filetype == "cs" then
+      vim.cmd([[
+          nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
+          nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
+          nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
+          nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
+        ]])
+    end
   end
 
   -- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38#issuecomment-1815265121
