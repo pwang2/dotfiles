@@ -39,6 +39,7 @@ return {
   },
   --used to make lsp gd working
   { "Hoffs/omnisharp-extended-lsp.nvim" },
+  { "godlygeek/tabular" },
   -- it seems windows terminal did a great job to make clipboard yank works very well,
   -- need to test macOs later on this
   -- { "ibhagwan/smartyank.nvim" },
