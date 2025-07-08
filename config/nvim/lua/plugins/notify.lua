@@ -53,6 +53,13 @@ return {
           },
           opts = { skip = true },
         },
+        {
+          filter = {
+            event = "notify",
+            find = "Error: unauthorized: token expired",
+          },
+          opts = { skip = true },
+        },
 
         {
           ---@class NoiceFilter
