@@ -41,7 +41,13 @@ return {
               { find = "%d more lines" },
             },
           },
-          opts = { skip = true },
+          view = "cmdline",
+          opts = {
+            timeout = 2000,
+            border = {
+              style = "none",
+            },
+          },
         },
 
         {
