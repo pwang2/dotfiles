@@ -33,7 +33,6 @@ for i in "${PATHS[@]}"; do
   [[ -d "$i" ]] && [[ ! $PATH == *"$i"* ]] && PATH="$i:$PATH"
 done
 
-
 if [[ -z $plugins ]]; then
   plugins=(
     azure
@@ -47,15 +46,17 @@ if [[ -z $plugins ]]; then
     zsh-github-copilot
   )
 fi
+
 source $ZSH/oh-my-zsh.sh
+
+# need to add the -M mode here or it will not work with zsh-vi-mode
+bindkey -M viins '^[|' zsh_gh_copilot_explain # bind Alt+shift+\ to explain
+bindkey -M viins '^[\' zsh_gh_copilot_suggest # bind Alt+\ to suggest
 
 # enable bash completion in zsh
 # autoload -U +X bashcompinit && bashcompinit
 # autoload -Uz compinit && compinit
 # zmodload zsh/complist
-
-bindkey '^[|' zsh_gh_copilot_explain  # bind Alt+shift+\ to explain
-bindkey '^[\' zsh_gh_copilot_suggest  # bind Alt+\ to suggest
 
 unset PATHS
 unset plugins

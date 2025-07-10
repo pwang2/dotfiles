@@ -18,6 +18,7 @@ return {
       auto_approve = false,
       -- Let LLMs start and stop MCP servers automatically
       auto_toggle_mcp_servers = true,
+      mcp_request_timeout = 180000, --Max time allowed for a MCP tool or resource to execute in milliseconds, set longer for long running tasks
       extensions = {
         codecompanion = {
           show_result_in_chat = true, -- Show tool results in chat
@@ -49,6 +50,5 @@ return {
       },
     }
     require("mcphub").setup(opts)
-    vim.api.nvim_set_hl(0, "MCPHubHeaderShortcut", { fg = "#98c379", bg = "none", bold = true })
   end,
 }
