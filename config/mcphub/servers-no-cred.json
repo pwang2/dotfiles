@@ -3,35 +3,23 @@
   "mcpServers": {
     "awslabs.code-doc-gen-mcp-server": {
       "command": "uvx",
-      "args": [
-        "awslabs.code-doc-gen-mcp-server@latest"
-      ],
+      "args": ["awslabs.code-doc-gen-mcp-server@latest"],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
       "disabled": false
     },
     "sqlite": {
-      "args": [
-        "mcp-server-sqlite@latest",
-        "--db-path",
-        "/home/pwang2/.mcphub/servers/sqlite/test.db"
-      ],
+      "args": ["mcp-server-sqlite@latest", "--db-path", "/tmp/sqlite/test.db"],
       "command": "uvx",
       "disabled": false
     },
     "brave-search": {
-      "autoApprove": [
-        "brave_web_search",
-        "brave_local_search"
-      ],
+      "autoApprove": ["brave_web_search", "brave_local_search"],
       "env": {
         "BRAVE_API_KEY": ""
       },
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-brave-search@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
       "command": "npx",
       "disabled": false
     },
@@ -47,10 +35,7 @@
         "search_nodes",
         "open_nodes"
       ],
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-memory@latest"],
       "command": "npx",
       "disabled": false,
       "custom_instructions": {
@@ -58,37 +43,18 @@
       }
     },
     "context7": {
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
-      ],
+      "args": ["-y", "@upstash/context7-mcp@latest"],
       "command": "npx",
       "disabled": false
     },
     "sequential-thinking": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
       "command": "npx",
       "disabled": false,
-      "autoApprove": [
-        "sequentialthinking"
-      ]
-    },
-    "filesystem": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/home/pwang2"
-      ],
-      "command": "npx",
-      "disabled": false
+      "autoApprove": ["sequentialthinking"]
     },
     "investor": {
-      "args": [
-        "investor-agent@latest"
-      ],
+      "args": ["investor-agent@latest"],
       "command": "uvx",
       "disabled": false,
       "autoApprove": [
@@ -104,10 +70,7 @@
       ]
     },
     "antvis/mcp-server-chart": {
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": ["-y", "@antv/mcp-server-chart"],
       "command": "npx",
       "disabled": false,
       "autoApprove": [
@@ -129,10 +92,7 @@
       ]
     },
     "mcp-puppeteer": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer@latest"],
       "command": "npx",
       "env": {
         "PUPPETEER_LAUNCH_OPTIONS": "{ \"headless\": true, \"args\": [] }",

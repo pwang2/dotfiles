@@ -4,13 +4,19 @@ set -xe
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-configs=$(ls -1)
+configs=$(ls -1 config)
 for config in ${configs}; do
-  rm -rf "${HOME}/.config/${config}"
-  ln -s "${CWD}/config/${config}" "$HOME/.config"
+  if [ $config == "mcphub" ]; then
+    mkdir -p "$HOME/.config/mcphub"
+    jq --arg key "$BRAVE_API_KEY" \
+      '.mcpServers["brave-search"].env.BRAVE_API_KEY = $key' \
+      "$HOME/dotfiles/config/mcphub/servers-no-cred.json" >"$HOME/.config/mcphub/servers.json"
+  else
+    rm -rf "${HOME}/.config/${config}"
+    ln -s "${CWD}/config/${config}" "$HOME/.config"
+  fi
 done
 
-BRAVE_API_KEY="$BRAVE_API_KEY" envsubst <"$CWD/config/mcphub/servers-no-cred.json" >/home/pwang2/.config/mcphub/servers.json
 
 #later when the .config/mcphub/servers.json is updated, incron will update the file in dotfiles
 
