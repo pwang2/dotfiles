@@ -21,7 +21,7 @@ done
 #later when the .config/mcphub/servers.json is updated, incron will update the file in dotfiles
 
 rm -rf "${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}"
-ln -s "${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}" "$HOME"
+ln -s ${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig} "$HOME"
 
 if uname | grep -q Darwin; then
   rm -rf "$HOME/hammerspoon"

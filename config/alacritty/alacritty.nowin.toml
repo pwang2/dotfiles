@@ -1,0 +1,4 @@
+[shell]
+program = "/bin/sh"
+args = ["-c", "tmux a || tmux new"]
+ocs52 = "CopyPaste"
