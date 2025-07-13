@@ -1,8 +1,7 @@
 return {
   "folke/noice.nvim",
-  lazy = true,
   event = "VeryLazy",
-  dependncies = {
+  dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-treesitter/nvim-treesitter",
     "rcarriga/nvim-notify",
@@ -41,12 +40,9 @@ return {
               { find = "%d more lines" },
             },
           },
-          view = "cmdline",
+          view = "mini",
           opts = {
             timeout = 2000,
-            border = {
-              style = "none",
-            },
           },
         },
 
@@ -113,5 +109,8 @@ return {
       },
     }
     require("noice").setup(opts)
+    require("notify").setup({
+      background_colour = "#000000",
+    })
   end,
 }
