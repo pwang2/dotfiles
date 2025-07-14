@@ -6,6 +6,12 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "folke/trouble.nvim",
+      "nvim-telescope/telescope-fzf-native.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-frecency.nvim",
+      "debugloop/telescope-undo.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
     },
     keys = {
       { "<F1>", "<cmd>Telescope<CR>", { silent = true } },
@@ -27,6 +33,28 @@ return {
       ]])
 
       require("telescope").setup({
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({
+              -- even more opts
+            }),
+          },
+          file_browser = {
+            theme = "ivy",
+            hijack_netrw = true,
+          },
+          frecency = {
+            show_scores = true,
+            show_unindexed = false,
+            ignore_patterns = { "*.git/*", "*/tmp/*" },
+          },
+          undo = {
+            use_delta = true,
+            side_by_side = true,
+            layout_strategy = "vertical",
+            layout_config = { preview_height = 0.8 },
+          },
+        },
         defaults = {
           max_results = 400,
           mappings = {
@@ -47,6 +75,12 @@ return {
           },
         },
       })
+
+      require("telescope").load_extension("ui-select")
+      require("telescope").load_extension("frecency")
+      require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("undo")
+      vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
     end,
   },
 }

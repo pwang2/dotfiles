@@ -2,15 +2,6 @@ return {
   "folke/trouble.nvim",
   cmd = "Trouble",
   opts = { use_diagnostic_signs = true },
-  dependencies = {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
-    "nvim-telescope/telescope-file-browser.nvim",
-    "nvim-telescope/telescope-frecency.nvim",
-    "debugloop/telescope-undo.nvim",
-    "nvim-telescope/telescope-symbols.nvim",
-    "folke/which-key.nvim",
-  },
   keys = {
     {
       "gi",
@@ -31,6 +22,11 @@ return {
       "gD",
       "<cmd>Trouble lsp_declarations<cr>",
       desc = "Go to declaration(Trouble)",
+    },
+    {
+      "gO",
+      "<cmd>Trouble lsp_document_symbols<cr>",
+      desc = "Document symbols(Trouble)",
     },
     {
       "gr",
