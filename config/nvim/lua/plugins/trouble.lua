@@ -9,6 +9,7 @@ return {
     "nvim-telescope/telescope-frecency.nvim",
     "debugloop/telescope-undo.nvim",
     "nvim-telescope/telescope-symbols.nvim",
+    "folke/which-key.nvim",
   },
   keys = {
     {

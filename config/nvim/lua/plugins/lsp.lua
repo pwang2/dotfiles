@@ -20,15 +20,9 @@ return {
     local lspconfig = require("lspconfig")
     local lspsetup = require("utils.lspsetup")
 
+    -- setup default on_attach and capabilities
     lspsetup.setup(lspconfig.util)
-    --see lsp server names: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-    lspconfig.jdtls.setup({
-      cmd = { "jdtls" },
-      root_dir = lspconfig.util.root_pattern("pom.xml", "build.gradle", ".git"),
-      init_options = {
-        bundles = vim.split(vim.fn.glob(vim.fn.stdpath("data") .. "/mason/packages/jdtls/plugins/*.jar"), "\n"),
-      },
-    })
+
     lspconfig.omnisharp.setup({ cmd = { "OmniSharp" } })
     lspconfig.rust_analyzer.setup({
       settings = {
