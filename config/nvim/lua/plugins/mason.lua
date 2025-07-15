@@ -29,7 +29,7 @@ return {
         "html",
         "ts_ls",
         "pyright",
-        -- "vtsls",
+        "vtsls",
         "vue_ls",
         "tailwindcss",
         "rust_analyzer",

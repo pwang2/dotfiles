@@ -156,6 +156,7 @@ function M.setup()
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
   -- print("JDTLS bundles: " .. vim.inspect(bundles))
+  --
   config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
