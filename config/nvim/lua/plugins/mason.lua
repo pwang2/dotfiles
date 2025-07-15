@@ -59,6 +59,8 @@ return {
 
         "codelldb",
         "debugpy",
+        "java-debug-adapter",
+        "java-test",
       },
     },
   },
