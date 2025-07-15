@@ -10,6 +10,7 @@ return {
   { "terryma/vim-multiple-cursors" },
   { "heavenshell/vim-jsdoc", build = "make install" },
   { "nvim-tree/nvim-web-devicons" },
+  { "echasnovski/mini.nvim", version = "*" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
   { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>", desc = "Delete Buffer" } } },

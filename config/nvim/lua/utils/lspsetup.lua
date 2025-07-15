@@ -66,7 +66,7 @@ M.on_attach = function(client, bufnr)
   --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
   --keygen('gr', vim.lsp.references)  --use trouble gr
   if client.server_capabilities.codeLensProvider then
-    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+    vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
       buffer = bufnr,
       callback = vim.lsp.codelens.refresh,
     })
@@ -77,7 +77,8 @@ M.on_attach = function(client, bufnr)
     vim.cmd([[
           nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
           nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
-          nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
+          
+          " nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
           nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
         ]])
   end
@@ -88,19 +89,6 @@ M.on_attach = function(client, bufnr)
     keygen("<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", "[java]Extract method")
     keygen("<leader>dt", "<Cmd>lua require'jdtls'.test_class()<CR>", "[java]Test class")
     keygen("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "[java]Test nearest method")
-
-    vim.cmd([[
-      augroup jdtls_lsp
-          autocmd!
-          autocmd FileType java lua require'jdtls.jdtls_setup'.setup()
-      augroup end
-      command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
-      command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
-      command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()")
-      command! -buffer JdtJol lua require('jdtls').jol()")
-      command! -buffer JdtBytecode lua require('jdtls').javap()")
-      command! -buffer JdtJshell lua require('jdtls').jshell()")
-    ]])
   end
 end
 

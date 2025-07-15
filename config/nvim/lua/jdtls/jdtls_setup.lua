@@ -26,7 +26,6 @@ function M.setup()
 
   vim.list_extend(bundles, vim.split(vim.fn.glob(path_to_jtest .. "/extension/server/*.jar", true), "\n"))
 
-  -- LSP settings for Java.
   local on_attach = function(_, bufnr)
     require("utils.lspsetup").on_attach(_, bufnr)
 
@@ -156,6 +155,7 @@ function M.setup()
   local extendedClientCapabilities = require("jdtls").extendedClientCapabilities
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
+  -- print("JDTLS bundles: " .. vim.inspect(bundles))
   config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,

@@ -80,6 +80,15 @@ return {
             find = "Failed to run formatter",
           },
         },
+        {
+          filter = { event = "msg_show" },
+          view = "notify",
+          opts = {
+            level = "info",
+            skip = false,
+            replace = false,
+          },
+        },
       },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**

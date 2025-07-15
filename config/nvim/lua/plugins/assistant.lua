@@ -29,7 +29,7 @@ return {
     keys = {
       {
         "<leader>c",
-        "<cmd>CodeCompanionChat copilot toggle<cr>",
+        "<cmd>CodeCompanionChat Toggle<cr>",
         desc = "toggle chat window(copilot)",
         noremap = true,
       },

@@ -44,7 +44,7 @@ vim.cmd([[
   nnoremap <expr> k     v:count ? 'k' : 'gk'
 
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
-  nnoremap <silent> <leader>cab  <cmd>execute('%bd<bar>e#<bar>bd#')<cr>
+  nnoremap <silent> cab  <cmd>execute('%bd<bar>e#<bar>bd#')<cr>
 
   nnoremap <silent> <leader>aa   <cmd>Alpha<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
@@ -54,3 +54,10 @@ vim.cmd([[
   cab cc CodeCompanion
   cab t Telescope
 ]])
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.jsonc", "tsconfig.json", "appsettings.*json" },
+  callback = function()
+    vim.bo.filetype = "jsonc"
+  end,
+})

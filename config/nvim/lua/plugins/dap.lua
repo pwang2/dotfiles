@@ -37,18 +37,9 @@ local function setup_debug_sign()
   sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "DapStopped", numhl = "DapStopped" })
 end
 
-local function dap_continue()
-  if vim.fn.filereadable(".vscode/launch.json") then
-    require("dap.ext.vscode").load_launchjs(nil, { ["pwa-chrome"] = { "vue", "javascript", "typescript" } })
-  end
-  require("dap").continue()
-end
-
 return {
   {
     "mfussenegger/nvim-dap",
-    enabled = false,
-    lazy = true,
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
@@ -63,22 +54,64 @@ return {
     },
     opts = {},
     keys = {
-      { "<F5>", dap_continue, desc = "DAP Continue" },
-      { "<leader>g", dap_continue, desc = "DAP Continue" },
-
-      { "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<cr>" },
-      { "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<cr>" },
-      { "<leader>cc", "<cmd>lua require('dap').run_to_cursor()<cr>" },
-      { "<F8>", "<cmd>lua require('dap').run_to_cursor()<cr>" },
-      { "<F10>", "<cmd>lua require('dap').step_over()<cr>" },
-      { "<F11>", "<cmd>lua require('dap').step_into()<cr>" },
-      { "<S-F10>", "<cmd>lua require('dap').step_out()<cr>" },
-      { "<leader>ev", "<cmd>lua require('dapui').eval()<cr>", mode = "v" },
-      { "<leader>wa", "<cmd>lua require('dapui').elements.watches.add()<cr>", mode = "v" },
-
-      { "<leader>j", "<cmd>lua require('dap').step_over()<cr>" },
-      { "<leader>k", "<cmd>lua require('dap').step_into()<cr>" },
-      { "<leader>l", "<cmd>lua require('dap').step_out()<cr>" },
+      {
+        "<F5>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "DAP Continue",
+      },
+      {
+        "<F9>",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "DAP Toggle Breakpoint",
+      },
+      {
+        "<F8>",
+        function()
+          require("dap").run_to_cursor()
+        end,
+        desc = "DAP Run to Cursor",
+      },
+      {
+        "<F10>",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "DAP Step Over",
+      },
+      {
+        "<F11>",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "DAP Step Into",
+      },
+      {
+        "<S-F10>",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "DAP Step Out",
+      },
+      {
+        "<leader>ev",
+        function()
+          require("dapui").eval()
+        end,
+        desc = "DAPUI Eval",
+        mode = "v",
+      },
+      {
+        "<leader>wa",
+        function()
+          require("dapui").elements.watches.add()
+        end,
+        desc = "DAPUI Add Watch",
+        mode = "v",
+      },
     },
     config = function()
       setup_debug_ui()
