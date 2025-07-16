@@ -101,9 +101,6 @@ M.capabilities = vim.tbl_deep_extend(
 )
 
 M.setup = function(lspconfigutil)
-  local borderStyle = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
-  require("lspconfig.ui.windows").default_options.border = borderStyle
-
   lspconfigutil.default_config = vim.tbl_extend("force", lspconfigutil.default_config, {
     on_attach = M.on_attach,
     capabilities = M.capabilities,

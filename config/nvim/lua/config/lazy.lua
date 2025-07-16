@@ -46,6 +46,8 @@ vim.opt.wildignore:append("node_modules/**,.git/**,dist/**")
 vim.opt.fillchars:append("eob: ")
 vim.opt.fillchars:append({ diff = " " })
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.winborder = "rounded"
+vim.diagnostic.config({ virtual_text = { current_line = true } })
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"

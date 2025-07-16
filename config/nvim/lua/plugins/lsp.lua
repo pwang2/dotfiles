@@ -136,54 +136,107 @@ return {
     })
 
     -- https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration
-    lspconfig.ts_ls.setup({
-      init_options = {
-        plugins = {
-          {
-            name = "@vue/typescript-plugin",
-            location = vim.fn.stdpath("data")
-              .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-            languages = { "vue" },
+    -- lspconfig.ts_ls.setup({
+    --   init_options = {
+    --     plugins = {
+    --       {
+    --         name = "@vue/typescript-plugin",
+    --         location = vim.fn.stdpath("data")
+    --           .. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
+    --         languages = { "vue" },
+    --       },
+    --     },
+    --   },
+    --   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+    --   root_dir = function(fname)
+    --     -- this is workaround for monorepo where the typescript is installed to the root node_modules
+    --     local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+    --
+    --     if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
+    --       return gitRoot
+    --     end
+    --     return vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
+    --   end,
+    -- })
+
+    -- -- "Hybrid" mode, volar exclusively manages the CSS/HTML sections.
+    -- lspconfig.volar.setup({
+    --   init_options = {
+    --     vue = {
+    --       hybridMode = true,
+    --     },
+    --     typescript = {
+    --       tsdk = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/typescript/lib",
+    --     },
+    --   },
+    --   on_new_config = function(new_config, new_root_dir)
+    --     local lib_path = new_root_dir .. "/node_modules/typescript/lib"
+    --     if lib_path then
+    --       new_config.init_options.typescript.tsdk = lib_path
+    --     end
+    --   end,
+    --   root_dir = function(fname)
+    --     -- this is workaround for monorepo where the typescript is installed to the root node_modules
+    --     local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+    --     if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
+    --       return gitRoot
+    --     end
+    --     local node_modules_path = vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
+    --     return node_modules_path
+    --   end,
+    -- })
+    --
+    --
+    local vue_language_server_path = vim.fn.stdpath("data")
+      .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+    local vue_plugin = {
+      name = "@vue/typescript-plugin",
+      location = vue_language_server_path,
+      languages = { "vue" },
+      configNamespace = "typescript",
+    }
+    local vtsls_config = {
+      settings = {
+        vtsls = {
+          tsserver = {
+            globalPlugins = {
+              vue_plugin,
+            },
           },
         },
       },
       filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-      root_dir = function(fname)
-        -- this is workaround for monorepo where the typescript is installed to the root node_modules
-        local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
+    }
 
-        if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
-          return gitRoot
-        end
-        return vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
-      end,
-    })
+    local vue_ls_config = {
+      on_init = function(client)
+        client.handlers["tsserver/request"] = function(_, result, context)
+          local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+          if #clients == 0 then
+            vim.notify("Could not find `vtsls` lsp client, `vue_ls` would not work without it.", vim.log.levels.ERROR)
+            return
+          end
+          local ts_client = clients[1]
 
-    -- "Hybrid" mode, volar exclusively manages the CSS/HTML sections.
-    lspconfig.volar.setup({
-      init_options = {
-        vue = {
-          hybridMode = true,
-        },
-        typescript = {
-          tsdk = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/typescript/lib",
-        },
-      },
-      on_new_config = function(new_config, new_root_dir)
-        local lib_path = new_root_dir .. "/node_modules/typescript/lib"
-        if lib_path then
-          new_config.init_options.typescript.tsdk = lib_path
+          local param = unpack(result)
+          local id, command, payload = unpack(param)
+          ts_client:exec_cmd({
+            title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+            command = "typescript.tsserverRequest",
+            arguments = {
+              command,
+              payload,
+            },
+          }, { bufnr = context.bufnr }, function(_, r)
+            local response_data = { { id, r.body } }
+            ---@diagnostic disable-next-line: param-type-mismatch
+            client:notify("tsserver/response", response_data)
+          end)
         end
       end,
-      root_dir = function(fname)
-        -- this is workaround for monorepo where the typescript is installed to the root node_modules
-        local gitRoot = vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1])
-        if gitRoot and vim.fn.filereadable(gitRoot .. "/package.json") == 1 then
-          return gitRoot
-        end
-        local node_modules_path = vim.fs.dirname(vim.fs.find("node_modules", { path = fname, upward = true })[1])
-        return node_modules_path
-      end,
-    })
+    }
+
+    lspconfig.vtsls.setup(vtsls_config)
+    lspconfig.volar.setup(vue_ls_config)
   end,
 }
