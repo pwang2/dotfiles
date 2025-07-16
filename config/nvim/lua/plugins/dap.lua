@@ -114,6 +114,10 @@ return {
       },
     },
     config = function()
+      require("nvim-dap-virtual-text").setup({
+        commented = true,
+      })
+
       setup_debug_ui()
       setup_debug_sign()
 
@@ -174,6 +178,17 @@ return {
         },
       }
       require("dap-python").setup("python3")
+
+      --convert keymap above to which-key
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>dh", "<cmd>lua require('dap.ui.widgets').hover()<CR>", desc = "DAP Hover" },
+        { "<leader>de", "<cmd>lua require('dapui').eval()<CR>", desc = "DAP Eval" },
+        { "<leader>dt", "<cmd>lua require('dapui').toggle()<CR>", desc = "DAP Toggle UI" },
+        { "<leader>dp", "<cmd>lua require('dap.ui.widgets').preview()<CR>", desc = "DAP Preview" },
+        { "<leader>df", "<cmd>lua require('dap.ui.widgets').frames()<CR>", desc = "DAP Frames" },
+        { "<leader>ds", "<cmd>lua require('dap.ui.widgets').scopes()<CR>", desc = "DAP Scopes" },
+      })
     end,
   },
 }

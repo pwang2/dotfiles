@@ -1,6 +1,6 @@
 return {
   "voldikss/vim-floaterm",
-  cmd = { "FloatermToggle" },
+  cmd = { "FloatermToggle", "FloatermNew", "FloatermKill", "FloatermPrev", "FloatermNext" },
   keys = {
     { "<C-t>", ":FloatermToggle<CR>", noremap = true, silent = true },
   },
