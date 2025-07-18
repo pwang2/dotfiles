@@ -34,7 +34,14 @@ return {
     },
   },
   keys = {
-    { "<leader><leader>", "<cmd>ZenMode<CR>", { silent = true }, desc = "Toggle Zen Mode" },
-    { "<leader>z", "<cmd>ZenMode<CR>", { silent = true }, desc = "Toggle Zen Mode" },
+    {
+      "<leader><leader>",
+      function()
+        vim.o.winborder = "none"
+        vim.cmd("ZenMode")
+      end,
+      { silent = true },
+      desc = "Toggle Zen Mode with option set first",
+    },
   },
 }

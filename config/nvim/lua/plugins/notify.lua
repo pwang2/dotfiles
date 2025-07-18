@@ -21,11 +21,11 @@ return {
         --       max_width = 160,
         --     },
         --   },
-        cmdline_popup = {
-          border = {
-            padding = { 1, 2 },
-          },
-        },
+        -- cmdline_popup = {
+        --   border = {
+        --     padding = { 1, 2 },
+        --   },
+        -- },
       },
 
       routes = {

@@ -11,8 +11,8 @@ vim.g.loaded_node_provider = 0
 vim.cmd([[
   hi link FoldColumn Comment
 
-  hi FloatBorder            guibg=NONE     guifg=#585858
-  hi WinBorder              guibg=NONE     guifg=#585858
+  hi FloatBorder            guibg=NONE     guifg=#5b5b5b
+  hi WinBorder              guibg=NONE     guifg=#5b5b5b
   hi WinSeparator                          guifg=#585858
   hi Visual                                guibg=#474e5d
   hi Folded                 guibg=NONE     guifg=#569cd6

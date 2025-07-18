@@ -28,6 +28,12 @@ return {
     },
     keys = {
       {
+        "<leader>ch",
+        "<cmd>CodeCompanionHistory<cr>",
+        desc = "toggle chat history window(copilot)",
+        noremap = true,
+      },
+      {
         "<leader>c",
         "<cmd>CodeCompanionChat Toggle<cr>",
         desc = "toggle chat window(copilot)",
@@ -132,6 +138,7 @@ return {
       end
 
       vim.api.nvim_create_user_command("CodeCompanionChatSave", save_codecompanion_chat, {})
+      vim.cmd([[ cab cch CodeCompanionHistory ]])
     end,
   },
 }
