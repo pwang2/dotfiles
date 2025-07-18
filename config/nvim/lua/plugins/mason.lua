@@ -61,6 +61,7 @@ return {
         "debugpy",
         "java-debug-adapter",
         "java-test",
+        "netcoredbg",
       },
     },
   },

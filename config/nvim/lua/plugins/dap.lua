@@ -179,6 +179,74 @@ return {
       }
       require("dap-python").setup("python3")
 
+      -- Find all .dll files in bin/Debug recursively
+      local function find_dlls()
+        local results = {}
+        local function scan(dir)
+          local handle = vim.uv.fs_scandir(dir)
+          if not handle then
+            return
+          end
+          while true do
+            local name, typ = vim.uv.fs_scandir_next(handle)
+            if not name then
+              break
+            end
+            local path = dir .. "/" .. name
+            if typ == "file" and name:match("%.dll$") then
+              table.insert(results, path)
+            elseif typ == "directory" then
+              scan(path)
+            end
+          end
+        end
+        scan(vim.fn.getcwd() .. "/bin/Debug")
+        return results
+      end
+
+      -- Build the project before debugging
+      local function build_project()
+        vim.fn.jobstart({ "dotnet", "build" }, {
+          stdout_buffered = true,
+          stderr_buffered = true,
+          on_exit = function(_, code)
+            if code ~= 0 then
+              vim.schedule(function()
+                vim.notify("dotnet build failed", vim.log.levels.ERROR)
+              end)
+            end
+          end,
+        })
+      end
+
+      dap.configurations.cs = {
+        {
+          type = "coreclr",
+          name = "launch - netcoredbg",
+          request = "launch",
+          program = function()
+            build_project()
+            local dlls = find_dlls()
+            if #dlls == 0 then
+              error("No .dll files found in bin/Debug")
+            end
+            local co = coroutine.running()
+            vim.ui.select(dlls, { prompt = "Select DLL to debug:" }, function(choice)
+              coroutine.resume(co, choice)
+            end)
+            return coroutine.yield()
+          end,
+          args = {}, -- Add args if needed
+          env = {}, -- Add env vars if needed
+        },
+      }
+
+      dap.adapters.coreclr = {
+        type = "executable",
+        command = vim.fn.exepath("netcoredbg"),
+        args = { "--interpreter=vscode" },
+      }
+
       --convert keymap above to which-key
       local wk = require("which-key")
       wk.add({
