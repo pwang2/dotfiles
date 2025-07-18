@@ -1,78 +1,10 @@
 {
-  "nativeMCPServers": [],
   "mcpServers": {
-    "awslabs.code-doc-gen-mcp-server": {
-      "command": "uvx",
-      "args": ["awslabs.code-doc-gen-mcp-server@latest"],
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      },
-      "disabled": false
-    },
-    "sqlite": {
-      "args": ["mcp-server-sqlite@latest", "--db-path", "/tmp/sqlite/test.db"],
-      "command": "uvx",
-      "disabled": false
-    },
-    "brave-search": {
-      "autoApprove": ["brave_web_search", "brave_local_search"],
-      "env": {
-        "BRAVE_API_KEY": ""
-      },
-      "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
-      "command": "npx",
-      "disabled": false
-    },
-    "memory": {
-      "autoApprove": [
-        "create_entities",
-        "create_relations",
-        "add_observations",
-        "delete_entities",
-        "delete_observations",
-        "delete_relations",
-        "read_graph",
-        "search_nodes",
-        "open_nodes"
-      ],
-      "args": ["-y", "@modelcontextprotocol/server-memory@latest"],
-      "command": "npx",
-      "disabled": false,
-      "custom_instructions": {
-        "text": "Follow these steps for each interaction:\n\n1. User Identification:\n   - You should assume that you are interacting with default_user\n   - If you have not identified default_user, proactively try to do so.\n\n2. Memory Retrieval:\n   - Always begin your chat by saying only \"Remembering...\" and retrieve all relevant information from your knowledge graph\n   - Always refer to your knowledge graph as your \"memory\"\n\n3. Memory\n   - While conversing with the user, be attentive to any new information that falls into these categories:\n     a) Basic Identity (age, gender, location, job title, education level, etc.)\n     b) Behaviors (interests, habits, etc.)\n     c) Preferences (communication style, preferred language, etc.)\n     d) Goals (goals, targets, aspirations, etc.)\n     e) Relationships (personal and professional relationships up to 3 degrees of separation)\n\n4. Memory Update:\n   - If any new information was gathered during the interaction, update your memory as follows:\n     a) Create entities for recurring organizations, people, and significant events\n     b) Connect them to the current entities using relations\n     b) Store facts about them as observations"
-      }
-    },
-    "context7": {
-      "args": ["-y", "@upstash/context7-mcp@latest"],
-      "command": "npx",
-      "disabled": false
-    },
-    "sequential-thinking": {
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
-      "command": "npx",
-      "disabled": false,
-      "autoApprove": ["sequentialthinking"]
-    },
-    "investor": {
-      "args": ["investor-agent@latest"],
-      "command": "uvx",
-      "disabled": false,
-      "autoApprove": [
-        "get_ticker_data",
-        "get_options",
-        "get_price_history",
-        "get_financial_statements",
-        "get_institutional_holders",
-        "get_insider_trades",
-        "calculate_technical_indicator",
-        "get_current_fng_tool",
-        "get_historical_fng_tool"
-      ]
-    },
     "antvis/mcp-server-chart": {
-      "args": ["-y", "@antv/mcp-server-chart"],
-      "command": "npx",
-      "disabled": false,
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
       "autoApprove": [
         "generate_area_chart",
         "generate_bar_chart",
@@ -89,16 +21,125 @@
         "generate_scatter_chart",
         "generate_treemap_chart",
         "generate_word_cloud_chart"
-      ]
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "awslabs.code-doc-gen-mcp-server": {
+      "args": [
+        "awslabs.code-doc-gen-mcp-server@latest"
+      ],
+      "command": "uvx",
+      "disabled": false,
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "brave-search": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search@latest"
+      ],
+      "autoApprove": [
+        "brave_web_search",
+        "brave_local_search"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "env": {
+        "BRAVE_API_KEY": ""
+      }
+    },
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "filesystem": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/pwang2"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "investor": {
+      "args": [
+        "investor-agent@latest"
+      ],
+      "autoApprove": [
+        "get_ticker_data",
+        "get_options",
+        "get_price_history",
+        "get_financial_statements",
+        "get_institutional_holders",
+        "get_insider_trades",
+        "calculate_technical_indicator",
+        "get_current_fng_tool",
+        "get_historical_fng_tool"
+      ],
+      "command": "uvx",
+      "disabled": false
     },
     "mcp-puppeteer": {
-      "args": ["-y", "@modelcontextprotocol/server-puppeteer@latest"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer@latest"
+      ],
       "command": "npx",
+      "disabled": false,
       "env": {
-        "PUPPETEER_LAUNCH_OPTIONS": "{ \"headless\": true, \"args\": [] }",
-        "ALLOW_DANGEROUS": true
+        "ALLOW_DANGEROUS": true,
+        "PUPPETEER_LAUNCH_OPTIONS": "{ \"headless\": true, \"args\": [] }"
+      }
+    },
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory@latest"
+      ],
+      "autoApprove": [
+        "create_entities",
+        "create_relations",
+        "add_observations",
+        "delete_entities",
+        "delete_observations",
+        "delete_relations",
+        "read_graph",
+        "search_nodes",
+        "open_nodes"
+      ],
+      "command": "npx",
+      "custom_instructions": {
+        "text": "Follow these steps for each interaction:\n\n1. User Identification:\n   - You should assume that you are interacting with default_user\n   - If you have not identified default_user, proactively try to do so.\n\n2. Memory Retrieval:\n   - Always begin your chat by saying only \"Remembering...\" and retrieve all relevant information from your knowledge graph\n   - Always refer to your knowledge graph as your \"memory\"\n\n3. Memory\n   - While conversing with the user, be attentive to any new information that falls into these categories:\n     a) Basic Identity (age, gender, location, job title, education level, etc.)\n     b) Behaviors (interests, habits, etc.)\n     c) Preferences (communication style, preferred language, etc.)\n     d) Goals (goals, targets, aspirations, etc.)\n     e) Relationships (personal and professional relationships up to 3 degrees of separation)\n\n4. Memory Update:\n   - If any new information was gathered during the interaction, update your memory as follows:\n     a) Create entities for recurring organizations, people, and significant events\n     b) Connect them to the current entities using relations\n     b) Store facts about them as observations"
       },
+      "disabled": false,
+      "disabled_tools": []
+    },
+    "sequential-thinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking@latest"
+      ],
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "sqlite": {
+      "args": [
+        "mcp-server-sqlite@latest",
+        "--db-path",
+        "/home/pwang2/.mcphub/servers/sqlite/test.db"
+      ],
+      "command": "uvx",
       "disabled": false
     }
-  }
+  },
+  "nativeMCPServers": []
 }
