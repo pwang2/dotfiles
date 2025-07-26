@@ -40,7 +40,7 @@ return {
             cmp.TriggerEvent.TextChanged,
             cmp.TriggerEvent.InsertEnter,
           },
-          completeopt = "menu,menuone,preinsert",
+          completeopt = "menu,menuone,preview,noselect",
           keyword_length = 1,
         },
         formatting = {
@@ -51,7 +51,7 @@ return {
             return item
           end,
         },
-        preselect = cmp.PreselectMode.Item,
+        preselect = cmp.PreselectMode.None,
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -77,11 +77,12 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
+          --<C-k> is used to confirm the snippet selection
           ["<C-k>"] = cmp.mapping({
             i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
             c = function(fallback)
@@ -103,8 +104,8 @@ return {
           { name = "buffer", max_item_count = 5, priority = 10 },
         }),
         confirm_opts = {
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = false,
         },
         window = {
           documentation = cmp.config.window.bordered(),
@@ -131,7 +132,9 @@ return {
 
       -- `:` cmdline setup.
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmp.mapping.preset.cmdline({
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
         sources = cmp.config.sources({
           { name = "path" },
         }, {
