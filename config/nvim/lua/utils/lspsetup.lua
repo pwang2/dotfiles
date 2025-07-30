@@ -100,10 +100,10 @@ M.capabilities = vim.tbl_deep_extend(
   require("cmp_nvim_lsp").default_capabilities()
 )
 
-M.setup = function(lspconfigutil)
-  lspconfigutil.default_config = vim.tbl_extend("force", lspconfigutil.default_config, {
-    on_attach = M.on_attach,
+M.setup = function()
+  vim.lsp.config("*", {
     capabilities = M.capabilities,
+    on_attach = M.on_attach,
   })
 end
 

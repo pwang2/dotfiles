@@ -14,10 +14,7 @@ return {
       "neovim/nvim-lspconfig",
     },
     opts = {
-      automatic_enable = false,
-      automatic_installation = false,
-      -- use name in mason-registry
-      --only accepts LSP servers and - more importantly - only accepts`nvim-lspconfig` server names
+      automatic_enable = true,
       ensure_installed = {
         "jdtls",
         "lua_ls",
@@ -27,9 +24,9 @@ return {
         "jsonls",
         "omnisharp",
         "html",
-        "ts_ls",
-        "pyright",
+        -- "ts_ls",
         "vtsls",
+        "pyright",
         "vue_ls",
         "tailwindcss",
         "rust_analyzer",
