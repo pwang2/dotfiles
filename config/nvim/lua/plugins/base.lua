@@ -13,7 +13,6 @@ return {
   { "echasnovski/mini.nvim", version = "*" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
-  { "moll/vim-bbye", keys = { { "<leader>q", "<cmd>:Bdelete<CR>", desc = "Delete Buffer" } } },
   {
     "nvim-pack/nvim-spectre",
     event = "InsertEnter",

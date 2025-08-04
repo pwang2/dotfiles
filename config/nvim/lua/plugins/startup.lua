@@ -1,5 +1,6 @@
 return {
   "goolord/alpha-nvim",
+  enabled = false,
   cmd = { "Alpha" },
   config = function()
     local config_path = vim.fn.stdpath("config")
