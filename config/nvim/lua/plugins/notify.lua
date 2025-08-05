@@ -9,6 +9,9 @@ return {
   keys = {
     { "<leader>fn", "<cmd>Telescope notify<cr>" },
   },
+  init = function()
+    vim.opt.lazyredraw = false
+  end,
   config = function()
     ---@class NoiceConfig
     local opts = {
