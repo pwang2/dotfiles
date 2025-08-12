@@ -16,6 +16,8 @@ return {
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_tab_fallback = ""
       vim.g.copilot_integration_id = "vscode-chat"
+      -- vim.g.copilot_proxy = "http://localhost:8080"
+      -- vim.g.copilot_proxy_strict_ssl = false
     end,
   },
   {
@@ -48,6 +50,15 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        -- change default llm
+        -- strategies = {
+        --   chat = {
+        --     adapter = {
+        --       name = "copilot",
+        --       model = "gpt-5",
+        --     },
+        --   },
+        -- },
         adapters = {
           deepseek = function()
             return require("codecompanion.adapters").extend("deepseek", {
@@ -89,7 +100,7 @@ return {
             intro_message = "AI will take your job soon.",
             show_header_separator = false,
             separator = "─", -- The separator between the different messages in the chat buffer
-            show_settings = false,
+            -- show_settings = true,
             show_references = true,
             start_in_insert_mode = false,
             window = {

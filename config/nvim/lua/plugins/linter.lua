@@ -15,7 +15,11 @@ return {
     vim.api.nvim_create_autocmd({ "TextChanged", "InsertLeave", "BufEnter", "BufWritePost" }, {
       group = "__lint__",
       callback = function()
-        pcall(require, "lint.try_lint")
+        -- can we avoid the error here if configuration for linter is missing?
+        local ok, err = pcall(require("lint").try_lint)
+        if not ok then
+          vim.notify("Linting failed: " .. tostring(err), vim.log.levels.ERROR)
+        end
       end,
     })
   end,

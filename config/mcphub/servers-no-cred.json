@@ -58,6 +58,12 @@
       "command": "npx",
       "disabled": false
     },
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "command": "uvx"
+    },
     "filesystem": {
       "args": [
         "-y",
