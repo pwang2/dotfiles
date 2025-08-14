@@ -1,6 +1,6 @@
 return {
   "Davidyz/VectorCode",
-  enabled = false,
+  -- enabled = false,
   version = "*",
   lazy = true,
   cmd = { "VectorCode" },

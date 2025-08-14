@@ -50,15 +50,17 @@ return {
     },
     config = function()
       require("codecompanion").setup({
-        -- change default llm
-        -- strategies = {
-        --   chat = {
-        --     adapter = {
-        --       name = "copilot",
-        --       model = "gpt-5",
-        --     },
-        --   },
-        -- },
+        strategies = {
+          chat = {
+            opts = {
+              completion_provider = "cmp",
+            },
+            -- adapter = {
+            --   name = "copilot",
+            --   model = "gpt-5",
+            -- },
+          },
+        },
         adapters = {
           deepseek = function()
             return require("codecompanion.adapters").extend("deepseek", {
@@ -71,6 +73,10 @@ return {
         extensions = {
           history = {
             enabled = true,
+            opts = {
+              -- Keymap to open history from chat buffer (default: gh)
+              keymap = "gh",
+            },
           },
           vectorcode = {
             enabled = false,
@@ -95,17 +101,16 @@ return {
             icons = {
               pinned_buffer = "📌 ",
               watched_buffer = "👀 ",
+              chat_context = "📎️ ",
             },
-            auto_scroll = false,
-            intro_message = "AI will take your job soon.",
+            auto_scroll = true,
+            -- intro_message = "AI will take your job soon.",
             show_header_separator = false,
             separator = "─", -- The separator between the different messages in the chat buffer
             -- show_settings = true,
             show_references = true,
             start_in_insert_mode = false,
             window = {
-              -- layout = "float", -- float|vertical|horizontal|buffer
-              height = 0.8,
               relative = "editor",
               position = "right",
               width = 120,
@@ -125,8 +130,8 @@ return {
             },
           },
           action_palette = {
-            prompt = "Prompt",
-            provider = "default",
+            width = 0.25,
+            height = 200,
           },
         },
       })
