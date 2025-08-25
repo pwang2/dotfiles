@@ -22,7 +22,8 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
+    cmd = { "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionHistory" },
+    -- event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -74,12 +75,13 @@ return {
           history = {
             enabled = true,
             opts = {
-              -- Keymap to open history from chat buffer (default: gh)
               keymap = "gh",
+              save_chat_keymap = "sc",
+              auto_save = true,
             },
           },
           vectorcode = {
-            enabled = false,
+            enabled = true,
             opts = {
               add_tool = true,
               add_slash_command = true,

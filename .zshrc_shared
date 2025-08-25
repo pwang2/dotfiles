@@ -35,7 +35,6 @@ done
 
 if [[ -z $plugins ]]; then
   plugins=(
-    azure
     git
     autojump
     evalcache
@@ -69,7 +68,7 @@ command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
 command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v pyenv >/dev/null 2>&1 && _evalcache pyenv init -
 command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
-# command -v az >/dev/null 2>&1 && _evalcache cat "$BREW_PREFIX/etc/bash_completion.d/az"
+command -v az >/dev/null 2>&1 && _evalcache cat "/etc/bash_completion.d/azure-cli"
 
 alias x="exit"
 alias vi="nvim"

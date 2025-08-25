@@ -1,5 +1,14 @@
 {
   "mcpServers": {
+    "ado": {
+      "args": [
+        "-y",
+        "@azure-devops/mcp",
+        "wbim"
+      ],
+      "command": "npx",
+      "type": "stdio"
+    },
     "antvis/mcp-server-chart": {
       "args": [
         "-y",
@@ -80,13 +89,18 @@
       "autoApprove": [
         "get_ticker_data",
         "get_options",
-        "get_price_history",
         "get_financial_statements",
         "get_institutional_holders",
         "get_insider_trades",
         "calculate_technical_indicator",
         "get_current_fng_tool",
-        "get_historical_fng_tool"
+        "get_historical_fng_tool",
+        "get_cnn_fear_greed_index",
+        "get_crypto_fear_greed_index",
+        "get_earnings_history",
+        "get_google_trends",
+        "get_market_movers",
+        "get_price_history"
       ],
       "command": "uvx",
       "disabled": false
