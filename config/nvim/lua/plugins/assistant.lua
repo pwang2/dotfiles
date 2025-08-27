@@ -53,6 +53,13 @@ return {
       require("codecompanion").setup({
         strategies = {
           chat = {
+            tools = {
+              opts = {
+                -- default_tools = {
+                --   "cmd_runner",
+                -- },
+              },
+            },
             opts = {
               completion_provider = "cmp",
             },

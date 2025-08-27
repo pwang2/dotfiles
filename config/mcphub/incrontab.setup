@@ -1,1 +1,0 @@
-/home/pwang2/.config/mcphub/	IN_CREATE,IN_CLOSE_WRITE	/home/linuxbrew/.linuxbrew/bin/jq '.mcpServers["brave-search"].env.BRAVE_API_KEY = ""' /home/pwang2/.config/mcphub/servers.json > /home/pwang2/dotfiles/config/mcphub/servers-no-cred.json
