@@ -30,11 +30,6 @@ return {
         "html",
       },
       sync_install = false,
-      highlight = {
-        enable = true,
-        -- treesitter has too basic syntax highlight for html
-        disable = { "html" },
-      },
       indent = { enable = true },
     })
   end,

@@ -93,7 +93,13 @@ return {
       section_separators = { left = "", right = "" },
     },
     sections = {
-      lualine_x = {},
+      lualine_x = {
+        {
+          require("lazy.status").updates,
+          cond = require("lazy.status").has_updates,
+          color = { fg = "#ff9e64" },
+        },
+      },
       lualine_y = get_lualine_y(),
       lualine_z = {
         "location",

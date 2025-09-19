@@ -1,10 +1,5 @@
 {
   "mcpServers": {
-    "ado": {
-      "args": ["-y", "@azure-devops/mcp", "wbim"],
-      "command": "npx",
-      "type": "stdio"
-    },
     "antvis/mcp-server-chart": {
       "args": ["-y", "@antv/mcp-server-chart"],
       "autoApprove": [
@@ -37,14 +32,6 @@
       "command": "npx",
       "disabled": false
     },
-    "awslabs.code-doc-gen-mcp-server": {
-      "args": ["awslabs.code-doc-gen-mcp-server@latest"],
-      "command": "uvx",
-      "disabled": false,
-      "env": {
-        "FASTMCP_LOG_LEVEL": "ERROR"
-      }
-    },
     "brave-search": {
       "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
       "autoApprove": ["brave_web_search", "brave_local_search"],
@@ -60,15 +47,6 @@
     },
     "context7": {
       "args": ["-y", "@upstash/context7-mcp@latest"],
-      "command": "npx",
-      "disabled": false
-    },
-    "fetch": {
-      "args": ["mcp-server-fetch"],
-      "command": "uvx"
-    },
-    "filesystem": {
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/home/pwang2"],
       "command": "npx",
       "disabled": false
     },
@@ -141,15 +119,6 @@
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
       "autoApprove": ["sequentialthinking"],
       "command": "npx",
-      "disabled": false
-    },
-    "sqlite": {
-      "args": [
-        "mcp-server-sqlite@latest",
-        "--db-path",
-        "/home/pwang2/.mcphub/servers/sqlite/test.db"
-      ],
-      "command": "uvx",
       "disabled": false
     }
   },

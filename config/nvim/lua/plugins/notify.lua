@@ -15,20 +15,19 @@ return {
   config = function()
     ---@class NoiceConfig
     local opts = {
-      -- this make cmdline and popupmenu not dismissed
       views = {
-        --   popup = {
-        --     size = {
-        --       width = "80",
-        --       height = "auto",
-        --       max_width = 160,
-        --     },
-        --   },
-        -- cmdline_popup = {
-        --   border = {
-        --     padding = { 1, 2 },
-        --   },
-        -- },
+        popup = {
+          size = {
+            width = "80",
+            height = "auto",
+            max_width = 160,
+          },
+        },
+        cmdline_popup = {
+          border = {
+            padding = { 0, 2 },
+          },
+        },
       },
 
       routes = {

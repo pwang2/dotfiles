@@ -18,7 +18,8 @@ return {
       auto_approve = false,
       -- Let LLMs start and stop MCP servers automatically
       auto_toggle_mcp_servers = true,
-      mcp_request_timeout = 180000, --Max time allowed for a MCP tool or resource to execute in milliseconds, set longer for long running tasks
+      --Max time allowed for a MCP tool or resource to execute in milliseconds, set longer for long running tasks
+      mcp_request_timeout = 600000,
       extensions = {
         codecompanion = {
           show_result_in_chat = true, -- Show tool results in chat

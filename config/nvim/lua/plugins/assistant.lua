@@ -28,37 +28,26 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/codecompanion-history.nvim",
+      {
+        "Davidyz/VectorCode",
+        enabled = true,
+        version = "*",
+        lazy = true,
+        cmd = { "VectorCode" },
+        build = "uv tool upgrade vectorcode",
+      },
     },
     keys = {
-      {
-        "<leader>ch",
-        "<cmd>CodeCompanionHistory<cr>",
-        desc = "toggle chat history window(copilot)",
-        noremap = true,
-      },
-      {
-        "<leader>c",
-        "<cmd>CodeCompanionChat Toggle<cr>",
-        desc = "toggle chat window(copilot)",
-        noremap = true,
-      },
-      {
-        "<leader>a",
-        "<cmd>CodeCompanionAction<cr>",
-        desc = "toggle codecompanion action window",
-        noremap = true,
-      },
+      { "<leader>ch", "<cmd>CodeCompanionHistory<cr>", desc = "toggle chat history window(copilot)", noremap = true },
+      { "<leader>c", "<cmd>CodeCompanionChat Toggle<cr>", desc = "toggle chat window(copilot)", noremap = true },
+      { "<leader>a", "<cmd>CodeCompanionAction<cr>", desc = "toggle codecompanion action window", noremap = true },
     },
     config = function()
       require("codecompanion").setup({
         strategies = {
           chat = {
             tools = {
-              opts = {
-                -- default_tools = {
-                --   "cmd_runner",
-                -- },
-              },
+              opts = {},
             },
             opts = {
               completion_provider = "cmp",
@@ -70,13 +59,15 @@ return {
           },
         },
         adapters = {
-          deepseek = function()
-            return require("codecompanion.adapters").extend("deepseek", {
-              env = {
-                api_key = os.getenv("DEEPSEEK_API_KEY"),
-              },
-            })
-          end,
+          http = {
+            deepseek = function()
+              return require("codecompanion.adapters").extend("deepseek", {
+                env = {
+                  api_key = os.getenv("DEEPSEEK_API_KEY"),
+                },
+              })
+            end,
+          },
         },
         extensions = {
           history = {

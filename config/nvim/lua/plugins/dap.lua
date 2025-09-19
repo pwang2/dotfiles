@@ -40,6 +40,7 @@ end
 return {
   {
     "mfussenegger/nvim-dap",
+    enabled = false,
     cmd = { "DapContinue", "DapToggleBreakpoint", "DapStepOver", "DapStepInto", "DapStepOut" },
     dependencies = {
       "rcarriga/nvim-dap-ui",
