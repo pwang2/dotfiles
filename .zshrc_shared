@@ -42,7 +42,6 @@ if [[ -z $plugins ]]; then
     zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
-    zsh-github-copilot
   )
 fi
 
