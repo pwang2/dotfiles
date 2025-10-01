@@ -7,13 +7,15 @@ CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 configs=$(ls -1 config)
 for config in ${configs}; do
   rm -rf "${HOME}/.config/${config}"
-  ln -s "${CWD}/config/${config}" "$HOME/.config"
+  ln -s "${CWD}/config/${config}" "$HOME/.config/${config}"
 done
 
-#later when the .config/mcphub/servers.json is updated, incron will update the file in dotfiles
+FILES=(.tmux.conf .tmuxline.conf .zshrc_shared .gitconfig)
 
-rm -rf "${HOME}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig}"
-ln -s ${CWD}/{.tmux.conf,.tmuxline.conf,.zshrc_shared,.gitconfig} "$HOME"
+for file in "${FILES[@]}"; do
+  rm -rf "$HOME/$file"
+  ln -s "$CWD/$file" "$HOME/$file"
+done
 
 if uname | grep -q Darwin; then
   rm -rf "$HOME/hammerspoon"
