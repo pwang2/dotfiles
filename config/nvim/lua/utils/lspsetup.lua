@@ -1,5 +1,19 @@
 local M = {}
 
+local function bind(func, ...)
+  local bound_args = { ... }
+  return function(...)
+    local args = {}
+    for _, v in ipairs(bound_args) do
+      table.insert(args, v)
+    end
+    for _, v in ipairs({ ... }) do
+      table.insert(args, v)
+    end
+    return func(table.unpack(args))
+  end
+end
+
 vim.api.nvim_create_user_command("LspCap", function()
   local bufnr = vim.api.nvim_get_current_buf()
   ---@type vim.lsp.Client[]
@@ -37,9 +51,9 @@ M.on_attach = function(client, bufnr)
     vim.cmd([[vsplit]])
     vim.lsp.buf.definition()
   end, "Go to definition in vertical split")
-  -- keygen("gd", vim.lsp.buf.definition)  --use trouble
-  -- keygen("gD", vim.lsp.buf.declaration)
-  -- keygen("gi", vim.lsp.buf.implementation)
+  keygen("gd", vim.lsp.buf.definition)
+  keygen("gD", vim.lsp.buf.declaration)
+  keygen("gi", vim.lsp.buf.implementation)
   keygen("<leader>k", vim.lsp.buf.signature_help, "Signature help")
   keygen("<leader>D", vim.lsp.buf.type_definition, "Type definition")
   keygen("<leader>rn", vim.lsp.buf.rename, "Rename")
@@ -48,11 +62,11 @@ M.on_attach = function(client, bufnr)
 
   -- keygen("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
   keygen("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
-  keygen("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
-  keygen("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
+  keygen("[d", bind(vim.diagnostic.jump, { count = -1, float = true }), "Go to previous diagnostic")
+  keygen("[d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
 
-  keygen("<leader>ca", '<cmd>lua require("fastaction").code_action()<cr>', "Code action")
-  keygen("<leader>ca", '<cmd>lua require("fastaction").range_code_action()<cr>', "Range code action", "v")
+  keygen("<leader>ca", require("fastaction").code_action, "Code action")
+  keygen("<leader>ca", require("fastaction").range_code_action, "Range code action", "v")
   keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
 
   keygen("<leader>wa", vim.lsp.buf.add_workspace_folder, "add workspace folder")
@@ -77,7 +91,6 @@ M.on_attach = function(client, bufnr)
     vim.cmd([[
           nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
           nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
-          
           " nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
           nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
         ]])

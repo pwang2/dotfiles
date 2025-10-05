@@ -52,10 +52,10 @@ return {
             opts = {
               completion_provider = "cmp",
             },
-            -- adapter = {
-            --   name = "copilot",
-            --   model = "gpt-5",
-            -- },
+            adapter = {
+              name = "copilot",
+              model = "claude-sonnet-4.5",
+            },
           },
         },
         adapters = {
