@@ -1,4 +1,6 @@
-[shell]
-program = "wsl.exe"
-args = ["-e", "tmux", "a", "||", "tmux", "new"]
-ocs52 = "CopyPaste"
+[terminal]
+osc52 = "CopyPaste"
+
+[terminal.shell]
+program = "C:\\Windows\\System32\\wsl.exe"
+args = ["zsh", "-c", "tmux a || tmux new"]

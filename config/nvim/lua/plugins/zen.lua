@@ -3,7 +3,7 @@ return {
   -- dependencies = { "folke/twilight.nvim" },
   opts = {
     window = {
-      width = 0.4,
+      width = 100,
       height = 0.8, -- 80%
       options = {
         signcolumn = "no", -- disable signcolumn
