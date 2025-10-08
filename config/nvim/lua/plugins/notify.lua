@@ -25,8 +25,12 @@ return {
           },
         },
         cmdline_popup = {
+          position = {
+            row = "90%",
+            col = "5%",
+          },
           border = {
-            padding = { 0, 2 },
+            padding = { 1, 2 },
           },
         },
       },

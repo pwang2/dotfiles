@@ -30,7 +30,8 @@ return {
         },
         priority = {
           typescript = {
-            -- { pattern = "from module", key = "i", order = 1 },
+            { pattern = "to existing import declaration", key = "a", order = 2 },
+            { pattern = "from module", key = "i", order = 1 },
           },
         },
         register_ui_select = false,

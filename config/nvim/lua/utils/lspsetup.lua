@@ -66,7 +66,6 @@ M.on_attach = function(client, bufnr)
   keygen("[d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
 
   keygen("<leader>ca", require("fastaction").code_action, "Code action")
-  keygen("<leader>ca", require("fastaction").range_code_action, "Range code action", "v")
   keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
 
   keygen("<leader>wa", vim.lsp.buf.add_workspace_folder, "add workspace folder")
