@@ -44,6 +44,13 @@ return {
     },
     config = function()
       require("codecompanion").setup({
+        memory = {
+          opts = {
+            chat = {
+              enabled = true,
+            },
+          },
+        },
         strategies = {
           chat = {
             tools = {

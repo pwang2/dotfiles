@@ -9,6 +9,14 @@ return {
   },
   keys = {
     { "<leader>fn", "<cmd>Telescope notify<cr>" },
+    {
+      "<leader><leader><leader>",
+      "<cmd>NoticeDismiss<cr>",
+      desc = "Dismiss all notifications",
+      silent = true,
+      noremap = true,
+      mode = { "n" },
+    },
   },
   init = function()
     vim.opt.lazyredraw = false
@@ -25,10 +33,10 @@ return {
           },
         },
         cmdline_popup = {
-          position = {
-            row = "90%",
-            col = "5%",
-          },
+          -- position = {
+          --   row = "75%",
+          --   col = "5%",
+          -- },
           border = {
             padding = { 1, 2 },
           },
