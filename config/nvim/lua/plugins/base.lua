@@ -13,6 +13,13 @@ return {
   { "echasnovski/mini.nvim", version = "*" },
   { "stevearc/dressing.nvim", event = "VeryLazy" },
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
+  { "folke/which-key.nvim", event = "VeryLazy" },
+  { "folke/trouble.nvim", cmd = "TroubleToggle" },
+  { "folke/todo-comments.nvim", event = "BufReadPost" },
+  { "nvim-tree/nvim-tree.lua", cmd = { "NvimTreeToggle", "NvimTreeFindFile" }, opts = {} },
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  { "Hoffs/omnisharp-extended-lsp.nvim" }, --used to make lsp gd working
+  { "godlygeek/tabular" },
   {
     "nvim-pack/nvim-spectre",
     event = "InsertEnter",
@@ -24,48 +31,12 @@ return {
       line_sep = string.rep("~", 80),
     },
   },
-  { "folke/which-key.nvim", event = "VeryLazy" },
-  { "folke/trouble.nvim", cmd = "TroubleToggle" },
-  { "folke/todo-comments.nvim", event = "BufReadPost" },
-  { "nvim-tree/nvim-tree.lua", cmd = { "NvimTreeToggle", "NvimTreeFindFile" }, opts = {} },
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
     config = function()
       local opts = { "*", css = { css = true, css_fn = true } }
       require("colorizer").setup(opts)
-    end,
-  },
-  --used to make lsp gd working
-  { "Hoffs/omnisharp-extended-lsp.nvim" },
-  { "godlygeek/tabular" },
-  -- it seems windows terminal did a great job to make clipboard yank works very well,
-  -- need to test macOs later on this
-  -- { "ibhagwan/smartyank.nvim" },
-  {
-    "akinsho/toggleterm.nvim",
-    version = "*",
-    config = true,
-    init = function()
-      -- for file type sh , use <CR> to run current line
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "sh",
-        callback = function()
-          vim.keymap.set(
-            "n",
-            "<leader><CR>",
-            ":ToggleTermSendCurrentLine<CR><CR>",
-            { buffer = true, desc = "Run current line in terminal" }
-          )
-          vim.keymap.set(
-            "v",
-            "<leader><CR>",
-            ":ToggleTermSendVisualSelection<CR><CR>",
-            { buffer = true, desc = "Run visual selection in terminal" }
-          )
-        end,
-      })
     end,
   },
 }

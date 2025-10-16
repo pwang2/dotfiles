@@ -8,15 +8,8 @@ return {
     "rcarriga/nvim-notify",
   },
   keys = {
-    { "<leader>fn", "<cmd>Telescope notify<cr>" },
-    {
-      "<leader><leader><leader>",
-      "<cmd>NoticeDismiss<cr>",
-      desc = "Dismiss all notifications",
-      silent = true,
-      noremap = true,
-      mode = { "n" },
-    },
+    { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Find notifications history" },
+    { "<leader><esc>", "<cmd>Noice dismiss<cr>", desc = "Dismiss all notifications" },
   },
   init = function()
     vim.opt.lazyredraw = false

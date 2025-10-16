@@ -8,21 +8,21 @@ return {
       "<cmd>Trouble lsp_implementations<cr>",
       desc = "Go to implementation(Trouble)",
     },
-    -- {
-    --   "gd",
-    --   "<cmd>Trouble lsp_definitions<cr>",
-    --   desc = "Go to definitions(Trouble)",
-    -- },
-    -- {
-    --   "gt",
-    --   "<cmd>Trouble lsp_type_definitions<cr>",
-    --   desc = "Go to type definitions(Trouble)",
-    -- },
-    -- {
-    --   "gD",
-    --   "<cmd>Trouble lsp_declarations<cr>",
-    --   desc = "Go to declaration(Trouble)",
-    -- },
+    {
+      "gd",
+      "<cmd>Trouble lsp_definitions<cr>",
+      desc = "Go to definitions(Trouble)",
+    },
+    {
+      "gt",
+      "<cmd>Trouble lsp_type_definitions<cr>",
+      desc = "Go to type definitions(Trouble)",
+    },
+    {
+      "gD",
+      "<cmd>Trouble lsp_declarations<cr>",
+      desc = "Go to declaration(Trouble)",
+    },
     {
       "gO",
       "<cmd>Trouble lsp_document_symbols<cr>",

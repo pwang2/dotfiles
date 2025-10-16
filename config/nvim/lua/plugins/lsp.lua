@@ -90,7 +90,20 @@ return {
     })
 
     vim.lsp.config("lua_ls", {
-      settings = { Lua = { diagnostics = { globals = { "vim", "hs", "spoon" } } } },
+      settings = {
+        Lua = {
+          workspace = {
+            -- library = vim.api.nvim_get_runtime_file("", true),
+            library = {
+              [vim.fn.stdpath("data") .. "/lazy/lazy.nvim"] = true, -- add lazy.nvim types
+              [vim.fn.stdpath("config")] = true, -- your nvim config
+              ["$VIMRUNTIME"] = true,
+            },
+            checkThirdParty = false,
+          },
+          diagnostics = { globals = { "vim", "hs", "spoon" } },
+        },
+      },
       on_init = function(client)
         local path = client.workspace_folders[1].name
         local uv = require("luv")

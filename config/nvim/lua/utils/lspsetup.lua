@@ -47,11 +47,11 @@ M.on_attach = function(client, bufnr)
     vim.keymap.set(mode, key, cmd, opts)
   end
 
-  keygen("gv", function()
-    vim.cmd([[vsplit]])
-    vim.lsp.buf.definition()
-  end, "Go to definition in vertical split")
-  keygen("gd", vim.lsp.buf.definition)
+  -- keygen("gv", function()
+  --   vim.cmd([[vsplit]])
+  --   vim.lsp.buf.definition()
+  -- end, "Go to definition in vertical split")
+  -- keygen("gd", vim.lsp.buf.definition) --use trouble
   keygen("gD", vim.lsp.buf.declaration)
   keygen("gi", vim.lsp.buf.implementation)
   keygen("<leader>k", vim.lsp.buf.signature_help, "Signature help")

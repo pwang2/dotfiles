@@ -1,3 +1,21 @@
+local function save_codecompanion_chat()
+  local buf = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  local chat_dir = vim.fn.stdpath("data") .. "/codecompanion_chats"
+  vim.fn.mkdir(chat_dir, "p")
+  local filename = chat_dir .. "/chat_" .. os.date("%Y%m%d_%H%M%S") .. ".txt"
+  local file = io.open(filename, "w")
+  if file then
+    for _, line in ipairs(lines) do
+      file:write(line .. "\n")
+    end
+    file:close()
+    print("Chat saved to " .. filename)
+  else
+    print("Error: Could not save chat.")
+  end
+end
+
 return {
   {
     "github/copilot.vim",
@@ -43,7 +61,7 @@ return {
       { "<leader>a", "<cmd>CodeCompanionAction<cr>", desc = "toggle codecompanion action window", noremap = true },
     },
     config = function()
-      require("codecompanion").setup({
+      local opts = {
         memory = {
           opts = {
             chat = {
@@ -141,25 +159,8 @@ return {
             height = 200,
           },
         },
-      })
-      local function save_codecompanion_chat()
-        local buf = vim.api.nvim_get_current_buf()
-        local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-        local chat_dir = vim.fn.stdpath("data") .. "/codecompanion_chats"
-        vim.fn.mkdir(chat_dir, "p")
-        local filename = chat_dir .. "/chat_" .. os.date("%Y%m%d_%H%M%S") .. ".txt"
-        local file = io.open(filename, "w")
-        if file then
-          for _, line in ipairs(lines) do
-            file:write(line .. "\n")
-          end
-          file:close()
-          print("Chat saved to " .. filename)
-        else
-          print("Error: Could not save chat.")
-        end
-      end
-
+      }
+      require("codecompanion").setup(opts)
       vim.api.nvim_create_user_command("CodeCompanionChatSave", save_codecompanion_chat, {})
       vim.cmd([[ cab cch CodeCompanionHistory ]])
     end,
