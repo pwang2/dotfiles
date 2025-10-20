@@ -12,30 +12,16 @@ return {
   {
     "Chaitanyabsprip/fastaction.nvim",
     event = "LspAttach",
-    config = function()
-      -- https://github.com/Chaitanyabsprip/fastaction.nvim?tab=readme-ov-file#configuration
-      require("fastaction").setup({
-        dismiss_keys = { "j", "k", "<c-c>", "q" },
-        keys = "qwertyuiopasdfghlzxcvbnm",
-        popup = {
-          border = "rounded",
-          hide_cursor = true,
-          highlight = {
-            divider = "FloatBorder",
-            key = "MoreMsg",
-            title = "Title",
-            window = "NormalFloat",
-          },
-          title = "Select one of:",
+    -- https://github.com/Chaitanyabsprip/fastaction.nvim?tab=readme-ov-file#configuration
+    ---@type FastActionConfig
+    opts = {
+      dismiss_keys = { "j", "k", "<c-c>", "q" },
+      keys = "qwertyuiopasdfghlzxcvbnm",
+      priority = {
+        typescript = {
+          { pattern = "Add import from", key = "a", order = 1 },
         },
-        priority = {
-          typescript = {
-            { pattern = "to existing import declaration", key = "a", order = 2 },
-            { pattern = "from module", key = "i", order = 1 },
-          },
-        },
-        register_ui_select = false,
-      })
-    end,
+      },
+    },
   },
 }

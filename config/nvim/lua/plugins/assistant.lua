@@ -79,7 +79,8 @@ return {
             },
             adapter = {
               name = "copilot",
-              model = "claude-sonnet-4.5",
+              model = "gpt-4.1",
+              -- model = "claude-sonnet-4.5",
             },
           },
         },
@@ -155,8 +156,15 @@ return {
             },
           },
           action_palette = {
-            width = 0.25,
-            height = 200,
+            width = 95,
+            height = 20,
+            prompt = "Prompt ", -- Prompt used for interactive LLM calls
+            provider = "default",
+            opts = {
+              show_default_actions = true, -- Show the default actions in the action palette?
+              show_default_prompt_library = true, -- Show the default prompt library in the action palette?
+              title = "CodeCompanion actions", -- The title of the action palette
+            },
           },
         },
       }
