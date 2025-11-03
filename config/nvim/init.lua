@@ -45,7 +45,6 @@ vim.cmd([[
   nnoremap <expr> k     v:count ? 'k' : 'gk'
 
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
-  nnoremap <silent> <leader>aa   <cmd>Alpha<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
 ]])
 
