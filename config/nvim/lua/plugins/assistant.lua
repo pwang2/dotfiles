@@ -59,6 +59,13 @@ return {
       { "<leader>ch", "<cmd>CodeCompanionHistory<cr>", desc = "toggle chat history window(copilot)", noremap = true },
       { "<leader>c", "<cmd>CodeCompanionChat Toggle<cr>", desc = "toggle chat window(copilot)", noremap = true },
       { "<leader>a", "<cmd>CodeCompanionAction<cr>", desc = "toggle codecompanion action window", noremap = true },
+      {
+        "ga",
+        "<cmd>CodeCompanionChat Add<cr>",
+        desc = "add selection to chat context(copilot)",
+        noremap = true,
+        mode = "v",
+      },
     },
     config = function()
       local opts = {

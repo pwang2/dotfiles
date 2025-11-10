@@ -38,6 +38,22 @@ return {
       },
     })
 
+    vim.lsp.config("azure_pipelines_ls", {
+      root_markers = { "azure-pipelines.yml", ".azure-pipelines.yml", "azure-pipelines.yaml", ".azure-pipelines.yaml" },
+      settings = {
+        yaml = {
+          schemas = {
+            ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+              "/azure-pipeline*.y*l",
+              "/*.azure*",
+              "Azure-Pipelines/**/*.y*l",
+              "Pipelines/*.y*l",
+            },
+          },
+        },
+      },
+    })
+
     vim.lsp.config("yamlls", {
       settings = {
         yaml = {
@@ -51,34 +67,30 @@ return {
           validate = { enable = true },
           --https://github.com/b0o/SchemaStore.nvim?tab=readme-ov-file#usage
           schemas = require("schemastore").yaml.schemas({
-            extra = {
-              {
-                description = "kubernetes config",
-                fileMatch = {
-                  "deployment/**/*.yaml",
-                },
-                name = "k8s",
-                url = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.28.0-standalone/all.json",
-              },
-              -- {
-              --   description = "Azure Pipelines",
-              --   fileMatch = {
-              --     "**/*.azure-pipelines.yml",
-              --     "**/azure-pipelines.*.yml",
-              --     "**/azure-pipelines.yml",
-              --     "**/azure-pipelines.*.yaml",
-              --     "**/*.azure-pipelines.yaml",
-              --     "**/azure-pipelines.yaml",
-              --   },
-              --   name = "azure-pipelines",
-              --   -- url = "https://raw.githubusercontent.com/Microsoft/azure-pipelines-vscode/refs/heads/main/service-schema.json",
-              --   url = "file://" .. os.getenv("HOME") .. "/wbim-azure-pipelines-schema.json",
-              -- },
+            ignore = {
+              "Azure Pipelines",
             },
+            extra = {},
           }),
         },
       },
+      on_init = function(client)
+        local bufname = vim.api.nvim_buf_get_name(0)
+        local azure_patterns = {
+          "azure%-pipelines%.yml$",
+          "%.azure%-pipelines%.yml$",
+          "azure%-pipelines%.yaml$",
+          "%.azure%-pipelines%.yaml$",
+        }
+        for _, pat in ipairs(azure_patterns) do
+          if bufname:match(pat) then
+            client.stop()
+            return
+          end
+        end
+      end,
     })
+
     vim.lsp.config("jsonls", {
       filetypes = { "json", "jsonc" },
       settings = {

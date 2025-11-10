@@ -48,6 +48,7 @@ return {
         "shellcheck",
 
         "prettier",
+        "taplo",
         "stylua",
         "black",
         "shfmt",

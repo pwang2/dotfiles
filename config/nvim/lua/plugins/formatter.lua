@@ -12,6 +12,7 @@ return {
         python = { require("formatter.filetypes.python").ruff }, --black
         lua = { require("formatter.filetypes.lua").stylua },
         java = { require("formatter.filetypes.java").google_java_format },
+        toml = { require("formatter.filetypes.toml").taplo },
         typescript = { prettier },
         javascript = { prettier },
         css = { prettier },
