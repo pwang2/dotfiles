@@ -1,5 +1,9 @@
 {
   "mcpServers": {
+    "markitdown": {
+      "args": ["markitdown-mcp"],
+      "command": "uvx"
+    },
     "antvis/mcp-server-chart": {
       "args": [
         "-y",
