@@ -11,17 +11,36 @@ return {
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
+      "hrsh7th/cmp-emoji",
       "rafamadriz/friendly-snippets",
+      "zbirenbaum/copilot-cmp",
     },
     config = function()
       local cmp = require("cmp")
       local lspkind = require("lspkind")
 
+      lspkind.init({
+        mode = "text",
+        preset = "default",
+        symbol_map = {
+          Copilot = "󱚥",
+        },
+      })
+
+      -- Initialize copilot-cmp
+      require("copilot_cmp").setup()
+
       local has_words_before = function()
-        --luacheck: ignore unpack
         local unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        if col == 0 then
+          return false
+        end
+        local text = vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})
+        if not text or not text[1] then
+          return false
+        end
+        return text[1]:match("^%s*$") == nil
       end
 
       local feedkey = function(key, mode)
@@ -45,18 +64,15 @@ return {
           keyword_length = 1,
         },
         formatting = {
-          format = function(entry, item)
-            item.kind = lspkind.symbolic(item.kind, { mode = "symbol_text" })
-            item.menu = entry.source.name
-            item.abbr = string.sub(item.abbr, 1, 80)
-            return item
-          end,
+          format = lspkind.cmp_format({ mode = "text" }),
         },
         preselect = cmp.PreselectMode.None,
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              if #cmp.get_entries() == 1 then
+              -- If only one completion entry, confirm it; otherwise, select next
+              local entries = cmp.get_entries() or {}
+              if #entries == 1 then
                 cmp.confirm({ select = true })
               else
                 cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
@@ -96,11 +112,11 @@ return {
           }),
         },
         sources = cmp.config.sources({
-          { name = "vsnip", max_item_count = 3, priority = 50 },
+          { name = "copilot", group_index = 2, priority = 1000 },
+          { name = "vsnip", group_index = 2, max_item_count = 3, priority = 100 },
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
-          -- { name = "emoji" },
-          { name = "copilot" },
+          { name = "emoji" },
         }, {
           { name = "buffer", max_item_count = 5, priority = 10 },
         }),
@@ -112,11 +128,6 @@ return {
           documentation = cmp.config.window.bordered(),
           completion = cmp.config.window.bordered(),
         },
-        -- -- delete me next time if you find no use
-        -- experimental = {
-        --   --disable this will allow codeium's ghost_text not appear at the same time
-        --   ghost_text = false,
-        -- },
       })
 
       -- `?` cmdline setup.
@@ -145,6 +156,14 @@ return {
           },
         }),
       })
+      -- https://github.com/zbirenbaum/copilot.lua?tab=readme-ov-file#suggestion
+      cmp.event:on("menu_opened", function()
+        vim.b.copilot_suggestion_hidden = true
+      end)
+
+      cmp.event:on("menu_closed", function()
+        vim.b.copilot_suggestion_hidden = false
+      end)
 
       vim.cmd([[
         hi CmpItemAbbrDeprecated  guibg=NONE     guifg=#808080 gui=strikethrough
@@ -158,6 +177,7 @@ return {
         hi CmpItemKindKeyword     guibg=NONE     guifg=#D4D4D4
         hi CmpItemKindProperty    guibg=NONE     guifg=#D4D4D4
         hi CmpItemKindUnit        guibg=NONE     guifg=#D4D4D4
+        hi CmpItemKindCopilot     guibg=NONE     guifg=#6CC644
       ]])
     end,
   },

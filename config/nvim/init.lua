@@ -22,6 +22,8 @@ vim.cmd([[
   hi Normal                 guibg=NONE
   hi NormalFloat            guibg=NONE     guifg=#b7cad4
   hi NonText                guibg=NONE     guifg=#81a46b
+
+  hi LspCodeLens            guibg=NONE     guifg=#888888  gui=italic,underline
 ]])
 
 vim.cmd([[
@@ -50,6 +52,7 @@ vim.cmd([[
 
 vim.cmd([[
   cab cc CodeCompanion
+  cab ccc CodeCompanionChat
   cab t Telescope
 ]])
 
