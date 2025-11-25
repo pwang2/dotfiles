@@ -63,6 +63,10 @@ require("lazy").setup({
   ui = {
     backdrop = 0,
     border = "rounded",
+    size = {
+      width = 0.6,
+      height = 0.8,
+    },
   },
   diff = {
     cmd = "diffview.nvim",

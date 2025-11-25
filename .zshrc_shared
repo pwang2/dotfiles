@@ -71,9 +71,13 @@ command -v az >/dev/null 2>&1 && _evalcache cat "/etc/bash_completion.d/azure-cl
 
 alias x="exit"
 alias vi="nvim"
+alias x="exit"
+alias c="clear"
 alias cls="clear"
 alias td="todo.sh"
 alias k="kubectl"
+alias start=/mnt/c/Windows/explorer.exe
+
 complete -F __start_kubectl k
 
 colortest() {
