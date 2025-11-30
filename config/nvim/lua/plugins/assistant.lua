@@ -66,6 +66,7 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
+    version = "17.33.0",
     cmd = { "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionHistory" },
     -- event = "VeryLazy",
     dependencies = {

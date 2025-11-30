@@ -94,7 +94,7 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
+          -- ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
@@ -112,13 +112,14 @@ return {
           }),
         },
         sources = cmp.config.sources({
-          { name = "copilot", group_index = 2, priority = 1000 },
-          { name = "vsnip", group_index = 2, max_item_count = 3, priority = 100 },
-          { name = "nvim_lsp" },
+          { name = "copilot", priority = 1000 },
+          { name = "nvim_lsp", priority = 900 },
           { name = "nvim_lsp_signature_help" },
-          { name = "emoji" },
+        }, {
+          { name = "vsnip", max_item_count = 3 },
         }, {
           { name = "buffer", max_item_count = 5, priority = 10 },
+          { name = "emoji" },
         }),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Insert,

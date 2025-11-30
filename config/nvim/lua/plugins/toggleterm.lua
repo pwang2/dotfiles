@@ -1,6 +1,7 @@
 return {
   "akinsho/toggleterm.nvim",
   version = "*",
+  cmd = { "ToggleTerm", "ToggleTermSendCurrentLine", "ToggleTermSendVisualSelection" },
   config = true,
   init = function()
     -- for file type sh , use <CR> to run current line

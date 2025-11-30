@@ -1,6 +1,6 @@
 return {
   "mhartington/formatter.nvim",
-  lazy = false,
+  cmd = { "Format", "FormatWrite", "FormatLock", "FormatWriteLock" },
   config = function()
     local prettier = require("formatter.defaults.prettier")
     require("formatter").setup({

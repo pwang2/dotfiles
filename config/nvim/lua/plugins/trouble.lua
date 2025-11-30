@@ -13,11 +13,12 @@ return {
       "<cmd>Trouble lsp_definitions<cr>",
       desc = "Go to definitions(Trouble)",
     },
-    {
-      "gt",
-      "<cmd>Trouble lsp_type_definitions<cr>",
-      desc = "Go to type definitions(Trouble)",
-    },
+    -- disabled as gt is taken by go to next tab
+    -- {
+    --   "gt",
+    --   "<cmd>Trouble lsp_type_definitions<cr>",
+    --   desc = "Go to type definitions(Trouble)",
+    -- },
     {
       "gD",
       "<cmd>Trouble lsp_declarations<cr>",
