@@ -1,5 +1,6 @@
 return {
   "mhartington/formatter.nvim",
+  -- lazy = false,
   cmd = { "Format", "FormatWrite", "FormatLock", "FormatWriteLock" },
   config = function()
     local prettier = require("formatter.defaults.prettier")
@@ -23,10 +24,9 @@ return {
         -- yaml = { require("formatter.filetypes.yaml").yamlfmt },
       },
     })
-
-    local augroup = vim.api.nvim_create_augroup
-    local autocmd = vim.api.nvim_create_autocmd
-    augroup("__formatter__", { clear = true })
-    autocmd("BufWritePost", { group = "__formatter__", command = ":FormatWrite" })
+    -- local augroup = vim.api.nvim_create_augroup
+    -- local autocmd = vim.api.nvim_create_autocmd
+    -- augroup("__formatter__", { clear = true })
+    -- autocmd("BufWritePost", { group = "__formatter__", command = ":FormatWrite" })
   end,
 }

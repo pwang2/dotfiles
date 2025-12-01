@@ -29,13 +29,12 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   [ ! -d $ZPLUGINS/zsh-syntax-highlighting ] && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
   [ ! -d $ZPLUGINS/zsh-vi-mode ] && git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode $ZPLUGINS/zsh-vi-mode
   [ ! -d $ZPLUGINS/evalcache ] && git clone --depth=1 https://github.com/mroth/evalcache $ZPLUGINS/evalcache
-  [ ! -d  $ZPLUGINS/zsh-github-copilot ] && git clone --depth=1 https://github.com/loiccoyle/zsh-github-copilot ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-github-copilot
+  [ ! -d $ZPLUGINS/zsh-github-copilot ] && git clone --depth=1 https://github.com/loiccoyle/zsh-github-copilot ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-github-copilot
   [ ! -f $HOME/.zshrc ] && echo "source $HOME/.zshrc_shared" >$HOME/.zshrc
 fi
 
-
 BREW_PREFIX=$([[ "$(uname -s)" == darwin* ]] && echo "/usr/local" || echo "/home/linuxbrew/.linuxbrew")
-# if no brew install it 
+# if no brew install it
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   eval "$($BREW_PREFIX/bin/brew shellenv)"

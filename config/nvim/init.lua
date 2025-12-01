@@ -40,6 +40,12 @@ vim.cmd([[
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
+
+  " use neo-format to format on save
+  augroup __formatter__
+    autocmd!
+    autocmd BufWritePost * FormatWrite
+  augroup END
 ]])
 
 vim.cmd([[

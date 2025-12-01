@@ -53,7 +53,7 @@ return {
         suggestion = { enabled = false }, -- Disable ghost text since we're using cmp
         panel = { enabled = false }, -- Disable copilot panel
         nes = {
-          enabled = true, -- requires copilot-lsp as a dependency
+          enabled = false, -- requires copilot-lsp as a dependency
           auto_trigger = true,
           keymap = {
             accept_and_goto = "<C-CR>",
