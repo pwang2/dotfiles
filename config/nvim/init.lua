@@ -1,11 +1,5 @@
 require("config.lazy")
 
-vim.o.guifont = "JetbrainsMono Nerd Font:h12" -- text below applies for VimScript
-vim.g.neovide_floating_shadow = true
-vim.g.neovide_floating_z_height = 10
-vim.g.neovide_light_angle_degrees = 45
-vim.g.neovide_light_radius = 5
-
 vim.g.loaded_node_provider = 0
 
 vim.cmd([[
@@ -40,12 +34,6 @@ vim.cmd([[
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-
-  " use neo-format to format on save
-  augroup __formatter__
-    autocmd!
-    autocmd BufWritePost * FormatWrite
-  augroup END
 ]])
 
 vim.cmd([[
@@ -61,10 +49,3 @@ vim.cmd([[
   cab ccc CodeCompanionChat
   cab t Telescope
 ]])
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.jsonc", "tsconfig.json", "appsettings.*json" },
-  callback = function()
-    vim.bo.filetype = "jsonc"
-  end,
-})

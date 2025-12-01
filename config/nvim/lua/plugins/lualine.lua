@@ -31,6 +31,7 @@ local get_lualine_y = function()
       sources = { "nvim_diagnostic", "nvim_lsp" },
       symbols = { error = "❌", warn = "🚨 ", info = "ℹ️", hint = "💡 " },
     },
+    require("utils.codecompanion-lualine-spinner"),
   }
   return defaults
 end

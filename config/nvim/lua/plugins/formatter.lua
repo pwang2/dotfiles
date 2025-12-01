@@ -1,32 +1,29 @@
 return {
-  "mhartington/formatter.nvim",
-  -- lazy = false,
-  cmd = { "Format", "FormatWrite", "FormatLock", "FormatWriteLock" },
-  config = function()
-    local prettier = require("formatter.defaults.prettier")
-    require("formatter").setup({
-      filetype = {
-        c = { require("formatter.filetypes.c").clangformat },
-        zsh = { require("formatter.filetypes.sh").shfmt },
-        sh = { require("formatter.filetypes.sh").shfmt },
-        rust = { require("formatter.filetypes.rust").rustfmt },
-        python = { require("formatter.filetypes.python").ruff }, --black
-        lua = { require("formatter.filetypes.lua").stylua },
-        java = { require("formatter.filetypes.java").google_java_format },
-        toml = { require("formatter.filetypes.toml").taplo },
-        typescript = { prettier },
-        javascript = { prettier },
-        css = { prettier },
-        json = { prettier },
-        jsonc = { prettier },
-        vue = { prettier },
-        html = { prettier },
-        -- yaml = { require("formatter.filetypes.yaml").yamlfmt },
-      },
-    })
-    -- local augroup = vim.api.nvim_create_augroup
-    -- local autocmd = vim.api.nvim_create_autocmd
-    -- augroup("__formatter__", { clear = true })
-    -- autocmd("BufWritePost", { group = "__formatter__", command = ":FormatWrite" })
-  end,
+  "stevearc/conform.nvim",
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
+  opts = {
+    formatters_by_ft = {
+      c = { "clang_format" },
+      zsh = { "shfmt" },
+      sh = { "shfmt" },
+      rust = { "rustfmt" },
+      python = { "ruff_format" }, -- or "black" if preferred
+      lua = { "stylua" },
+      java = { "google_java_format" },
+      toml = { "taplo" },
+      typescript = { "prettier" },
+      javascript = { "prettier" },
+      css = { "prettier" },
+      json = { "prettier" },
+      jsonc = { "prettier" },
+      vue = { "prettier" },
+      html = { "prettier" },
+      -- yaml = { "yamlfmt" },
+    },
+    format_on_save = {
+      timeout_ms = 250,
+      lsp_fallback = false,
+    },
+  },
 }

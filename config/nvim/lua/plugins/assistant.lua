@@ -67,11 +67,12 @@ return {
   {
     "olimorris/codecompanion.nvim",
     version = "17.33.0",
-    cmd = { "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionHistory" },
-    -- event = "VeryLazy",
+    -- cmd = { "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionHistory" },
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "franco-ruggeri/codecompanion-spinner.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
         "Davidyz/VectorCode",
@@ -139,7 +140,7 @@ return {
             },
           },
           vectorcode = {
-            enabled = true,
+            enabled = false,
             opts = {
               add_tool = true,
               add_slash_command = true,
@@ -154,6 +155,7 @@ return {
               make_slash_commands = true, -- make /slash_commands from MCP server prompts
             },
           },
+          spinner = {},
         },
 
         display = {
