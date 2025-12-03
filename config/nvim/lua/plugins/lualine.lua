@@ -20,22 +20,6 @@ local get_active_lsp = function()
   return table.concat(lsps, "·")
 end
 
-local get_lualine_y = function()
-  local defaults = {
-    {
-      get_active_lsp,
-      icon = "🌀",
-    },
-    {
-      "diagnostics",
-      sources = { "nvim_diagnostic", "nvim_lsp" },
-      symbols = { error = "❌", warn = "🚨 ", info = "ℹ️", hint = "💡 " },
-    },
-    require("utils.codecompanion-lualine-spinner"),
-  }
-  return defaults
-end
-
 local colors = {
   darkgray = "#16161d",
   gray = "#a8a8a8",
@@ -86,6 +70,7 @@ return {
   dependencies = {
     "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",
+    "AndreM222/copilot-lualine",
   },
   opts = {
     options = {
@@ -101,7 +86,22 @@ return {
           color = { fg = "#ff9e64" },
         },
       },
-      lualine_y = get_lualine_y(),
+      lualine_y = {
+        {
+          "copilot",
+          show_colors = true,
+          show_loading = true,
+        },
+        {
+          get_active_lsp,
+          icon = "🌀",
+        },
+        {
+          "diagnostics",
+          sources = { "nvim_diagnostic", "nvim_lsp" },
+          symbols = { error = "❌", warn = "🚨 ", info = "ℹ️", hint = "💡 " },
+        },
+      },
       lualine_z = {
         "location",
         "progress",

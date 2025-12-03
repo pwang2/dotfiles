@@ -18,6 +18,10 @@ vim.cmd([[
   hi NonText                guibg=NONE     guifg=#81a46b
 
   hi LspCodeLens            guibg=NONE     guifg=#888888  gui=italic,underline
+
+  hi DiffAdd                guibg=#223322  guifg=#a6e22e gui=bold
+  hi DiffChange             guibg=#222233  guifg=#66d9ef
+  hi DiffDelete             guibg=#332222  guifg=#f92672 gui=strikethrough
 ]])
 
 vim.cmd([[

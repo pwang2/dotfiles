@@ -14,7 +14,9 @@ return {
       "neovim/nvim-lspconfig",
     },
     opts = {
-      automatic_enable = true,
+      automatic_enable = {
+        exclude = { "yamlls", "azure_pipelines_ls" },
+      },
       ensure_installed = {
         "jdtls",
         "lua_ls",
