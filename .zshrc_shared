@@ -8,6 +8,7 @@ DISABLE_AUTO_TITLE=true
 DISABLE_MAGIC_FUNCTIONS=true
 BREW_PREFIX=$([[ "$(uname -s)" == darwin* ]] && echo "/usr/local" || echo "/home/linuxbrew/.linuxbrew")
 
+# export TERM="xterm-256color"
 export PYENV_ROOT="$HOME/.pyenv"
 export TODO_DIR=$HOME/.todo
 
@@ -42,6 +43,7 @@ if [[ -z $plugins ]]; then
     zsh-vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
+    zsh-github-copilot
   )
 fi
 

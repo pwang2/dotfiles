@@ -1,6 +1,5 @@
 return {
   "hat0uma/csvview.nvim",
-  version = "1.2.0",
   ft = { "csv", "tsv" },
   lazy = true,
   cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },

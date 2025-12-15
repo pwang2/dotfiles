@@ -1,12 +1,26 @@
 return {
   "folke/sidekick.nvim",
-  enabled = false,
+  -- enabled = false,
+  event = "VeryLazy",
   opts = {
+    nes = {
+      enabled = true,
+    },
     -- add any options here
     cli = {
       mux = {
         backend = "tmux",
         enabled = true,
+        create = "split",
+      },
+    },
+    copilot = {
+      -- track copilot's status with `didChangeStatus`
+      status = {
+        enabled = true,
+        level = vim.log.levels.WARN,
+        -- set to vim.log.levels.OFF to disable notifications
+        -- level = vim.log.levels.OFF,
       },
     },
   },

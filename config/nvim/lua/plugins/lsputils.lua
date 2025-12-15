@@ -5,6 +5,7 @@ return {
     config = function()
       -- https://github.com/kosayoda/nvim-lightbulb?tab=readme-ov-file#configuration
       require("nvim-lightbulb").setup({
+        code_lenses = true,
         autocmd = { enabled = true },
       })
     end,

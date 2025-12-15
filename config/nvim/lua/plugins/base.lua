@@ -21,11 +21,14 @@ return {
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "Hoffs/omnisharp-extended-lsp.nvim" }, --used to make lsp gd working
   { "godlygeek/tabular" },
+  { "sphamba/smear-cursor.nvim", opts = {} },
   {
     "nvim-pack/nvim-spectre",
     event = "InsertEnter",
     cmd = "Spectre",
-    keys = { { "<leader>s", "<cmd>Spectre<CR>", desc = "Replace in files" } },
+    keys = {
+      { "<leader>s", "<cmd>Spectre<CR>", desc = "Replace in files" },
+    },
     opts = {
       line_sep_start = string.rep("~", 80),
       result_padding = "  ",
@@ -41,29 +44,23 @@ return {
     end,
   },
   {
-    "karb94/neoscroll.nvim",
-    opts = {},
-  },
-  {
-    "sphamba/smear-cursor.nvim",
+    "oribarilan/lensline.nvim",
+    -- enabled = false,
+    -- tag = '2.0.0', -- or: branch = 'release/2.x' for latest non-breaking updates
+    branch = "release/2.x",
+    event = "LspAttach",
     opts = {
-      -- Smear cursor when switching buffers or windows.
-      smear_between_buffers = true,
-
-      -- Smear cursor when moving within line or to neighbor lines.
-      -- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
-      smear_between_neighbor_lines = true,
-
-      -- Draw the smear in buffer space instead of screen space when scrolling
-      scroll_buffer_space = true,
-
-      -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
-      -- Smears and particles will look a lot less blocky.
-      legacy_computing_symbols_support = false,
-
-      -- Smear cursor in insert mode.
-      -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
-      smear_insert_mode = true,
+      profiles = {
+        {
+          name = "informative",
+          providers = {
+            { name = "usages", enabled = true, include = { "refs", "defs", "impls" }, breakdown = true },
+            { name = "diagnostics", enabled = true, min_level = "HINT" },
+            { name = "complexity", enabled = true },
+          },
+          style = { render = "focused", placement = "inline" },
+        },
+      },
     },
   },
 }

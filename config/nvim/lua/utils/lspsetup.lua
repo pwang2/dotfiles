@@ -65,6 +65,7 @@ M.on_attach = function(client, bufnr)
   keygen("[d", bind(vim.diagnostic.jump, { count = -1, float = true }), "Go to previous diagnostic")
   keygen("[d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
 
+  -- mimic vscode code action keybinding
   keygen("<C-.>", require("fastaction").code_action, "Code action")
   keygen("<leader>ca", require("fastaction").code_action, "Code action")
   keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
@@ -79,12 +80,12 @@ M.on_attach = function(client, bufnr)
   --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
   --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
   --keygen('gr', vim.lsp.references)  --use trouble gr
-  if client.server_capabilities.codeLensProvider then
-    vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-      buffer = bufnr,
-      callback = vim.lsp.codelens.refresh,
-    })
-  end
+  -- if client.server_capabilities.codeLensProvider then
+  --   vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+  --     buffer = bufnr,
+  --     callback = vim.lsp.codelens.refresh,
+  --   })
+  -- end
 
   local filetype = vim.bo[bufnr].filetype
   if client.name == "omnisharp" and filetype == "cs" then

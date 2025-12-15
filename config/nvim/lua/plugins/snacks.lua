@@ -16,9 +16,8 @@ return {
         { section = "startup" },
       },
     },
-    scroll = {
-      enabled = false,
-    },
+    scratch = { enabled = true },
+    -- scroll = { enabled = true },
   },
   keys = {
     {
@@ -43,6 +42,20 @@ return {
         require("snacks").bufdelete.all()
       end,
       desc = "Delete all buffers",
+    },
+    {
+      "<leader>.",
+      function()
+        require("snacks").scratch()
+      end,
+      desc = "Toggle Scratch Buffer",
+    },
+    {
+      "<leader>S",
+      function()
+        require("snacks").scratch.select()
+      end,
+      desc = "Select Scratch Buffer",
     },
   },
 }

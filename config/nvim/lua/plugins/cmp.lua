@@ -19,14 +19,6 @@ return {
       local cmp = require("cmp")
       local lspkind = require("lspkind")
 
-      lspkind.init({
-        mode = "text",
-        preset = "default",
-        symbol_map = {
-          Copilot = "󱚥",
-        },
-      })
-
       -- Initialize copilot-cmp
       require("copilot_cmp").setup()
 
@@ -64,7 +56,14 @@ return {
           keyword_length = 1,
         },
         formatting = {
-          format = lspkind.cmp_format({ mode = "text" }),
+          format = lspkind.cmp_format({
+            mode = "text",
+            maxwidth = 70,
+            minWidth = 50,
+            symbol_map = {
+              Copilot = "🤖 ",
+            },
+          }),
         },
         preselect = cmp.PreselectMode.None,
         mapping = {
@@ -115,11 +114,11 @@ return {
           { name = "copilot", priority = 1000 },
           { name = "nvim_lsp", priority = 900 },
           { name = "nvim_lsp_signature_help" },
+          { name = "emoji" },
         }, {
           { name = "vsnip", max_item_count = 3 },
         }, {
           { name = "buffer", max_item_count = 5, priority = 10 },
-          { name = "emoji" },
         }),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Insert,

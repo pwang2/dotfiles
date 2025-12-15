@@ -1,7 +1,7 @@
 return {
   {
     "navarasu/onedark.nvim",
-    disabled = true,
+    enabled = false,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
@@ -11,8 +11,12 @@ return {
   },
   {
     "sonph/onehalf",
+    enabled = true,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
+    init = function()
+      vim.g.airline_theme = "onehalfdark"
+    end,
     config = function()
       local lazypath = vim.fn.stdpath("data") .. "/lazy"
       vim.opt.runtimepath:append(lazypath .. "/onehalf/vim")

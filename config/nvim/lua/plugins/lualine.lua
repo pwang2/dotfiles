@@ -94,7 +94,7 @@ return {
         },
         {
           get_active_lsp,
-          icon = "🌀",
+          icon = "",
         },
         {
           "diagnostics",
