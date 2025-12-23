@@ -16,7 +16,7 @@ return {
   { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
   { "folke/which-key.nvim", event = "VeryLazy" },
   { "folke/trouble.nvim", cmd = "TroubleToggle" },
-  { "folke/todo-comments.nvim", event = "BufReadPost" },
+  -- { "folke/todo-comments.nvim", event = "BufReadPost" },  //native support now see :h commenting
   { "nvim-tree/nvim-tree.lua", cmd = { "NvimTreeToggle", "NvimTreeFindFile" }, opts = {} },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "Hoffs/omnisharp-extended-lsp.nvim" }, --used to make lsp gd working
@@ -57,6 +57,20 @@ return {
             { name = "usages", enabled = true, include = { "refs", "defs", "impls" }, breakdown = true },
             { name = "diagnostics", enabled = true, min_level = "HINT" },
             { name = "complexity", enabled = true },
+            {
+              name = "function_length",
+              enabled = true,
+              event = { "BufWritePost", "TextChanged" },
+              handler = function(bufnr, func_info, _, callback)
+                local utils = require("lensline.utils")
+                local function_lines = utils.get_function_lines(bufnr, func_info)
+                local func_line_count = math.max(0, #function_lines - 1) -- Subtract 1 for signature
+                callback({
+                  line = func_info.line,
+                  text = string.format("(%d loc)", func_line_count),
+                })
+              end,
+            },
           },
           style = { render = "focused", placement = "inline" },
         },

@@ -177,16 +177,6 @@ return {
               relative = "editor",
               position = "right",
               width = 120,
-              border = {
-                { "╭", "Comment" },
-                { "─", "Comment" },
-                { "╮", "Comment" },
-                { "│", "Comment" },
-                { "╯", "Comment" },
-                { "─", "Comment" },
-                { "╰", "Comment" },
-                { "│", "Comment" },
-              },
               opts = {
                 signcolumn = "yes",
               },

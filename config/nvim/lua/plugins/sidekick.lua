@@ -1,6 +1,6 @@
 return {
   "folke/sidekick.nvim",
-  -- enabled = false,
+  enabled = false,
   event = "VeryLazy",
   opts = {
     nes = {

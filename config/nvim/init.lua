@@ -4,6 +4,7 @@ vim.g.loaded_node_provider = 0
 
 vim.cmd([[
   hi link FoldColumn Comment
+  hi link LspInlayHint Comment
 
   hi FloatBorder            guibg=NONE     guifg=#5b5b5b
   hi WinBorder              guibg=NONE     guifg=#5b5b5b
@@ -21,7 +22,8 @@ vim.cmd([[
 
   hi DiffAdd                guibg=#223322  guifg=#a6e22e gui=bold
   hi DiffChange             guibg=#222233  guifg=#66d9ef
-  hi DiffDelete             guibg=#332222  guifg=#f92672 gui=strikethrough
+  " disabled as it mess up some markdown headings
+  " hi DiffDelete             guibg=#332222  guifg=#f92672 gui=italic,bold
 ]])
 
 vim.cmd([[

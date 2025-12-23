@@ -69,6 +69,9 @@ M.on_attach = function(client, bufnr)
   keygen("<C-.>", require("fastaction").code_action, "Code action")
   keygen("<leader>ca", require("fastaction").code_action, "Code action")
   keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
+  keygen("<leader>ih", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end, "Toggle Inlay Hints")
 
   keygen("<leader>wa", vim.lsp.buf.add_workspace_folder, "add workspace folder")
   keygen("<leader>wr", vim.lsp.buf.remove_workspace_folder, "remove workspace folder")
@@ -104,6 +107,15 @@ M.on_attach = function(client, bufnr)
     keygen("<leader>dt", "<Cmd>lua require'jdtls'.test_class()<CR>", "[java]Test class")
     keygen("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "[java]Test nearest method")
   end
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local c = vim.lsp.get_client_by_id(args.data.client_id)
+      if c and c.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true)
+      end
+    end,
+  })
 end
 
 -- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38#issuecomment-1815265121

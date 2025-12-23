@@ -19,6 +19,23 @@ return {
   config = function()
     require("utils.lspsetup").setup()
 
+    vim.lsp.config("rust_analyzer", {
+      settings = {
+        ["rust-analyzer"] = {
+          inlayHints = {
+            enable = true, -- enables all inlay hints
+            typeHints = { enable = true },
+            parameterHints = { enable = true },
+            chainingHints = { enable = true },
+          },
+
+          diagnostics = {
+            enable = false,
+          },
+        },
+      },
+    })
+
     vim.lsp.config("omnisharp", { cmd = { "OmniSharp" } })
 
     vim.lsp.config("cssls", {
@@ -140,8 +157,21 @@ return {
 
     vim.lsp.config("vtsls", {
       settings = {
+        typescript = {
+          inlayHints = {
+            parameterNames = {
+              enabled = "all", -- 'literals' | 'all' | 'none'
+            },
+            parameterTypes = { enabled = true },
+            variableTypes = { enabled = true },
+            propertyDeclarationTypes = { enabled = true },
+            functionLikeReturnTypes = { enabled = true },
+            enumMemberValues = { enabled = true },
+          },
+        },
         vtsls = {
           tsserver = {
+            useSyntaxServer = false,
             globalPlugins = {
               {
                 name = "@vue/typescript-plugin",
@@ -154,7 +184,9 @@ return {
           },
         },
       },
+      --if you .ts file containes import "*.vue", you still need to use vtsls here with @vue/typescript-plugin
       filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+      -- filetypes = { "vue" },
     })
   end,
 }

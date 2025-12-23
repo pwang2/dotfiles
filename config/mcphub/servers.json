@@ -1,14 +1,15 @@
 {
   "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    },
     "markitdown": {
       "args": ["markitdown-mcp"],
       "command": "uvx"
     },
     "antvis/mcp-server-chart": {
-      "args": [
-        "-y",
-        "@antv/mcp-server-chart"
-      ],
+      "args": ["-y", "@antv/mcp-server-chart"],
       "autoApprove": [
         "generate_area_chart",
         "generate_bar_chart",
@@ -40,14 +41,8 @@
       "disabled": false
     },
     "brave-search": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-brave-search@latest"
-      ],
-      "autoApprove": [
-        "brave_web_search",
-        "brave_local_search"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
+      "autoApprove": ["brave_web_search", "brave_local_search"],
       "command": "npx",
       "disabled": false,
       "env": {
@@ -55,48 +50,31 @@
       }
     },
     "browsermcp": {
-      "args": [
-        "@browsermcp/mcp@latest"
-      ],
+      "args": ["@browsermcp/mcp@latest"],
+      "disabled": true,
       "command": "npx"
     },
     "chroma": {
-      "args": [
-        "chroma-mcp",
-        "--client-type",
-        "persistent",
-        "--data-dir",
-        "/opt/chroma/data"
-      ],
+      "args": ["chroma-mcp", "--client-type", "persistent", "--data-dir", "/opt/chroma/data"],
       "command": "uvx",
       "disabled": false
     },
     "context7": {
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
-      ],
+      "args": ["-y", "@upstash/context7-mcp@latest"],
       "command": "npx",
       "disabled": false
     },
     "fetch": {
-      "args": [
-        "mcp-server-fetch"
-      ],
+      "args": ["mcp-server-fetch"],
       "command": "uvx"
     },
     "investor": {
-      "args": [
-        "investor-agent@latest"
-      ],
+      "args": ["investor-agent@latest"],
       "command": "uvx",
       "disabled": false
     },
     "memory": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory@latest"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-memory@latest"],
       "autoApprove": [
         "create_entities",
         "create_relations",
@@ -113,11 +91,7 @@
       "disabled_tools": []
     },
     "playwright": {
-      "args": [
-        "@playwright/mcp@latest",
-        "--config",
-        "/home/pwang2/.playwright.config.json"
-      ],
+      "args": ["@playwright/mcp@latest", "--config", "/home/pwang2/.playwright.config.json"],
       "autoApprove": [
         "browser_close",
         "browser_resize",
@@ -144,23 +118,13 @@
       "command": "npx"
     },
     "sequential-thinking": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking@latest"
-      ],
-      "autoApprove": [
-        "sequentialthinking"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
+      "autoApprove": ["sequentialthinking"],
       "command": "npx",
       "disabled": false
     },
     "serena": {
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server"
-      ],
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"],
       "command": "uvx",
       "disabled": true
     }

@@ -15,7 +15,7 @@ return {
     },
     opts = {
       automatic_enable = {
-        exclude = { "yamlls", "azure_pipelines_ls" },
+        exclude = { "yamlls", "azure_pipelines_ls", "tsgo" },
       },
       ensure_installed = {
         "jdtls",
@@ -27,6 +27,7 @@ return {
         "omnisharp",
         "html",
         -- "ts_ls",
+        "tsgo",
         "vtsls",
         "pyright",
         "vue_ls",
