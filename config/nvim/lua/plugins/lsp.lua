@@ -131,6 +131,7 @@ return {
             checkThirdParty = false,
           },
           diagnostics = { globals = { "vim", "hs", "spoon" } },
+          hint = { arrayIndex = "Disable" },
         },
       },
       on_init = function(client)

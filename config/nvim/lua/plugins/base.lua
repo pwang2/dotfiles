@@ -1,6 +1,13 @@
 return {
   { "edkolev/tmuxline.vim", cmd = "Tmuxline" },
-  { "ggandor/lightspeed.nvim", event = "BufRead" },
+  {
+    "ggandor/leap.nvim",
+    event = "BufRead",
+    config = function()
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
+      vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
+    end,
+  },
 
   { "simeji/winresizer" },
   { "mbbill/undotree" },
