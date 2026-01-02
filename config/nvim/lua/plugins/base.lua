@@ -1,16 +1,8 @@
 return {
   { "edkolev/tmuxline.vim", cmd = "Tmuxline" },
-  {
-    "ggandor/leap.nvim",
-    event = "BufRead",
-    config = function()
-      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
-      vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
-    end,
-  },
-
   { "simeji/winresizer" },
   { "mbbill/undotree" },
+  { "andymass/vim-matchup" },
   { "tpope/vim-repeat" },
   { "tpope/vim-fugitive" },
   { "nvim-lua/popup.nvim" },
@@ -30,19 +22,6 @@ return {
   { "godlygeek/tabular" },
   { "sphamba/smear-cursor.nvim", opts = {} },
   {
-    "nvim-pack/nvim-spectre",
-    event = "InsertEnter",
-    cmd = "Spectre",
-    keys = {
-      { "<leader>s", "<cmd>Spectre<CR>", desc = "Replace in files" },
-    },
-    opts = {
-      line_sep_start = string.rep("~", 80),
-      result_padding = "  ",
-      line_sep = string.rep("~", 80),
-    },
-  },
-  {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
     config = function()
@@ -51,37 +30,9 @@ return {
     end,
   },
   {
-    "oribarilan/lensline.nvim",
-    -- enabled = false,
-    -- tag = '2.0.0', -- or: branch = 'release/2.x' for latest non-breaking updates
-    branch = "release/2.x",
-    event = "LspAttach",
-    opts = {
-      profiles = {
-        {
-          name = "informative",
-          providers = {
-            { name = "usages", enabled = true, include = { "refs", "defs", "impls" }, breakdown = true },
-            { name = "diagnostics", enabled = true, min_level = "HINT" },
-            { name = "complexity", enabled = true },
-            {
-              name = "function_length",
-              enabled = true,
-              event = { "BufWritePost", "TextChanged" },
-              handler = function(bufnr, func_info, _, callback)
-                local utils = require("lensline.utils")
-                local function_lines = utils.get_function_lines(bufnr, func_info)
-                local func_line_count = math.max(0, #function_lines - 1) -- Subtract 1 for signature
-                callback({
-                  line = func_info.line,
-                  text = string.format("(%d loc)", func_line_count),
-                })
-              end,
-            },
-          },
-          style = { render = "focused", placement = "inline" },
-        },
-      },
-    },
+    "razak17/tailwind-fold.nvim",
+    opts = {},
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "html", "svelte", "astro", "vue", "typescriptreact", "php", "blade" },
   },
 }
