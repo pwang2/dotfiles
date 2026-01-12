@@ -15,7 +15,7 @@ return {
     },
     opts = {
       automatic_enable = {
-        exclude = { "yamlls", "azure_pipelines_ls", "tsgo" },
+        exclude = { "yamlls", "azure_pipelines_ls", "tsgo", "copilot" },
       },
       ensure_installed = {
         "jdtls",

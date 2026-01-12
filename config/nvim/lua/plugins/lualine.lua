@@ -70,7 +70,7 @@ return {
   dependencies = {
     "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",
-    "AndreM222/copilot-lualine",
+    -- "AdreM222/copilot-lualine",
   },
   opts = {
     options = {
@@ -87,11 +87,11 @@ return {
         },
       },
       lualine_y = {
-        {
-          "copilot",
-          show_colors = true,
-          show_loading = true,
-        },
+        -- {
+        --   "copilot",
+        --   show_colors = true,
+        --   show_loading = true,
+        -- },
         {
           get_active_lsp,
           icon = "",

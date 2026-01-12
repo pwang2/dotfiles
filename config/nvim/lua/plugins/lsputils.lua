@@ -14,7 +14,6 @@ return {
     "Chaitanyabsprip/fastaction.nvim",
     event = "LspAttach",
     -- https://github.com/Chaitanyabsprip/fastaction.nvim?tab=readme-ov-file#configuration
-    ---@type FastActionConfig
     opts = {
       dismiss_keys = { "j", "k", "<c-c>", "q" },
       keys = "qwertyuiopasdfghlzxcvbnm",
@@ -24,5 +23,17 @@ return {
         },
       },
     },
+  },
+  {
+    "antosha417/nvim-lsp-file-operations",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- must be loaded first
+      "nvim-tree/nvim-tree.lua",
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
   },
 }

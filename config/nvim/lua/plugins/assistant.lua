@@ -19,6 +19,7 @@ end
 return {
   {
     "zbirenbaum/copilot.lua",
+    enabled = false,
     cmd = "Copilot",
     dependencies = {
       "copilotlsp-nvim/copilot-lsp",
@@ -77,7 +78,7 @@ return {
       "ravitemer/codecompanion-history.nvim",
       {
         "Davidyz/VectorCode",
-        enabled = true,
+        enabled = false,
         version = "*",
         lazy = true,
         cmd = { "VectorCode" },
@@ -107,21 +108,20 @@ return {
         },
         strategies = {
           chat = {
-            tools = {
-              opts = {},
-            },
+            adapter = "copilot",
             opts = {
               completion_provider = "cmp",
             },
-            adapter = {
-              name = "copilot",
-              model = "gpt-4.1",
-              -- model = "claude-sonnet-4.5",
-            },
           },
+          inline = { adapter = "opencode" },
+          agent = { adapter = "opencode" },
         },
         adapters = {
+          opencode = function()
+            return require("codecompanion.adapters").extend("opencode")
+          end,
           http = {
+            copilot = "copilot",
             deepseek = function()
               return require("codecompanion.adapters").extend("deepseek", {
                 env = {
@@ -135,6 +135,21 @@ return {
           history = {
             enabled = true,
             opts = {
+              title_generation_opts = {
+                ---Adapter for generating titles (defaults to current chat adapter)
+                adapter = "copilot",
+                ---Model for generating titles (defaults to current chat model)
+                model = nil, -- "gpt-4o"
+                ---Number of user prompts after which to refresh the title (0 to disable)
+                refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
+                ---Maximum number of times to refresh the title (default: 3)
+                max_refreshes = 3,
+                format_title = function(original_title)
+                  -- this can be a custom function that applies some custom
+                  -- formatting to the title.
+                  return original_title
+                end,
+              },
               keymap = "gh",
               save_chat_keymap = "sc",
               auto_save = true,

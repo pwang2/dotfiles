@@ -1,6 +1,8 @@
 return {
   "numToStr/Comment.nvim",
+  -- enabled = false,
   event = "BufReadPost",
+  ft = "vue",
   dependencies = {
     -- This plugin provides context-aware commenting functionality in vue file
     "JoosepAlviste/nvim-ts-context-commentstring",

@@ -160,8 +160,10 @@ return {
       settings = {
         typescript = {
           inlayHints = {
+            -- TODO: temp disable
+            enabled = false,
             parameterNames = {
-              enabled = "all", -- 'literals' | 'all' | 'none'
+              enabled = "literals", -- 'literals' | 'all' | 'none'
             },
             parameterTypes = { enabled = true },
             variableTypes = { enabled = true },
