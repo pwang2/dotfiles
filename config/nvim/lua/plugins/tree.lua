@@ -24,7 +24,7 @@ return {
       },
       actions = {
         open_file = {
-          quit_on_open = true,
+          quit_on_open = false,
           eject = true,
           resize_window = true,
           window_picker = {
