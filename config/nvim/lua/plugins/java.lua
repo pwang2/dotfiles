@@ -6,7 +6,7 @@ return {
     "mfussenegger/nvim-dap",
   },
   config = function()
-    require("jdtls.jdtls_setup").setup()
+    require("lsp.servers.jdtls").setup()
 
     vim.cmd([[
       command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"

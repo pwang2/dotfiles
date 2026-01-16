@@ -47,11 +47,6 @@ M.on_attach = function(client, bufnr)
     vim.keymap.set(mode, key, cmd, opts)
   end
 
-  -- keygen("gv", function()
-  --   vim.cmd([[vsplit]])
-  --   vim.lsp.buf.definition()
-  -- end, "Go to definition in vertical split")
-  -- keygen("gd", vim.lsp.buf.definition) --use trouble
   keygen("gD", vim.lsp.buf.declaration)
   keygen("gi", vim.lsp.buf.implementation)
   keygen("<leader>k", vim.lsp.buf.signature_help, "Signature help")
@@ -60,10 +55,9 @@ M.on_attach = function(client, bufnr)
 
   keygen("K", vim.lsp.buf.hover, "Hover documentation")
 
-  -- keygen("<leader>q", vim.diagnostic.setloclist) --use trouble <leader>xx
   keygen("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
   keygen("[d", bind(vim.diagnostic.jump, { count = -1, float = true }), "Go to previous diagnostic")
-  keygen("[d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
+  keygen("]d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
 
   -- mimic vscode code action keybinding
   keygen("<C-.>", require("fastaction").code_action, "Code action")
@@ -79,23 +73,11 @@ M.on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "[W]orkspace [L]ist Folders")
 
-  --keygen("<leader>ca", vim.lsp.code_action) --use fastaction.code_action
-  --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
-  --keygen("<leader>f", vim.lsp.format) --use formatter.nvim
-  --keygen('gr', vim.lsp.references)  --use trouble gr
-  -- if client.server_capabilities.codeLensProvider then
-  --   vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-  --     buffer = bufnr,
-  --     callback = vim.lsp.codelens.refresh,
-  --   })
-  -- end
-
   local filetype = vim.bo[bufnr].filetype
   if client.name == "omnisharp" and filetype == "cs" then
     vim.cmd([[
           nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
           nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
-          " nnoremap gr <cmd>lua require('omnisharp_extended').lsp_references()<cr>
           nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
         ]])
   end
@@ -115,23 +97,6 @@ M.on_attach = function(client, bufnr)
         vim.lsp.inlay_hint.enable(true)
       end
     end,
-  })
-end
-
--- https://github.com/hrsh7th/cmp-nvim-lsp/issues/38#issuecomment-1815265121
----@class lsp.ClientCapabilities
-M.capabilities = vim.tbl_deep_extend(
-  "force",
-  vim.lsp.protocol.make_client_capabilities(),
-  require("cmp_nvim_lsp").default_capabilities(),
-  -- Some LSP servers also expect to be informed about the extended client capabilities.
-  require("lsp-file-operations").default_capabilities()
-)
-
-M.setup = function()
-  vim.lsp.config("*", {
-    capabilities = M.capabilities,
-    on_attach = M.on_attach,
   })
 end
 

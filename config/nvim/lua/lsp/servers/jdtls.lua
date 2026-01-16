@@ -27,7 +27,7 @@ function M.setup()
   vim.list_extend(bundles, vim.split(vim.fn.glob(path_to_jtest .. "/extension/server/*.jar", true), "\n"))
 
   local on_attach = function(_, bufnr)
-    require("utils.lspsetup").on_attach(_, bufnr)
+    require("lsp.on_attach").on_attach(_, bufnr)
 
     jdtls.setup_dap({ hotcodereplace = "auto" })
     jdtls_dap.setup_dap_main_class_configs()
@@ -85,12 +85,6 @@ function M.setup()
       },
       signatureHelp = { enabled = true },
       contentProvider = { preferred = "fernflower" },
-      -- eclipse = {
-      -- 	downloadSources = true,
-      -- },
-      -- implementationsCodeLens = {
-      -- 	enabled = true,
-      -- },
       completion = {
         favoriteStaticMembers = {
           "org.hamcrest.MatcherAssert.assertThat",
@@ -124,30 +118,14 @@ function M.setup()
       codeGeneration = {
         toString = {
           template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-          -- flags = {
-          -- 	allow_incremental_sync = true,
-          -- },
         },
         useBlocks = true,
       },
-      -- configuration = {
-      --     runtimes = {
-      --         {
-      --             name = "java-17-openjdk",
-      --             path = "/usr/lib/jvm/default-runtime/bin/java"
-      --         }
-      --     }
-      -- }
-      -- project = {
-      -- 	referencedLibraries = {
-      -- 		"**/lib/*.jar",
-      -- 	},
-      -- },
     },
   }
 
   config.on_attach = on_attach
-  config.capabilities = require("utils.lspsetup").capabilities
+  config.capabilities = require("lsp.capabilities").capabilities
   config.on_init = function(client, _)
     client.notify("workspace/didChangeConfiguration", { settings = config.settings })
   end
@@ -155,17 +133,12 @@ function M.setup()
   local extendedClientCapabilities = require("jdtls").extendedClientCapabilities
   extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-  -- print("JDTLS bundles: " .. vim.inspect(bundles))
-  --
   config.init_options = {
     bundles = bundles,
     extendedClientCapabilities = extendedClientCapabilities,
   }
 
   require("jdtls").start_or_attach(config)
-
-  -- Set Java Specific Keymaps
-  -- require("jdtls.keymaps")
 end
 
 return M
