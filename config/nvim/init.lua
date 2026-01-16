@@ -1,7 +1,5 @@
 require("config.lazy")
 
-vim.g.loaded_node_provider = 0
-
 vim.cmd([[
   hi link FoldColumn Comment
   hi link LspInlayHint Comment
@@ -36,10 +34,15 @@ vim.cmd([[
   autocmd FileType json,jsonc,markdown    setlocal conceallevel=1
   autocmd FileType markdown               setlocal wrap linebreak
 
- autocmd BufReadPost *
+  autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
+
+  autocmd BufEnter,CursorHold,CursorHoldI,FocusGained *
+  \ if mode() !=# 'c' |
+  \   checktime |
+  \ endif
 ]])
 
 vim.cmd([[

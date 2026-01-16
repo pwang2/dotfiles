@@ -19,7 +19,7 @@ end
 return {
   {
     "zbirenbaum/copilot.lua",
-    enabled = false,
+    -- enabled = false,
     cmd = "Copilot",
     dependencies = {
       "copilotlsp-nvim/copilot-lsp",

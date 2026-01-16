@@ -74,7 +74,8 @@ return {
               if #entries == 1 then
                 cmp.confirm({ select = true })
               else
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                -- TODO: change back to Insert after codecompanion fix the issue i submited
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
               end
             elseif vim.fn["vsnip#available"](1) == 1 then
               feedkey("<Plug>(vsnip-expand-or-jump)", "")
@@ -86,7 +87,8 @@ return {
           end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+              -- TODO: change back to Insert after codecompanion fix the issue i submited
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
             elseif vim.fn["vsnip#jumpable"](-1) == 1 then
               feedkey("<Plug>(vsnip-jump-prev)", "")
             else
@@ -122,7 +124,7 @@ return {
         }),
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Insert,
-          select = false,
+          select = true,
         },
         window = {
           documentation = cmp.config.window.bordered(),

@@ -44,22 +44,21 @@ return {
       desc = "Toggle opencode",
     },
     {
-      "go",
+      "<leader>of",
+      function()
+        return require("opencode").operator("@buffer")
+      end,
+      mode = { "n" },
+      desc = "Add current buffer to opencode",
+    },
+    {
+      "<leader>or",
       function()
         return require("opencode").operator("@this ")
       end,
       mode = { "n", "x" },
       expr = true,
       desc = "Add range to opencode",
-    },
-    {
-      "goo",
-      function()
-        return require("opencode").operator("@this ") .. "_"
-      end,
-      mode = "n",
-      expr = true,
-      desc = "Add line to opencode",
     },
   },
 }

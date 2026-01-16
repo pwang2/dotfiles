@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.opt.exrc = true
 vim.opt.secure = true
+vim.opt.autoread = true
 
 vim.opt.title = true
 vim.opt.wrap = true
@@ -55,6 +56,7 @@ vim.g.maplocalleader = ";"
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python_provider = 0
+vim.g.loaded_node_provider = 0
 
 require("lazy").setup({
   spec = {
