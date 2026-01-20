@@ -40,7 +40,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    lazy = false,
+    lazy = "VeryLazy",
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {

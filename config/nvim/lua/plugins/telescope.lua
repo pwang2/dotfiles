@@ -3,13 +3,13 @@ return {
   cmd = { "Telescope" },
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "folke/trouble.nvim",
-    "nvim-telescope/telescope-fzf-native.nvim",
-    "nvim-telescope/telescope-ui-select.nvim",
-    "nvim-telescope/telescope-file-browser.nvim",
-    "nvim-telescope/telescope-frecency.nvim",
-    "debugloop/telescope-undo.nvim",
-    "nvim-telescope/telescope-symbols.nvim",
+    { "folke/trouble.nvim", lazy = true },
+    { "nvim-telescope/telescope-fzf-native.nvim", lazy = true },
+    { "nvim-telescope/telescope-ui-select.nvim", lazy = true },
+    { "nvim-telescope/telescope-file-browser.nvim", lazy = true },
+    { "nvim-telescope/telescope-frecency.nvim", lazy = true },
+    { "debugloop/telescope-undo.nvim", lazy = true },
+    { "nvim-telescope/telescope-symbols.nvim", lazy = true },
   },
   keys = {
     { "<F1>", "<cmd>Telescope<CR>", { silent = true } },
@@ -23,19 +23,33 @@ return {
     { "<leader>fs", "<cmd>Telescope session-lens<CR>", { silent = true } },
   },
   config = function()
-    local trouble = require("trouble.sources.telescope")
-    local troublemaker = trouble.open
+    local telescope = require("telescope")
 
-    vim.cmd([[
+    -- Defer non-critical setup
+    vim.schedule(function()
+      vim.cmd([[
         highlight TelescopeBorder guifg=#585858
       ]])
 
-    require("telescope").setup({
+      -- Autocmd for window border
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TelescopeFindPre",
+        callback = function()
+          vim.opt_local.winborder = "none"
+          vim.api.nvim_create_autocmd("WinLeave", {
+            once = true,
+            callback = function()
+              vim.opt_local.winborder = "rounded"
+            end,
+          })
+        end,
+      })
+    end)
+
+    telescope.setup({
       extensions = {
         ["ui-select"] = {
-          require("telescope.themes").get_dropdown({
-            -- even more opts
-          }),
+          require("telescope.themes").get_dropdown({}),
         },
         file_browser = {
           theme = "ivy",
@@ -56,41 +70,35 @@ return {
       defaults = {
         max_results = 400,
         mappings = {
-          i = { ["<leader>t"] = troublemaker },
-          n = { ["<leader>t"] = troublemaker },
+          i = {
+            ["<leader>t"] = function(...)
+              require("trouble.sources.telescope").open(...)
+            end,
+          },
+          n = {
+            ["<leader>t"] = function(...)
+              require("trouble.sources.telescope").open(...)
+            end,
+          },
         },
       },
       pickers = {
-        live_grep = {
-          -- additional_args = function()
-          --   return { "--max-count=10" }
-          -- end,
-        },
+        live_grep = {},
         find_files = {
           hidden = true,
-          -- theme = "dropdown",
           file_ignore_patterns = { ".git", "node_modules" },
         },
       },
     })
 
-    require("telescope").load_extension("ui-select")
-    require("telescope").load_extension("frecency")
-    require("telescope").load_extension("file_browser")
-    require("telescope").load_extension("undo")
-    vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+    -- Lazy load extensions on demand
+    vim.schedule(function()
+      telescope.load_extension("ui-select")
+      telescope.load_extension("frecency")
+      telescope.load_extension("file_browser")
+      telescope.load_extension("undo")
+    end)
 
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "TelescopeFindPre",
-      callback = function()
-        vim.opt_local.winborder = "none"
-        vim.api.nvim_create_autocmd("WinLeave", {
-          once = true,
-          callback = function()
-            vim.opt_local.winborder = "rounded"
-          end,
-        })
-      end,
-    })
+    vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
   end,
 }

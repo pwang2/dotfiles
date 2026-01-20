@@ -4,7 +4,6 @@ return {
   cmd = { "NvimTreeOpen", "NvimTreeToggle" },
   dependencies = {
     "nvim-tree/nvim-web-devicons",
-    "saifulapm/neotree-file-nesting-config",
   },
   keys = {
     { "<leader>t", "<cmd>:NvimTreeToggle<cr>", desc = "toggle nvim-tree" },
