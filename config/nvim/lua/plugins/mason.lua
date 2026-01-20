@@ -40,7 +40,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    event = "VeryLazy", --should not be lazy. as we want auto install
+    lazy = false,
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {

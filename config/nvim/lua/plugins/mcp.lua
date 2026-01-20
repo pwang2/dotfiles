@@ -12,7 +12,7 @@ return {
     ---@class MCPHub.Config
     local opts = {
       use_bundled_binary = true,
-      config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Config file path
+      config = vim.fn.stdpath("config") .. "/../mcphub/servers.json",
       native_servers = {}, -- add your native servers here
       -- Extension configurations
       auto_approve = false,
