@@ -17,48 +17,27 @@ return {
 
     -- Required for `opts.events.reload`.
     vim.o.autoread = true
+
+    local oc = require("opencode")
+
+    vim.keymap.set({ "n", "x" }, "<leader>za", function()
+      oc.ask("@this: ", { submit = true })
+    end, { desc = "Ask opencode…" })
+
+    vim.keymap.set({ "n", "x" }, "<leader>z", function()
+      oc.select()
+    end, { desc = "Execute opencode action…" })
+
+    vim.keymap.set({ "n", "t" }, "<leader>zz", function()
+      oc.toggle()
+    end, { desc = "Toggle opencode" })
+
+    vim.keymap.set({ "n" }, "zf", function()
+      return oc.operator("@buffer ") .. "_"
+    end, { desc = "Add buffer to opencode", expr = true })
+
+    vim.keymap.set({ "n", "x" }, "zr", function()
+      return oc.operator("@this ")
+    end, { desc = "Add range to opencode", expr = true })
   end,
-  keys = {
-    {
-      "<C-a>",
-      function()
-        require("opencode").ask("@this: ", { submit = true })
-      end,
-      mode = { "n", "x" },
-      desc = "Ask opencode",
-    },
-    {
-      "<C-x>",
-      function()
-        require("opencode").select()
-      end,
-      mode = { "n", "x" },
-      desc = "Execute opencode action…",
-    },
-    {
-      "<leader>oc",
-      function()
-        require("opencode").toggle()
-      end,
-      mode = { "n", "t" },
-      desc = "Toggle opencode",
-    },
-    {
-      "<leader>of",
-      function()
-        return require("opencode").operator("@buffer")
-      end,
-      mode = { "n" },
-      desc = "Add current buffer to opencode",
-    },
-    {
-      "<leader>or",
-      function()
-        return require("opencode").operator("@this ")
-      end,
-      mode = { "n", "x" },
-      expr = true,
-      desc = "Add range to opencode",
-    },
-  },
 }

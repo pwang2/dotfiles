@@ -1,7 +1,27 @@
 return {
   "folke/snacks.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
   opts = {
+    input = {
+      enabled = true,
+      config = function()
+        local snacks = require("snacks")
+        vim.ui.input = snacks.input.input
+      end,
+    },
+    picker = {
+      enabled = true,
+      config = function()
+        local snacks = require("snacks")
+        vim.ui.select = snacks.picker.select
+      end,
+    },
+    terminal = {
+      enabled = true,
+    },
     bufdelete = {
       enabled = true,
     },

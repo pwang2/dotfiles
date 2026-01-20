@@ -90,14 +90,7 @@ M.on_attach = function(client, bufnr)
     keygen("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "[java]Test nearest method")
   end
 
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local c = vim.lsp.get_client_by_id(args.data.client_id)
-      if c and c.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true)
-      end
-    end,
-  })
+  -- Inlay hints disabled by default, use <leader>ih to toggle
 end
 
 return M

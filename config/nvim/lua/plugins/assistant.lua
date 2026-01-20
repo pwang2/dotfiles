@@ -113,15 +113,12 @@ return {
               completion_provider = "cmp",
             },
           },
-          inline = { adapter = "opencode" },
-          agent = { adapter = "opencode" },
+          inline = { adapter = "copilot" },
+          agent = { adapter = "copilot" },
         },
         adapters = {
-          opencode = function()
-            return require("codecompanion.adapters").extend("opencode")
-          end,
           http = {
-            copilot = "copilot",
+            -- copilot = "copilot",
             deepseek = function()
               return require("codecompanion.adapters").extend("deepseek", {
                 env = {
@@ -163,14 +160,14 @@ return {
               tool_opts = {},
             },
           },
-          mcphub = {
-            callback = "mcphub.extensions.codecompanion",
-            opts = {
-              show_result_in_chat = true, -- Show the mcp tool result in the chat buffer
-              make_vars = true, -- make chat #variables from MCP server resources
-              make_slash_commands = true, -- make /slash_commands from MCP server prompts
-            },
-          },
+          -- mcphub = {
+          --   callback = "mcphub.extensions.codecompanion",
+          --   opts = {
+          --     show_result_in_chat = true, -- Show the mcp tool result in the chat buffer
+          --     make_vars = true, -- make chat #variables from MCP server resources
+          --     make_slash_commands = true, -- make /slash_commands from MCP server prompts
+          --   },
+          -- },
           spinner = {},
         },
 
