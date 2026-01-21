@@ -1,8 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
+    "Planner-Sisyphus": {
+      "model": "github-copilot/claude-opus-4.5",
+      "description": "Strategic planning and task delegation"
+    },
     "Sisyphus": {
-      "model": "github-copilot/claude-opus-4.5"
+      "model": "github-copilot/claude-sonnet-4.5"
     },
     "librarian": {
       "model": "github-copilot/gpt-4.1"

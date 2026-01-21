@@ -75,7 +75,7 @@ return {
                 cmp.confirm({ select = true })
               else
                 -- TODO: change back to Insert after codecompanion fix the issue i submited
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
               end
             elseif vim.fn["vsnip#available"](1) == 1 then
               feedkey("<Plug>(vsnip-expand-or-jump)", "")
