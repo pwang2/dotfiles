@@ -15,6 +15,7 @@ return {
     vim.opt.lazyredraw = false
   end,
   config = function()
+    local highlights = require("config.highlights")
     ---@class NoiceConfig
     local opts = {
       views = {
@@ -129,7 +130,7 @@ return {
     require("noice").setup(opts)
     require("notify").setup({
       merge_duplicates = true,
-      background_colour = "#000000",
+      background_colour = highlights.colors.notify_bg,
     })
   end,
 }

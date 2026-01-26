@@ -20,16 +20,17 @@ local get_active_lsp = function()
   return table.concat(lsps, "·")
 end
 
+local highlights = require("config.highlights")
 local colors = {
-  darkgray = "#16161d",
-  gray = "#a8a8a8",
+  darkgray = highlights.colors.lualine_darkgray,
+  gray = highlights.colors.lualine_gray,
   innerbg = nil,
-  outerbg = "#16161D",
-  normal = "#6ac0ff",
-  insert = "#98bb6c",
-  visual = "#ffa066",
-  replace = "#e46876",
-  command = "#e6c384",
+  outerbg = highlights.colors.lualine_outerbg,
+  normal = highlights.colors.lualine_normal,
+  insert = highlights.colors.lualine_insert,
+  visual = highlights.colors.lualine_visual,
+  replace = highlights.colors.lualine_replace,
+  command = highlights.colors.lualine_command,
 }
 local transparent = {
   inactive = {
@@ -83,7 +84,7 @@ return {
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
-          color = { fg = "#ff9e64" },
+          color = { fg = highlights.colors.lualine_special },
         },
       },
       lualine_y = {

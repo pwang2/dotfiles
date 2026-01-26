@@ -24,12 +24,11 @@ return {
   },
   config = function()
     local telescope = require("telescope")
+    local highlights = require("config.highlights")
 
     -- Defer non-critical setup
     vim.schedule(function()
-      vim.cmd([[
-        highlight TelescopeBorder guifg=#585858
-      ]])
+      vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = highlights.colors.separator })
 
       -- Autocmd for window border
       vim.api.nvim_create_autocmd("User", {

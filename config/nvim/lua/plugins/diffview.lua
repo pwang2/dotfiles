@@ -36,12 +36,14 @@ return {
     { "<leader>dfs", "<cmd>DiffviewToggleFiles<cr>",  desc = "Toggle File Panel"  },
   },
   config = function()
-    vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#263834" })
-    vim.api.nvim_set_hl(0, "DiffChange", { bg = "#263834" })
-    vim.api.nvim_set_hl(0, "DiffText", { bg = "#335d3d", fg = "#d1d7e0" })
-    vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#3e2e34" })
-    vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { bg = "#3e2e34" })
-    vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { bg = "#3e2e34", fg = "#cacad3" })
+    local highlights = require("config.highlights")
+    local c = highlights.colors
+    vim.api.nvim_set_hl(0, "DiffAdd", { bg = c.diffview_diff_add_bg })
+    vim.api.nvim_set_hl(0, "DiffChange", { bg = c.diffview_diff_change_bg })
+    vim.api.nvim_set_hl(0, "DiffText", { bg = c.diffview_diff_text_bg, fg = c.diffview_diff_text_fg })
+    vim.api.nvim_set_hl(0, "DiffDelete", { bg = c.diffview_diff_delete_bg })
+    vim.api.nvim_set_hl(0, "DiffviewDiffAddAsDelete", { bg = c.diffview_diff_delete_bg })
+    vim.api.nvim_set_hl(0, "DiffviewDiffDelete", { bg = c.diffview_diff_delete_bg, fg = c.diffview_diff_delete_fg })
   end,
 }
 

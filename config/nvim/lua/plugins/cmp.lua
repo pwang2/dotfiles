@@ -18,6 +18,7 @@ return {
     config = function()
       local cmp = require("cmp")
       local lspkind = require("lspkind")
+      local highlights = require("config.highlights")
 
       -- Initialize copilot-cmp
       require("copilot_cmp").setup()
@@ -167,20 +168,19 @@ return {
         vim.b.copilot_suggestion_hidden = false
       end)
 
-      vim.cmd([[
-        hi CmpItemAbbrDeprecated  guibg=NONE     guifg=#808080 gui=strikethrough
-        hi CmpItemAbbrMatch       guibg=NONE     guifg=#56d690
-        hi CmpItemAbbrMatchFuzzy  guibg=NONE     guifg=#569CD6
-        hi CmpItemKindVariable    guibg=NONE     guifg=#9CDCFE
-        hi CmpItemKindInterface   guibg=NONE     guifg=#9CDCFE
-        hi CmpItemKindText        guibg=NONE     guifg=#9CDCFE
-        hi CmpItemKindFunction    guibg=NONE     guifg=#C586C0
-        hi CmpItemKindMethod      guibg=NONE     guifg=#C586C0
-        hi CmpItemKindKeyword     guibg=NONE     guifg=#D4D4D4
-        hi CmpItemKindProperty    guibg=NONE     guifg=#D4D4D4
-        hi CmpItemKindUnit        guibg=NONE     guifg=#D4D4D4
-        hi CmpItemKindCopilot     guibg=NONE     guifg=#6CC644
-      ]])
+      local c = highlights.colors
+      vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = c.cmp_deprecated, bg = "NONE", strikethrough = true })
+      vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = c.cmp_match, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = c.cmp_match_fuzzy, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = c.cmp_variable, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = c.cmp_variable, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = c.cmp_variable, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = c.cmp_function, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = c.cmp_method, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = c.cmp_keyword, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = c.cmp_property, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = c.cmp_unit, bg = "NONE" })
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = c.cmp_copilot, bg = "NONE" })
     end,
   },
 }

@@ -5,6 +5,7 @@ return {
   event = "CmdLineEnter",
   config = function()
     local wilder = require("wilder")
+    local highlights = require("config.highlights")
     wilder.setup({ modes = { ":", "/", "?" } })
     wilder.set_option("pipeline", {
       wilder.branch(
@@ -52,7 +53,7 @@ return {
           accent = wilder.make_hl(
             "WilderAccent",
             "Pmenu",
-            { { a = 1 }, { foreground = 198, background = "NONE", bold = 0 }, { foreground = "#ff4303" } }
+            { { a = 1 }, { foreground = 198, background = "NONE", bold = 0 }, { foreground = highlights.colors.wilder_foreground } }
           ),
         },
       }))

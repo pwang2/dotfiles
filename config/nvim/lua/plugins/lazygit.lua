@@ -19,7 +19,8 @@ return {
     { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
   },
   config = function()
+    local highlights = require("config.highlights")
     require("telescope").load_extension("lazygit")
-    vim.api.nvim_set_hl(0, "LazyGitBorder", { fg = "#585858" })
+    vim.api.nvim_set_hl(0, "LazyGitBorder", { fg = highlights.colors.separator })
   end,
 }
