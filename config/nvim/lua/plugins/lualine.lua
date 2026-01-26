@@ -20,62 +20,15 @@ local get_active_lsp = function()
   return table.concat(lsps, "·")
 end
 
-local highlights = require("config.highlights")
-local colors = {
-  darkgray = highlights.colors.lualine_darkgray,
-  gray = highlights.colors.lualine_gray,
-  innerbg = nil,
-  outerbg = highlights.colors.lualine_outerbg,
-  normal = highlights.colors.lualine_normal,
-  insert = highlights.colors.lualine_insert,
-  visual = highlights.colors.lualine_visual,
-  replace = highlights.colors.lualine_replace,
-  command = highlights.colors.lualine_command,
-}
-local transparent = {
-  inactive = {
-    a = { fg = colors.gray, bg = colors.outerbg, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-  visual = {
-    a = { fg = colors.darkgray, bg = colors.visual, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-  replace = {
-    a = { fg = colors.darkgray, bg = colors.replace, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-  normal = {
-    a = { fg = colors.darkgray, bg = colors.normal, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-  insert = {
-    a = { fg = colors.darkgray, bg = colors.insert, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-  command = {
-    a = { fg = colors.darkgray, bg = colors.command, gui = "bold" },
-    b = { fg = colors.gray, bg = colors.outerbg },
-    c = { fg = colors.gray, bg = colors.innerbg },
-  },
-}
-
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   dependencies = {
     "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",
-    -- "AdreM222/copilot-lualine",
   },
   opts = {
     options = {
-      theme = transparent,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
     },
@@ -84,15 +37,9 @@ return {
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
-          color = { fg = highlights.colors.lualine_special },
         },
       },
       lualine_y = {
-        -- {
-        --   "copilot",
-        --   show_colors = true,
-        --   show_loading = true,
-        -- },
         {
           get_active_lsp,
           icon = "",

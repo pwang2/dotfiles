@@ -75,17 +75,6 @@ local dark_palette = {
   diffview_diff_delete_bg = "#3e2e34",
   diffview_diff_delete_fg = "#cacad3",
 
-  -- Lualine colors
-  lualine_darkgray = "#16161d",
-  lualine_gray = "#a8a8a8",
-  lualine_outerbg = "#16161D",
-  lualine_normal = "#6ac0ff",
-  lualine_insert = "#98bb6c",
-  lualine_visual = "#ffa066",
-  lualine_replace = "#e46876",
-  lualine_command = "#e6c384",
-  lualine_special = "#ff9e64",
-
   -- Notify background
   notify_bg = "#000000",
 
@@ -157,17 +146,6 @@ local light_palette = {
   diffview_diff_text_fg = "#303840",
   diffview_diff_delete_bg = "#e8d4d4",
   diffview_diff_delete_fg = "#403030",
-
-  -- Lualine colors (brighter for light theme)
-  lualine_darkgray = "#e6e6e6",
-  lualine_gray = "#707070",
-  lualine_outerbg = "#e6e6E6",
-  lualine_normal = "#4a9fff",
-  lualine_insert = "#78ab5c",
-  lualine_visual = "#ff9046",
-  lualine_replace = "#d45866",
-  lualine_command = "#d6b364",
-  lualine_special = "#ff8e54",
 
   -- Notify background (lighter)
   notify_bg = "#ffffff",
@@ -241,4 +219,3 @@ vim.api.nvim_set_hl(0, "FoldColumn", { link = "Comment" })
 vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
 
 return M
-
