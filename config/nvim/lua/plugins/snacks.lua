@@ -29,10 +29,9 @@ return {
       enabled = true,
       sections = {
         { section = "header" },
-        { section = "recent_files", cwd = true, indent = 0, gap = 1 },
-        { section = "session", indent = 0, gap = 1 },
-        -- { icon = "  ", title = "Projects", section = "projects", indent = 2, padding = { 2, 0 } },
-        { section = "keys", gap = 1 },
+        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        { icon = "  ", title = "Projects", section = "projects", indent = 2, padding = { 2, 0 } },
+        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1, gap = 1 },
         { section = "startup" },
       },
     },
@@ -40,6 +39,13 @@ return {
     -- scroll = { enabled = true },
   },
   keys = {
+    {
+      "<leader>dd",
+      function()
+        require("snacks").dashboard()
+      end,
+      desc = "Show Snacks Dashboard",
+    },
     {
       "<leader>q",
       function()
