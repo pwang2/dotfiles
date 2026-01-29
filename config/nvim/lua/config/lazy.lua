@@ -63,8 +63,8 @@ require("lazy").setup({
     { import = "plugins" },
   },
   ui = {
-    backdrop = 0,
-    border = "rounded",
+    backdrop = 60,
+    border = "none",
     size = {
       width = 0.6,
       height = 0.8,
