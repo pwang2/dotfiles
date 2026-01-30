@@ -6,5 +6,6 @@ return {
   },
   keys = {
     { "<leader>td", "<cmd>TodoTelescope<cr>" },
+    { "<leader>tt", "<cmd>TodoTrouble<cr>" },
   },
 }

@@ -29,9 +29,9 @@ return {
       enabled = true,
       sections = {
         { section = "header" },
-        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        { icon = "  ", title = "Projects", section = "projects", indent = 2, padding = { 2, 0 } },
-        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1, gap = 1 },
+        { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+        { section = "projects", icon = "  ", title = "Projects", indent = 2, padding = { 2, 0 } },
+        { section = "keys", icon = " ", title = "Keymaps", indent = 2, padding = 1, gap = 0 },
         { section = "startup" },
       },
     },

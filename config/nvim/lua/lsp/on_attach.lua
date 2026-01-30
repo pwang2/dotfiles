@@ -75,19 +75,27 @@ M.on_attach = function(client, bufnr)
 
   local filetype = vim.bo[bufnr].filetype
   if client.name == "omnisharp" and filetype == "cs" then
-    vim.cmd([[
-          nnoremap gd <cmd>lua require('omnisharp_extended').lsp_definition()<cr>
-          nnoremap <leader>D <cmd>lua require('omnisharp_extended').lsp_type_definition()<cr>
-          nnoremap gi <cmd>lua require('omnisharp_extended').lsp_implementation()<cr>
-        ]])
+    keygen("gd", require("omnisharp_extended").lsp_definition, "[cs]Go to definition")
+    keygen("<leader>D", require("omnisharp_extended").lsp_type_definition, "[cs]Type definition")
+    keygen("gi", require("omnisharp_extended").lsp_implementation, "[cs]Go to implementation")
   end
 
   if client.name == "jdtls" and filetype == "java" then
-    keygen("<leader>di", "<Cmd>lua require'jdtls'.organize_imports()<CR>", "[java]Organize imports")
-    keygen("<leader>de", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", "[java]Extract variable")
-    keygen("<leader>dm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", "[java]Extract method")
-    keygen("<leader>dt", "<Cmd>lua require'jdtls'.test_class()<CR>", "[java]Test class")
-    keygen("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "[java]Test nearest method")
+    keygen("<leader>di", function()
+      require("jdtls").organize_imports()
+    end, "[java]Organize imports")
+    keygen("<leader>de", function()
+      require("jdtls").extract_variable(true)
+    end, "[java]Extract variable")
+    keygen("<leader>dm", function()
+      require("jdtls").extract_method(true)
+    end, "[java]Extract method")
+    keygen("<leader>dt", function()
+      require("jdtls").test_class()
+    end, "[java]Test class")
+    keygen("<leader>dn", function()
+      require("jdtls").test_nearest_method()
+    end, "[java]Test nearest method")
   end
 
   -- Inlay hints disabled by default, use <leader>ih to toggle
