@@ -1,21 +1,31 @@
 return {
+  -- Editing enhancements
   { "andymass/vim-matchup" },
-  { "echasnovski/mini.nvim", version = "*" },
-  { "folke/trouble.nvim", cmd = "TroubleToggle" },
-  { "folke/which-key.nvim", event = "VeryLazy" },
+  { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
+  { "mg979/vim-visual-multi" },
+  { "tpope/vim-repeat" },
+  { "mbbill/undotree" },
+  { "simeji/winresizer" },
+
+  -- Formatting and documentation
   { "godlygeek/tabular" },
   { "heavenshell/vim-jsdoc", build = "make install" },
-  { "kylechui/nvim-surround", opts = {}, event = "VeryLazy" },
-  { "mbbill/undotree" },
-  { "mg979/vim-visual-multi" },
+
+  -- UI enhancements
+  { "folke/trouble.nvim", cmd = "TroubleToggle" },
+  { "folke/which-key.nvim", event = "VeryLazy" },
+  { "sphamba/smear-cursor.nvim" },
+
+  -- Git integration
+  { "tpope/vim-fugitive" },
+
+  -- Dependencies / Libraries
   { "nvim-lua/plenary.nvim" },
   { "nvim-tree/nvim-web-devicons" },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  { "simeji/winresizer" },
-  { "sphamba/smear-cursor.nvim" },
-  { "stevearc/dressing.nvim", event = "VeryLazy" },
-  { "tpope/vim-fugitive" },
-  { "tpope/vim-repeat" },
+  { "echasnovski/mini.nvim", version = "*" },
+
+  -- Misc
   {
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },

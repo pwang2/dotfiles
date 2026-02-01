@@ -67,9 +67,6 @@ command -v argo >/dev/null 2>&1 && _evalcache argo completion zsh
 command -v gh >/dev/null 2>&1 && _evalcache gh completion -s zsh
 command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
 command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
-command -v pyenv >/dev/null 2>&1 && _evalcache pyenv init -
-command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
-command -v az >/dev/null 2>&1 && _evalcache cat "/etc/bash_completion.d/azure-cli"
 
 alias x="exit"
 alias vi="nvim"

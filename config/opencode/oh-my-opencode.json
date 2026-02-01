@@ -3,19 +3,21 @@
   "agents": {
     "prometheus": {
       "model": "github-copilot/claude-opus-4.5",
-      "description": "Strategic planning and task delegation"
+      "description": "Strategic planning and task delegation",
+      "variant": "max"
     },
     "sisyphus": {
       "model": "github-copilot/claude-sonnet-4.5"
     },
     "librarian": {
-      "model": "github-copilot/gpt-4.1"
+      "model": "github-copilot/claude-sonnet-4.5"
     },
     "explore": {
       "model": "github-copilot/gpt-5-mini"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.2"
+      "model": "github-copilot/gpt-5.2",
+      "variant": "high"
     },
     "frontend-ui-ux-engineer": {
       "model": "github-copilot/claude-sonnet-4.5"
@@ -24,7 +26,47 @@
       "model": "github-copilot/gpt-4.1"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-4.1"
+      "model": "github-copilot/gemini-3-flash"
+    },
+    "metis": {
+      "model": "github-copilot/claude-opus-4.5",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "github-copilot/gpt-5.2",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "github-copilot/gemini-3-pro"
+    },
+    "ultrabrain": {
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
+    },
+    "deep": {
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "medium"
+    },
+    "artistry": {
+      "model": "github-copilot/gemini-3-pro",
+      "variant": "max"
+    },
+    "quick": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "unspecified-low": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "unspecified-high": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "writing": {
+      "model": "github-copilot/gemini-3-flash"
     }
   }
 }
