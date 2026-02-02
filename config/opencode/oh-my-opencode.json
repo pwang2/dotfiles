@@ -10,10 +10,10 @@
       "model": "github-copilot/claude-sonnet-4.5"
     },
     "librarian": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "explore": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "oracle": {
       "model": "github-copilot/gpt-5.2",
@@ -23,10 +23,10 @@
       "model": "github-copilot/claude-sonnet-4.5"
     },
     "document-writer": {
-      "model": "github-copilot/gpt-4.1"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gemini-3-flash"
+      "model": "github-copilot/gpt-5.1"
     },
     "metis": {
       "model": "github-copilot/claude-opus-4.5",
@@ -42,7 +42,7 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3-pro"
+      "model": "github-copilot/gpt-5.1"
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.2-codex",
@@ -53,7 +53,7 @@
       "variant": "medium"
     },
     "artistry": {
-      "model": "github-copilot/gemini-3-pro",
+      "model": "github-copilot/claude-opus-4.5",
       "variant": "max"
     },
     "quick": {
@@ -66,7 +66,7 @@
       "model": "github-copilot/claude-sonnet-4.5"
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash"
+      "model": "github-copilot/gpt-5-mini"
     }
   }
 }
