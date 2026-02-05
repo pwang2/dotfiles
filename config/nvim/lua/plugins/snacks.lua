@@ -30,7 +30,6 @@ return {
       sections = {
         { section = "header" },
         { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
-        { section = "projects", icon = "  ", title = "Projects", indent = 2, padding = { 2, 0 } },
         { section = "keys", icon = " ", title = "Keymaps", indent = 2, padding = 1, gap = 0 },
         { section = "startup" },
       },

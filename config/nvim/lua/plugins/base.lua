@@ -26,10 +26,16 @@ return {
   { "echasnovski/mini.nvim", version = "*" },
 
   -- Misc
+  -- {
+  --   "norcalli/nvim-colorizer.lua",
+  --   ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  --   opts = { "*", css = { css = true, css_fn = true } },
+  -- },
   {
-    "norcalli/nvim-colorizer.lua",
-    ft = { "css", "scss", "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    opts = { "*", css = { css = true, css_fn = true } },
+    "brenoprata10/nvim-highlight-colors",
+    event = "VeryLazy",
+    version = "*",
+    opts = { enable_tailwind = true },
   },
   {
     "razak17/tailwind-fold.nvim",
