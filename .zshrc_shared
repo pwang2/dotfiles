@@ -47,6 +47,9 @@ if [[ -z $plugins ]]; then
   )
 fi
 
+autoload -Uz compinit
+compinit -C
+
 source $ZSH/oh-my-zsh.sh
 
 # need to add the -M mode here or it will not work with zsh-vi-mode
@@ -70,7 +73,6 @@ command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 
 alias x="exit"
 alias vi="nvim"
-alias x="exit"
 alias c="clear"
 alias cls="clear"
 alias td="todo.sh"
@@ -91,4 +93,10 @@ strongpass() {
   else
     openssl rand -base64 14
   fi
+}
+
+profile() {
+  zmodload zsh/zprof
+  source ~/.zshrc_shared
+  zprof
 }

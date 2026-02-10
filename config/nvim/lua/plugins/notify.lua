@@ -5,7 +5,17 @@ return {
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "rcarriga/nvim-notify",
+    {
+      "rcarriga/nvim-notify",
+      opts = function()
+        local highlights = require("config.highlights")
+        return {
+          merge_duplicates = true,
+          background_colour = highlights.colors.notify_bg,
+          stages = "static",
+        }
+      end,
+    },
   },
   keys = {
     { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Find notifications history" },
@@ -14,123 +24,115 @@ return {
   init = function()
     vim.opt.lazyredraw = false
   end,
-  config = function()
-    local highlights = require("config.highlights")
-    ---@class NoiceConfig
-    local opts = {
-      views = {
-        popup = {
-          size = {
-            width = "80",
-            height = "auto",
-            max_width = 160,
+  ---@class NoiceConfig
+  opts = {
+    views = {
+      popup = {
+        size = {
+          width = 80,
+          height = "auto",
+          max_width = 160,
+        },
+      },
+      cmdline_popup = {
+        -- position = {
+        --   row = "75%",
+        --   col = "5%",
+        -- },
+        border = {
+          padding = { 1, 2 },
+        },
+      },
+    },
+
+    routes = {
+      {
+        ---@class NoiceFilter
+        filter = {
+          event = "msg_show",
+          any = {
+            { find = "%d+L, %d+B" },
+            { find = "; after #%d+" },
+            { find = "; before #%d+" },
+            { find = "%d fewer lines" },
+            { find = "%d more lines" },
           },
         },
-        cmdline_popup = {
-          -- position = {
-          --   row = "75%",
-          --   col = "5%",
-          -- },
-          border = {
-            padding = { 1, 2 },
-          },
+        view = "mini",
+        opts = {
+          timeout = 2000,
         },
       },
 
-      routes = {
-        {
-          ---@class NoiceFilter
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-              { find = "%d fewer lines" },
-              { find = "%d more lines" },
-            },
-          },
-          view = "mini",
-          opts = {
-            timeout = 2000,
-          },
+      {
+        --https://github.com/folke/trouble.nvim/issues/329
+        ---@class NoiceFilter
+        filter = {
+          event = "notify",
+          find = "Cursor position outside buffer",
         },
-
-        {
-          --https://github.com/folke/trouble.nvim/issues/329
-          ---@class NoiceFilter
-          filter = {
-            event = "notify",
-            find = "Cursor position outside buffer",
-          },
-          opts = { skip = true },
+        opts = { skip = true },
+      },
+      {
+        ---@class NoiceFilter
+        filter = {
+          event = "notify",
+          find = "No information available",
         },
-        {
-          ---@class NoiceFilter
-          filter = {
-            event = "notify",
-            find = "No information available",
-          },
-          opts = { skip = true },
+        opts = { skip = true },
+      },
+      {
+        ---@class NoiceFilter
+        filter = {
+          event = "notify",
+          find = "No ESLint configuration found in ",
         },
-        {
-          ---@class NoiceFilter
-          filter = {
-            event = "notify",
-            find = "No ESLint configuration found in ",
-          },
-          opts = { skip = true },
-        },
-        {
-          view = "mini",
-          ---@type NoiceFilter
-          filter = {
-            event = "notify",
-            find = "Failed to run formatter",
-          },
-        },
-        {
-          filter = { event = "msg_show" },
-          view = "notify",
-          opts = {
-            level = "info",
-            skip = false,
-            replace = false,
-          },
+        opts = { skip = true },
+      },
+      {
+        view = "mini",
+        ---@type NoiceFilter
+        filter = {
+          event = "notify",
+          find = "Failed to run formatter",
         },
       },
-      lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+      {
+        filter = { event = "msg_show" },
+        view = "notify",
+        opts = {
+          level = "info",
+          skip = false,
+          replace = false,
         },
       },
-      -- you can enable a preset for easier configuration
-      presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
-        command_palette = false, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+    },
+    lsp = {
+      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
       },
-      messages = {
-        -- NOTE: If you enable messages, then the cmdline is enabled automatically.
-        -- This is a current Neovim limitation.
-        --NOTE: DISABLE THIS AS IT IS TOO NOISY
-        enabled = true, -- enables the Noice messages UI
-        view = "notify", -- default view for messages
-        view_error = "notify", -- view for errors
-        view_warn = "notify", -- view for warnings
-        view_history = "messages", -- view for :messages
-        view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-      },
-    }
-    require("noice").setup(opts)
-    require("notify").setup({
-      merge_duplicates = true,
-      background_colour = highlights.colors.notify_bg,
-    })
-  end,
+    },
+    -- you can enable a preset for easier configuration
+    presets = {
+      bottom_search = true, -- use a classic bottom cmdline for search
+      command_palette = false, -- position the cmdline and popupmenu together
+      long_message_to_split = true, -- long messages will be sent to a split
+      inc_rename = false, -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = true, -- add a border to hover docs and signature help
+    },
+    messages = {
+      -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+      -- This is a current Neovim limitation.
+      --NOTE: DISABLE THIS AS IT IS TOO NOISY
+      enabled = true, -- enables the Noice messages UI
+      view = "notify", -- default view for messages
+      view_error = "notify", -- view for errors
+      view_warn = "notify", -- view for warnings
+      view_history = "messages", -- view for :messages
+      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    },
+  },
 }

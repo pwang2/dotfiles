@@ -29,11 +29,11 @@ return {
       oc.toggle()
     end, { desc = "Toggle opencode" })
 
-    vim.keymap.set({ "n" }, "zf", function()
+    vim.keymap.set({ "n" }, "af", function()
       return oc.operator("@buffer ") .. "_"
     end, { desc = "Add buffer to opencode", expr = true })
 
-    vim.keymap.set({ "n", "x" }, "zr", function()
+    vim.keymap.set({ "n", "x" }, "ar", function()
       return oc.operator("@this ")
     end, { desc = "Add range to opencode", expr = true })
   end,
