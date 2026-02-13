@@ -19,6 +19,8 @@ return {
       jsonc = { "prettier" },
       vue = { "prettier" },
       html = { "prettier" },
+      jsx = { "prettier" },
+      tsx = { "prettier" },
       -- yaml = { "yamlfmt" },
     },
     format_on_save = {

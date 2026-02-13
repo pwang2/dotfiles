@@ -26,7 +26,7 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-5.1"
+      "model": "github-copilot/gpt-5.2"
     },
     "metis": {
       "model": "github-copilot/claude-opus-4.5",
@@ -42,7 +42,7 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gpt-5.1"
+      "model": "github-copilot/gpt-5.2-codex"
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.2-codex",
