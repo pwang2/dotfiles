@@ -21,6 +21,7 @@ vim.opt.exrc = true
 vim.opt.secure = true
 vim.opt.autoread = true
 
+vim.opt.background = "light"
 vim.opt.title = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
