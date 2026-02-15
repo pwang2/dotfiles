@@ -68,5 +68,12 @@
     "writing": {
       "model": "github-copilot/gpt-5-mini"
     }
+  },
+  "tmux": {
+    "enabled": true,
+    "layout": "main-vertical",
+    "main_pane_size": 60,
+    "main_pane_min_width": 120,
+    "agent_pane_min_width": 40
   }
 }
