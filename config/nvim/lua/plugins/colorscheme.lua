@@ -11,7 +11,7 @@ return {
   },
   {
     "sonph/onehalf",
-    enabled = false,
+    -- enabled = false,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
     init = function()
@@ -32,6 +32,7 @@ return {
   },
   {
     "maxmx03/solarized.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     opts = {
@@ -59,11 +60,11 @@ return {
     opts = {
       set_dark_mode = function()
         vim.api.nvim_set_option_value("background", "dark", {})
-        -- vim.cmd("colorscheme onehalfdark")
+        vim.cmd("colorscheme onehalfdark")
       end,
       set_light_mode = function()
         vim.api.nvim_set_option_value("background", "light", {})
-        -- vim.cmd("colorscheme onehalflight")
+        vim.cmd("colorscheme onehalflight")
       end,
       update_interval = 1000,
       fallback = "light",

@@ -24,15 +24,15 @@ return {
       oc.select()
     end, { desc = "Execute opencode action…" })
 
-    vim.keymap.set({ "n", "t" }, "<leader>z", function()
+    vim.keymap.set({ "n", "t" }, "zz", function()
       oc.toggle()
     end, { desc = "Toggle opencode" })
 
-    vim.keymap.set({ "n" }, "af", function()
+    vim.keymap.set({ "n" }, "<leader>af", function()
       return oc.operator("@buffer ") .. "_"
     end, { desc = "Add buffer to opencode", expr = true })
 
-    vim.keymap.set({ "n", "x" }, "ar", function()
+    vim.keymap.set({ "n", "x" }, "<leader>ar", function()
       return oc.operator("@this ")
     end, { desc = "Add range to opencode", expr = true })
   end,
