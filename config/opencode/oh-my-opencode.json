@@ -7,13 +7,14 @@
       "variant": "max"
     },
     "sisyphus": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/claude-sonnet-4.6",
+      "variant": "max"
     },
     "librarian": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "explore": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/gpt-5-mini"
     },
     "oracle": {
       "model": "github-copilot/gpt-5.2",
@@ -26,10 +27,10 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-5.2"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.5",
+      "model": "github-copilot/claude-opus-4.6",
       "variant": "max"
     },
     "momus": {
@@ -37,12 +38,17 @@
       "variant": "medium"
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/claude-sonnet-4.6"
+    },
+    "hephaestus": {
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "medium"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gpt-5.2-codex"
+      "model": "github-copilot/claude-sonnet-4.6",
+      "variant": "high"
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.2-codex",
@@ -53,20 +59,20 @@
       "variant": "medium"
     },
     "artistry": {
-      "model": "github-copilot/claude-opus-4.5",
-      "variant": "max"
+      "model": "github-copilot/claude-sonnet-4.6",
+      "variant": "high"
     },
     "quick": {
       "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "writing": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "github-copilot/claude-haiku-4.5"
     }
   },
   "tmux": {

@@ -6,7 +6,7 @@ return {
     priority = 1000, -- make sure to load this before all the other start plugins
     opts = {
       style = "darker", --  'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-      toggle_style_key = "<leader>dd", -- keybind to toggle theme style.
+      toggle_style_key = "<leader>dc", -- keybind to toggle theme style.
     },
   },
   {
@@ -31,30 +31,7 @@ return {
     end,
   },
   {
-    "maxmx03/solarized.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    opts = {
-      plugins = {
-        navic = false,
-        nvimtree = true,
-        dashboard = false,
-        noice = true,
-        ministatusline = false,
-        minitabline = false,
-        ministarter = false,
-        rainbowdelimiters = false,
-      },
-    },
-    config = function(_, opts)
-      require("solarized").setup(opts)
-      vim.cmd.colorscheme("solarized")
-    end,
-  },
-  {
     "f-person/auto-dark-mode.nvim",
-    enabled = true,
     lazy = false,
     priority = 1100, -- load early to detect background before colorscheme
     opts = {
@@ -66,7 +43,7 @@ return {
         vim.api.nvim_set_option_value("background", "light", {})
         vim.cmd("colorscheme onehalflight")
       end,
-      update_interval = 1000,
+      update_interval = 10000,
       fallback = "light",
     },
   },

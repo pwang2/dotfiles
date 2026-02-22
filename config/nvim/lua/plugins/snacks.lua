@@ -29,7 +29,7 @@ return {
       enabled = true,
       sections = {
         { section = "header" },
-        { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+        { section = "recent_files", icon = " ", title = "Recent Files", indent = 3, padding = 1, cwd = true },
         { section = "keys", icon = " ", title = "Keymaps", indent = 2, padding = 1, gap = 0 },
         { section = "startup" },
       },
