@@ -1,15 +1,12 @@
 {
   "mcpServers": {
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    },
     "markitdown": {
       "args": ["markitdown-mcp"],
       "command": "uvx"
     },
     "antvis/mcp-server-chart": {
       "args": ["-y", "@antv/mcp-server-chart"],
+      "disabled": true,
       "autoApprove": [
         "generate_area_chart",
         "generate_bar_chart",
@@ -37,8 +34,7 @@
         "generate_violin_chart",
         "generate_word_cloud_chart"
       ],
-      "command": "npx",
-      "disabled": false
+      "command": "npx"
     },
     "brave-search": {
       "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
@@ -54,11 +50,6 @@
       "disabled": true,
       "command": "npx"
     },
-    "chroma": {
-      "args": ["chroma-mcp", "--client-type", "persistent", "--data-dir", "/opt/chroma/data"],
-      "command": "uvx",
-      "disabled": false
-    },
     "context7": {
       "args": ["-y", "@upstash/context7-mcp@latest"],
       "command": "npx",
@@ -70,8 +61,8 @@
     },
     "investor": {
       "args": ["investor-agent@latest"],
-      "command": "uvx",
-      "disabled": false
+      "disabled": true,
+      "command": "uvx"
     },
     "memory": {
       "args": ["-y", "@modelcontextprotocol/server-memory@latest"],
@@ -87,11 +78,16 @@
         "open_nodes"
       ],
       "command": "npx",
-      "disabled": false,
+      "disabled": true,
       "disabled_tools": []
     },
     "playwright": {
-      "args": ["@playwright/mcp@latest", "--config", "/home/pwang2/.playwright.config.json"],
+      "disabled": true,
+      "args": [
+        "@playwright/mcp@latest",
+        "--config",
+        "/home/pwang2/.playwright.config.json"
+      ],
       "autoApprove": [
         "browser_close",
         "browser_resize",
@@ -121,11 +117,6 @@
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
       "autoApprove": ["sequentialthinking"],
       "command": "npx",
-      "disabled": false
-    },
-    "serena": {
-      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"],
-      "command": "uvx",
       "disabled": true
     }
   },
