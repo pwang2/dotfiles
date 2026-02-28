@@ -1,6 +1,6 @@
 return {
   "ravitemer/mcphub.nvim",
-  enabled = false,
+  -- enabled = false,
   lazy = true,
   event = "VeryLazy",
   dependencies = {
