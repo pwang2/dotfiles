@@ -89,7 +89,7 @@ return {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               -- TODO: change back to Insert after codecompanion fix the issue i submited
-              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
             elseif vim.fn["vsnip#jumpable"](-1) == 1 then
               feedkey("<Plug>(vsnip-jump-prev)", "")
             else

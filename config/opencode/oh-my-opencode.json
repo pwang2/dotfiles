@@ -41,7 +41,7 @@
       "model": "github-copilot/claude-sonnet-4.6"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.2-codex",
+      "model": "github-copilot/gpt-5.3-codex",
       "variant": "medium"
     }
   },
@@ -51,11 +51,11 @@
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.2-codex",
+      "model": "github-copilot/gpt-5.3-codex",
       "variant": "xhigh"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.2-codex",
+      "model": "github-copilot/gpt-5.3-codex",
       "variant": "medium"
     },
     "artistry": {

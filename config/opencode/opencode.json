@@ -3,5 +3,12 @@
   "enabled_providers": ["github-copilot"],
   "plugin": ["oh-my-opencode@latest"],
   "autoupdate": "notify",
+  "provider": {
+    "github-copilot": {
+      "models": {
+        "gpt-5.3-codex": {}
+      }
+    }
+  },
   "mcp": {}
 }
