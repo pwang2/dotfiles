@@ -6,8 +6,8 @@ return {
     },
     event = "BufReadPost",
     init = function()
-      vim.o.foldenable = true
       vim.o.foldcolumn = "auto"
+      vim.o.foldenable = true
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
     end,
@@ -17,6 +17,13 @@ return {
       end,
     },
     keys = {
+      {
+        "<leader>tf",
+        function()
+          vim.o.foldcolumn = vim.o.foldcolumn == "auto" and "0" or "auto"
+        end,
+        desc = "Toggle fold column",
+      },
       {
         "zR",
         function()

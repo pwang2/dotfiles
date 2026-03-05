@@ -33,7 +33,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = false
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
-vim.opt.foldenable = false
 vim.opt.shell = "zsh"
 vim.opt.mouse = "a"
 vim.opt.ts = 2
