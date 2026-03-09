@@ -60,8 +60,15 @@ M.on_attach = function(client, bufnr)
   keygen("]d", bind(vim.diagnostic.jump, { count = 1, float = true }), "Go to next diagnostic")
 
   -- mimic vscode code action keybinding
-  keygen("<C-.>", require("fastaction").code_action, "Code action")
-  keygen("<leader>ca", require("fastaction").code_action, "Code action")
+  local function code_action_without_disabled()
+    require("fastaction").code_action({
+      filter = function(action)
+        return action.disabled == nil
+      end,
+    })
+  end
+  keygen("<C-.>", code_action_without_disabled, "Code action")
+  keygen("<leader>ca", code_action_without_disabled, "Code action")
   keygen("<leader>cl", vim.lsp.codelens.run, "Run code lens action")
   keygen("<leader>ih", function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

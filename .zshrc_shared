@@ -75,6 +75,10 @@ alias start=/mnt/c/Windows/explorer.exe
 
 complete -F __start_kubectl k
 
+killp() {
+  kill -9 $(lsof -t -i :"$@")
+}
+
 colortest() {
   curl -sSLk -H "Cache-Control: no-cache, no-store" https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw\?t=$(date +%s) | bash
 }

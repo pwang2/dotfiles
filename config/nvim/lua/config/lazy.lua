@@ -45,6 +45,7 @@ vim.opt.updatetime = 500
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wildignore:append("node_modules/**,.git/**,dist/**")
 vim.opt.fillchars:append("eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:")
+-- vim.opt.fillchars:append("eob: ,fold: ,foldopen:−,foldsep: ,foldinner: ,foldclose:+")
 vim.opt.fillchars:append({ diff = " " })
 vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.opt.winborder = "rounded"

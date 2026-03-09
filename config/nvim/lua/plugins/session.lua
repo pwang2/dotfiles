@@ -16,8 +16,7 @@ return {
 
   config = function()
     local opts = {
-      suppressed_dirs = { "~/" },
-      allowed_dirs = { "~/dotfiles", "~/emd-mono/UI" },
+      suppressed_dirs = { "/tmp", "/" },
       bypass_save_filetypes = { "alpha", "dashboard", "codecompanion" },
     }
     require("auto-session").setup(opts)
