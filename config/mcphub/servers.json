@@ -1,12 +1,10 @@
 {
   "mcpServers": {
-    "markitdown": {
-      "args": ["markitdown-mcp"],
-      "command": "uvx"
-    },
     "antvis/mcp-server-chart": {
-      "args": ["-y", "@antv/mcp-server-chart"],
-      "disabled": true,
+      "args": [
+        "-y",
+        "@antv/mcp-server-chart"
+      ],
       "autoApprove": [
         "generate_area_chart",
         "generate_bar_chart",
@@ -34,11 +32,18 @@
         "generate_violin_chart",
         "generate_word_cloud_chart"
       ],
-      "command": "npx"
+      "command": "npx",
+      "disabled": true
     },
     "brave-search": {
-      "args": ["-y", "@modelcontextprotocol/server-brave-search@latest"],
-      "autoApprove": ["brave_web_search", "brave_local_search"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search@latest"
+      ],
+      "autoApprove": [
+        "brave_web_search",
+        "brave_local_search"
+      ],
       "command": "npx",
       "disabled": false,
       "env": {
@@ -46,26 +51,44 @@
       }
     },
     "browsermcp": {
-      "args": ["@browsermcp/mcp@latest"],
-      "disabled": true,
-      "command": "npx"
+      "args": [
+        "@browsermcp/mcp@latest"
+      ],
+      "command": "npx",
+      "disabled": true
     },
     "context7": {
-      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
       "command": "npx",
       "disabled": false
     },
     "fetch": {
-      "args": ["mcp-server-fetch"],
+      "args": [
+        "mcp-server-fetch"
+      ],
       "command": "uvx"
     },
     "investor": {
-      "args": ["investor-agent@latest"],
-      "disabled": true,
+      "args": [
+        "investor-agent@latest"
+      ],
+      "command": "uvx",
+      "disabled": false
+    },
+    "markitdown": {
+      "args": [
+        "markitdown-mcp"
+      ],
       "command": "uvx"
     },
     "memory": {
-      "args": ["-y", "@modelcontextprotocol/server-memory@latest"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory@latest"
+      ],
       "autoApprove": [
         "create_entities",
         "create_relations",
@@ -82,7 +105,6 @@
       "disabled_tools": []
     },
     "playwright": {
-      "disabled": true,
       "args": [
         "@playwright/mcp@latest",
         "--config",
@@ -111,11 +133,17 @@
         "browser_tabs",
         "browser_wait_for"
       ],
-      "command": "npx"
+      "command": "npx",
+      "disabled": true
     },
     "sequential-thinking": {
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
-      "autoApprove": ["sequentialthinking"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking@latest"
+      ],
+      "autoApprove": [
+        "sequentialthinking"
+      ],
       "command": "npx",
       "disabled": true
     }
