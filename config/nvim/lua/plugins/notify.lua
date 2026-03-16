@@ -90,6 +90,14 @@ return {
         opts = { skip = true },
       },
       {
+        ---@class NoiceFilter
+        filter = {
+          event = "notify",
+          find = "vim.deprecated",
+        },
+        opts = { skip = true },
+      },
+      {
         view = "mini",
         ---@type NoiceFilter
         filter = {

@@ -39,6 +39,7 @@ return {
   },
   {
     "razak17/tailwind-fold.nvim",
+    ft = { "html", "svelte", "astro", "vue", "typescriptreact" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {},
   },
