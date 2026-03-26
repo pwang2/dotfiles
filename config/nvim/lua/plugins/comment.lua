@@ -1,6 +1,6 @@
 return {
   "numToStr/Comment.nvim",
-  -- enabled = false,
+  enabled = false,
   event = "BufReadPost",
   ft = "vue",
   dependencies = {
