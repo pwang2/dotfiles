@@ -99,22 +99,25 @@ return {
     },
     config = function()
       local opts = {
+        interactions = {
+          inline = { adapter = "copilot" },
+          agent = { adapter = "copilot" },
+          chat = {
+            opts = {
+              completion_provider = "cmp",
+            },
+            adapter = {
+              name = "copilot",
+              model = "claude-haiku-4.5",
+            },
+          },
+        },
         memory = {
           opts = {
             chat = {
               enabled = true,
             },
           },
-        },
-        strategies = {
-          chat = {
-            adapter = "copilot",
-            opts = {
-              completion_provider = "cmp",
-            },
-          },
-          inline = { adapter = "copilot" },
-          agent = { adapter = "copilot" },
         },
         adapters = {
           http = {
