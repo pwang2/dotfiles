@@ -15,7 +15,7 @@ export TODO_DIR=$HOME/.todo
 PATHS=(
   $HOME/bin
   $HOME/go/bin
-  $HOME/.yarn/bin
+  $HOME/.bun/bin
   $HOME/.local/bin
   $HOME/.luarocks/bin
   $HOME/.cargo/bin

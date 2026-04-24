@@ -5,6 +5,10 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    bigfile = {
+      enabled = true,
+    },
+
     input = {
       enabled = true,
       config = function()
