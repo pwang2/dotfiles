@@ -198,6 +198,11 @@ function M.setup()
     bold = true,
   })
 
+  vim.api.nvim_set_hl(0, "TreesitterContextBottom", {
+    underline = true,
+    sp = "green",
+  })
+
   -- CMP highlights (will be applied by cmp.lua using M.colors)
   -- Bufferline highlights (will be applied by bufferline.lua using M.colors)
   -- Other plugin highlights will be applied in their respective configs
