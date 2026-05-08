@@ -50,7 +50,7 @@ return {
         "luacheck",
         "shellcheck",
 
-        "prettier",
+        "oxfmt",
         "taplo",
         "stylua",
         "black",

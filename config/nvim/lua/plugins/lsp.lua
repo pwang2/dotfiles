@@ -1,8 +1,5 @@
 return {
   "neovim/nvim-lspconfig",
-  keys = {
-    { "<leader>rr", "<cmd>LspRestart<cr>", { silent = true } },
-  },
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "b0o/schemastore.nvim",

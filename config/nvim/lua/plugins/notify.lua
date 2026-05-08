@@ -90,22 +90,6 @@ return {
         opts = { skip = true },
       },
       {
-        ---@class NoiceFilter
-        filter = {
-          event = "notify",
-          find = "vim.deprecated",
-        },
-        opts = { skip = true },
-      },
-      {
-        view = "mini",
-        ---@type NoiceFilter
-        filter = {
-          event = "notify",
-          find = "Failed to run formatter",
-        },
-      },
-      {
         filter = { event = "msg_show" },
         view = "notify",
         opts = {

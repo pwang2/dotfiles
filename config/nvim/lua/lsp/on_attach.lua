@@ -105,7 +105,8 @@ M.on_attach = function(client, bufnr)
     end, "[java]Test nearest method")
   end
 
-  -- Inlay hints disabled by default, use <leader>ih to toggle
+  -- Disable it to prevent the document_color.lua crash
+  client.server_capabilities.colorProvider = false
 end
 
 return M
