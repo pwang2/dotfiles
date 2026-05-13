@@ -8,13 +8,22 @@ return {
     bigfile = {
       enabled = true,
     },
-
-    input = {
+    notifier = {
       enabled = true,
+    },
+    input = {
+      -- enabled = false,
+      win = {
+        style = "input",
+        relative = "cursor",
+      },
       config = function()
         local snacks = require("snacks")
         vim.ui.input = snacks.input.input
       end,
+    },
+    rename = {
+      enabled = true,
     },
     picker = {
       enabled = true,

@@ -53,8 +53,7 @@ return {
             nowait = true,
           }
         end
-
-        api.config.mappings.default_on_attach(bufnr)
+        api.map.on_attach.default(bufnr)
 
         vim.keymap.del("n", "<C-e>", { buffer = bufnr })
         vim.keymap.set("n", "s", api.node.open.vertical, optsFn("Open: V Split"))
@@ -63,5 +62,16 @@ return {
       end,
     }
     require("nvim-tree").setup(opts)
+
+    --  Add the Snacks integration
+    local events = require("nvim-tree.api").events
+    local prev = { new_name = "", old_name = "" }
+
+    events.subscribe(events.Event.NodeRenamed, function(data)
+      if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
+        Snacks.rename.on_rename_file(data.old_name, data.new_name)
+        prev = { new_name = data.new_name, old_name = data.old_name }
+      end
+    end)
   end,
 }

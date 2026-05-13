@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  vim.lsp.config("pyright", {
+  vim.lsp.config("basedpyright", {
     on_attach = require("lsp.on_attach").on_attach, -- explicit, don't rely on "*"
     settings = {
       python = {
