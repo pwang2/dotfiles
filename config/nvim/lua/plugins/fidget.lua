@@ -1,5 +1,5 @@
 return {
   "j-hui/fidget.nvim",
-  enabled = false,
+  -- provide the lsp progress base
   opts = {},
 }
