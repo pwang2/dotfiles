@@ -53,7 +53,9 @@ M.on_attach = function(client, bufnr)
   keygen("<leader>D", vim.lsp.buf.type_definition, "Type definition")
   keygen("<leader>rn", vim.lsp.buf.rename, "Rename")
 
-  keygen("K", vim.lsp.buf.hover, "Hover documentation")
+  keygen("K", function()
+    vim.lsp.buf.hover()
+  end, "Hover documentation")
 
   keygen("<space>e", vim.diagnostic.open_float, "Show diagnostic message")
   keygen("[d", bind(vim.diagnostic.jump, { count = -1, float = true }), "Go to previous diagnostic")
