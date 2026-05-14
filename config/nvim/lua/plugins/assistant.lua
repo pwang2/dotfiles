@@ -106,9 +106,13 @@ return {
             opts = {
               completion_provider = "cmp",
             },
+            -- adapter = {
+            --   name = "copilot",
+            --   model = "claude-haiku-4.5",
+            -- },
             adapter = {
-              name = "copilot",
-              model = "claude-haiku-4.5",
+              name = "opencode",
+              model = "github-copilot/claude-haiku-4.5",
             },
           },
         },

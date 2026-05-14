@@ -17,7 +17,7 @@ vim.cmd([[
     \ endif
 
   autocmd BufEnter,CursorHold,CursorHoldI,FocusGained *
-  \ if mode() !=# 'c' |
+  \ if mode() !=# 'c' && getcmdwintype() == '' |
   \   checktime |
   \ endif
 ]])
