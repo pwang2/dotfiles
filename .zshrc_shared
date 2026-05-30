@@ -98,3 +98,16 @@ profile() {
   source ~/.zshrc_shared
   zprof
 }
+
+gw() {
+  git worktree add "$1"
+
+  tmux new-window -n "$1"
+  tmux split-window -h
+  tmux select-pane -t 0
+  tmux split-window -v -l 8
+  tmux select-pane -t 0
+  tmux send-keys -t 0 "cd $1" Enter
+  tmux send-keys -t 1 "cd $1" Enter
+  tmux send-keys -t 2 "cd $1" Enter
+}
