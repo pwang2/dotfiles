@@ -100,14 +100,58 @@ profile() {
 }
 
 gw() {
-  git worktree add "$1"
+  local name="${1#.worktrees/}"
+  local path=".worktrees/$name"
 
-  tmux new-window -n "$1"
-  tmux split-window -h
+  git worktree add "$path"
+
+  tmux new-window -n "$name" -c "$path"
+  tmux split-window -h -c "$path"
   tmux select-pane -t 0
-  tmux split-window -v -l 8
+  tmux split-window -v -l 8 -c "$path"
   tmux select-pane -t 0
-  tmux send-keys -t 0 "cd $1" Enter
-  tmux send-keys -t 1 "cd $1" Enter
-  tmux send-keys -t 2 "cd $1" Enter
+  tmux send-keys "nvim ." Enter
+  tmux select-pane -t 2
+  tmux send-keys "oc" Enter
+  tmux select-pane -t 0
+}
+
+# Add to ~/.bashrc or ~/.zshrc
+gcmai() {
+  local diff
+  diff=$(git diff --cached)
+
+  if [[ -z "$diff" ]]; then
+    echo "No staged changes found. Use 'git add' first."
+    return 1
+  fi
+
+  local msg
+  msg=$(echo "$diff" | claude -p "Generate a concise git commit message for this diff. Output ONLY the commit message — no explanation, no backticks, no preamble. Use conventional commits format (feat/fix/refactor/chore/docs/test/style/perf). First line ≤72 chars. Add a blank line and bullet points for non-trivial changes.")
+
+  if [[ -z "$msg" ]]; then
+    echo "Failed to generate commit message."
+    return 1
+  fi
+
+  echo "Generated message:"
+  echo "─────────────────"
+  echo "$msg"
+  echo "─────────────────"
+  echo ""
+
+  read -r "?Commit with this message? [y/e/n] " choice
+  case "$choice" in
+  y | Y) git commit -m "$msg" ;;
+  e | E)
+    # Drop into $EDITOR to tweak
+    local tmpfile
+    tmpfile=$(mktemp /tmp/git_commit_msg.XXXXXX)
+    echo "$msg" >"$tmpfile"
+    ${EDITOR:-nvim} "$tmpfile"
+    git commit -F "$tmpfile"
+    rm -f "$tmpfile"
+    ;;
+  *) echo "Aborted." ;;
+  esac
 }
