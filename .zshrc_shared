@@ -6,7 +6,10 @@ ZSH_THEME="robbyrussell"
 KEYTIMEOUT=1
 DISABLE_AUTO_TITLE=true
 DISABLE_MAGIC_FUNCTIONS=true
-BREW_PREFIX=$([[ "$(uname -s)" == darwin* ]] && echo "/usr/local" || echo "/home/linuxbrew/.linuxbrew")
+
+# needed for tmux called in function gw
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # export TERM="xterm-256color"
 export PYENV_ROOT="$HOME/.pyenv"
@@ -101,22 +104,20 @@ profile() {
 
 gw() {
   local name="${1#.worktrees/}"
-  local path=".worktrees/$name"
+  local wt_path=".worktrees/$name"
 
-  git worktree add "$path"
-
-  tmux new-window -n "$name" -c "$path"
-  tmux split-window -h -c "$path"
-  tmux select-pane -t 0
-  tmux split-window -v -l 8 -c "$path"
-  tmux select-pane -t 0
-  tmux send-keys "nvim ." Enter
-  tmux select-pane -t 2
+  git worktree add "$wt_path"
+  tmux new-window -n "$name" -c "$PWD/$wt_path"
+  tmux split-window -h -c "$PWD/$wt_path"
+  tmux select-pane -t 1
+  tmux split-window -v -l 8 -c "$PWD/$wt_path"
+  tmux select-pane -t 1
+  tmux send-keys "nvim" Enter
+  tmux select-pane -t 3
   tmux send-keys "oc" Enter
-  tmux select-pane -t 0
+  tmux select-pane -t 1
 }
 
-# Add to ~/.bashrc or ~/.zshrc
 gcmai() {
   local diff
   diff=$(git diff --cached)
