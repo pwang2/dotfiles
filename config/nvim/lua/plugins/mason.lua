@@ -58,6 +58,7 @@ return {
         "shfmt",
         "yamlfmt",
         "google-java-format",
+        "kulala-fmt",
 
         "codelldb",
         "debugpy",

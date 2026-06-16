@@ -76,14 +76,6 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "franco-ruggeri/codecompanion-spinner.nvim",
       "ravitemer/codecompanion-history.nvim",
-      {
-        "Davidyz/VectorCode",
-        enabled = false,
-        version = "*",
-        lazy = true,
-        cmd = { "VectorCode" },
-        build = "uv tool upgrade vectorcode",
-      },
     },
     keys = {
       { "<leader>ch", "<cmd>CodeCompanionHistory<cr>", desc = "toggle chat history window(copilot)", noremap = true },
@@ -100,19 +92,12 @@ return {
     config = function()
       local opts = {
         interactions = {
-          inline = { adapter = "copilot" },
-          agent = { adapter = "copilot" },
+          inline = { adapter = "copilot_acp" },
+          agent = { adapter = "copilot_acp" },
           chat = {
+            adapter = { name = "copilot_acp" },
             opts = {
               completion_provider = "cmp",
-            },
-            -- adapter = {
-            --   name = "copilot",
-            --   model = "claude-haiku-4.5",
-            -- },
-            adapter = {
-              name = "opencode",
-              model = "github-copilot/claude-haiku-4.5",
             },
           },
         },
@@ -157,14 +142,6 @@ return {
               keymap = "gh",
               save_chat_keymap = "sc",
               auto_save = true,
-            },
-          },
-          vectorcode = {
-            enabled = false,
-            opts = {
-              add_tool = true,
-              add_slash_command = true,
-              tool_opts = {},
             },
           },
           mcphub = {

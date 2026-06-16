@@ -21,11 +21,19 @@ return {
       jsonc = { "prettier" },
       vue = { "prettier" },
       html = { "prettier" },
+      http = { "kulala" },
       -- yaml = { "yamlfmt" },
     },
     format_on_save = {
       timeout_ms = 1500,
       lsp_fallback = false,
+    },
+    formatters = {
+      kulala = {
+        command = "kulala-fmt",
+        args = { "format", "$FILENAME" },
+        stdin = false,
+      },
     },
   },
 }
