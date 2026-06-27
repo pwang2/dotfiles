@@ -32,6 +32,7 @@ return {
         "css",
         "python",
         "html",
+        "kulala_http",
       },
       sync_install = false,
       indent = { enable = true },
