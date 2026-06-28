@@ -10,4 +10,13 @@ M.capabilities = vim.tbl_deep_extend(
   -- require("lsp-file-operations").default_capabilities()
 )
 
+-- Disable LSP dynamic file watching. When a server (e.g. tailwindcss) registers
+-- workspace/didChangeWatchedFiles with broad patterns rooted at the repo, Neovim
+-- walks the entire tree synchronously to install watchers. This repo contains 18
+-- git worktrees under .worktrees/ (each with its own node_modules), so that walk
+-- blocks the UI thread for several seconds on every file open. Turning off
+-- dynamicRegistration stops servers from requesting these watchers.
+M.capabilities.workspace = M.capabilities.workspace or {}
+M.capabilities.workspace.didChangeWatchedFiles = { dynamicRegistration = false }
+
 return M

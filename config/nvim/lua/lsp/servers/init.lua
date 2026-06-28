@@ -10,6 +10,7 @@ local servers = {
   "jsonls",
   "lua_ls",
   "vtsls",
+  "tailwindcss",
   "pyright",
   -- jdtls is handled separately by nvim-jdtls plugin
 }

@@ -1,6 +1,27 @@
 local M = {}
 
 function M.setup()
+  -- Hard-disable LSP dynamic file watching.
+  --
+  -- When a server registers workspace/didChangeWatchedFiles, Neovim walks the
+  -- watch tree synchronously to install watchers. tailwindcss registers patterns
+  -- rooted at the repo, and this repo holds 18 git worktrees under .worktrees/
+  -- (each with its own node_modules), so that walk blocks the UI thread for
+  -- several seconds on every file open.
+  --
+  -- Advertising didChangeWatchedFiles.dynamicRegistration = false in capabilities
+  -- is the protocol-correct fix, but vim.lsp.config("*") does not reliably
+  -- propagate to every server here (see note below), so some servers still
+  -- register watchers. Replacing the watch backend with a no-op is the
+  -- guaranteed fix. Trade-off: servers no longer auto-detect external file
+  -- changes (e.g. config edits made outside Neovim); use <leader>rr to restart.
+  local ok, watchfiles = pcall(require, "vim.lsp._watchfiles")
+  if ok and watchfiles then
+    watchfiles._watchfunc = function()
+      return function() end
+    end
+  end
+
   local capabilities = require("lsp.capabilities").capabilities
   local on_attach = require("lsp.on_attach").on_attach
 
