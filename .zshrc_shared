@@ -102,7 +102,30 @@ profile() {
   zprof
 }
 
+function nexus_setup() {
+  links=(
+    .envrc
+    .env.local
+    dab-api/http-client.private.env.json
+  )
+  for link in "${links[@]}"; do
+    if [[ ! -e "$link" ]]; then
+      ln -s "$HOME/nexus/$link" "$link"
+    fi
+  done
+  direnv allow .env.local
+  direnv allow
+}
+
+# create a dictionary map to extra set up per variant
+typeset -A action_map
+action_map=(
+  "nexus" "nexus_setup"
+)
+
 gw() {
+  local dir=$(basename $PWD)
+  local setup_cmd=${action_map[$dir]}
   local name="${1#.worktrees/}"
   local wt_path=".worktrees/$name"
 
@@ -112,6 +135,11 @@ gw() {
   tmux select-pane -t 1
   tmux split-window -v -l 8 -c "$PWD/$wt_path"
   tmux select-pane -t 1
+
+  if [[ -n "$setup_cmd" ]]; then
+    tmux send-keys -t 1 "$setup_cmd" Enter
+  fi
+
   tmux send-keys "nvim" Enter
   tmux select-pane -t 3
   tmux send-keys "oc" Enter

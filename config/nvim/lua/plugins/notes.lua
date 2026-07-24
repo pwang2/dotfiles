@@ -4,10 +4,10 @@ return {
   version = "*",
   lazy = true,
   ft = { "markdown" },
-  -- event = {
-  --   "BufReadPre " .. vim.fn.expand("~") .. "/vaults/*.md",
-  --   "BufNewFile " .. vim.fn.expand("~") .. "/vaults/*.md",
-  -- },
+  event = {
+    "BufReadPre " .. vim.fn.expand("~") .. "/vaults/*.md",
+    "BufNewFile " .. vim.fn.expand("~") .. "/vaults/*.md",
+  },
   dependencies = {
     "nvim-lua/plenary.nvim",
   },

@@ -2,6 +2,11 @@ local M = {}
 
 function M.setup()
   vim.lsp.config("tailwindcss", {
+    -- Default filetypes include markdown/mdx; drop plain markdown so the
+    -- server doesn't activate in notes/docs.
+    filetypes = vim.tbl_filter(function(ft)
+      return ft ~= "markdown"
+    end, require("lspconfig.configs.tailwindcss").default_config.filetypes),
     settings = {
       tailwindCSS = {
         files = {

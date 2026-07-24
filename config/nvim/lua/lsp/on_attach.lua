@@ -34,6 +34,27 @@ vim.api.nvim_create_user_command("LspCap", function()
   vim.api.nvim_set_current_buf(newBuffer)
 end, {})
 
+vim.api.nvim_create_user_command("LspStop", function(cmd_opts)
+  local name = cmd_opts.args
+  local clients = vim.lsp.get_clients({ name = name })
+  if #clients == 0 then
+    vim.api.nvim_echo({ { "No LSP client named '" .. name .. "'", "ErrorMsg" } }, true, {})
+    return
+  end
+  for _, client in ipairs(clients) do
+    client:stop(true)
+  end
+end, {
+  nargs = 1,
+  complete = function()
+    local names = {}
+    for _, client in ipairs(vim.lsp.get_clients()) do
+      table.insert(names, client.name)
+    end
+    return names
+  end,
+})
+
 M.on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
 

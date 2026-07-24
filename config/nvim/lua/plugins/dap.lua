@@ -40,19 +40,18 @@ end
 return {
   {
     "mfussenegger/nvim-dap",
-    enabled = false,
     cmd = { "DapContinue", "DapToggleBreakpoint", "DapStepOver", "DapStepInto", "DapStepOut" },
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
-      "mxsdev/nvim-dap-vscode-js",
-      {
-        -- https://theosteiner.de/debugging-javascript-frameworks-in-neovim
-        "microsoft/vscode-js-debug",
-        build = "npm i && npm run compile vsDebugServerBundle && rm -rf out && mv dist out",
-      },
+      -- "mxsdev/nvim-dap-vscode-js",
+      -- {
+      --   -- https://theosteiner.de/debugging-javascript-frameworks-in-neovim
+      --   "microsoft/vscode-js-debug",
+      --   build = "npm i && npm run compile vsDebugServerBundle && rm -rf out && mv dist out",
+      -- },
     },
     opts = {},
     keys = {

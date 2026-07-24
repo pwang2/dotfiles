@@ -9,7 +9,10 @@ return {
     })
   end,
   opts = {
-    default_env = "dev",
+    default_env = "default",
+    kulala_core = {
+      timeout = 120000,
+    },
     ui = {
       max_response_size = 1000000,
     },
@@ -65,10 +68,11 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "kulala_ui",
       callback = function()
-        vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>",  { buffer = true, silent = true })
-        vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>",  { buffer = true, silent = true })
-        vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>",    { buffer = true, silent = true })
+        vim.keymap.set("n", "<C-h>", "<Cmd>NvimTmuxNavigateLeft<CR>", { buffer = true, silent = true })
+        vim.keymap.set("n", "<C-j>", "<Cmd>NvimTmuxNavigateDown<CR>", { buffer = true, silent = true })
+        vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", { buffer = true, silent = true })
         vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", { buffer = true, silent = true })
+        vim.opt_local.wrap = false
       end,
     })
   end,
