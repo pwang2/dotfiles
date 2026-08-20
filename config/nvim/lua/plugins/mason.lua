@@ -36,6 +36,7 @@ return {
         "rust_analyzer",
         "nginx_language_server",
         "azure_pipelines_ls",
+        "copilot",
       },
     },
   },

@@ -19,11 +19,10 @@ end
 return {
   {
     "zbirenbaum/copilot.lua",
-    -- enabled = false,
     cmd = "Copilot",
     dependencies = {
       "copilotlsp-nvim/copilot-lsp",
-      --enabled=false,
+      enabled = false,
       init = function()
         vim.g.copilot_nes_debounce = 500
         vim.keymap.set("n", "<tab>", function()
@@ -57,7 +56,7 @@ return {
         panel = { enabled = false }, -- Disable copilot panel
         nes = {
           enabled = false, -- requires copilot-lsp as a dependency
-          auto_trigger = false,
+          auto_trigger = true,
           -- keymap = {
           --   accept_and_goto = "<leader>n",
           --   accept = "<leader>i",
@@ -69,6 +68,7 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     -- cmd = { "CodeCompanionChat", "CodeCompanionAction", "CodeCompanionHistory" },
     event = "VeryLazy",
     dependencies = {

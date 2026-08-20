@@ -104,6 +104,7 @@ profile() {
 
 function nexus_setup() {
   links=(
+    node_modules
     .envrc
     .env.local
     dab-api/http-client.private.env.json
