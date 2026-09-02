@@ -33,6 +33,7 @@ vim.cmd([[
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
 
+  tnoremap <silent> <Esc>        <C-\><C-n>
 ]])
 
 vim.cmd([[

@@ -35,13 +35,16 @@ return {
       },
     },
   },
+  init = function()
+    vim.api.nvim_create_user_command("Zen", function()
+      vim.o.winborder = "none"
+      vim.cmd("ZenMode")
+    end, { desc = "Toggle Zen Mode with option set first" })
+  end,
   keys = {
     {
       "<leader><leader>",
-      function()
-        vim.o.winborder = "none"
-        vim.cmd("ZenMode")
-      end,
+      "<cmd>Zen<cr>",
       { silent = true },
       desc = "Toggle Zen Mode with option set first",
     },

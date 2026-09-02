@@ -40,7 +40,6 @@ done
 if [[ -z $plugins ]]; then
   plugins=(
     git
-    autojump
     evalcache
     web-search
     zsh-vi-mode
@@ -67,6 +66,7 @@ command -v argo >/dev/null 2>&1 && _evalcache argo completion zsh
 command -v gh >/dev/null 2>&1 && _evalcache gh completion -s zsh
 command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
 command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
+command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
 
 alias x="exit"
 alias vi="nvim"
@@ -74,6 +74,7 @@ alias c="clear"
 alias cls="clear"
 alias td="todo.sh"
 alias k="kubectl"
+alias j="z"
 alias start=/mnt/c/Windows/explorer.exe
 
 complete -F __start_kubectl k
