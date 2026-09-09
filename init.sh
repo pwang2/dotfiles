@@ -39,7 +39,7 @@ if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   eval "$($BREW_PREFIX/bin/brew shellenv)"
 
-  brew install uv fnm
+  brew install uv fnm zoxide
 fi
 
-echo "run sudo apt-get install build-essential unzip gcc"
+echo "run sudo apt-get install build-essential unzip xdg-utils zsh tmux python3-venv"

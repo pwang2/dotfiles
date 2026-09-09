@@ -27,7 +27,6 @@ return {
         "omnisharp",
         "html",
         -- "ts_ls",
-        "tsgo",
         "vtsls",
         -- "pyright",
         "basedpyright",
