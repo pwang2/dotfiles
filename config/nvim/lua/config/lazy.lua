@@ -38,6 +38,7 @@ vim.opt.mouse = "a"
 vim.opt.ts = 2
 vim.opt.sw = 2
 vim.opt.laststatus = 3
+vim.opt.cmdheight = 0
 vim.opt.timeoutlen = 300
 vim.opt.synmaxcol = 200
 vim.opt.ttimeoutlen = 0

@@ -85,7 +85,7 @@ return {
         live_grep = {},
         find_files = {
           hidden = true,
-          file_ignore_patterns = { ".git", "node_modules" },
+          file_ignore_patterns = { ".git", "node_modules", ".worktrees", "worktrees" },
         },
       },
     })

@@ -1,6 +1,7 @@
 return {
   "mistweaverco/kulala.nvim",
   ft = { "http", "rest" },
+  events = false,
   init = function()
     vim.filetype.add({
       extension = {
@@ -52,18 +53,54 @@ return {
     local kulala = require("kulala")
     kulala.setup(opts)
 
-    -- Set up keymaps with <leader>r prefix
-    vim.keymap.set("n", "<leader>rs", kulala.run, { desc = "Send the request", silent = true })
-    vim.keymap.set("n", "<leader>rt", kulala.toggle_view, { desc = "Toggle headers/body", silent = true })
-    vim.keymap.set("n", "<leader>rc", kulala.copy, { desc = "Copy as cURL", silent = true })
-    vim.keymap.set("n", "<leader>ri", kulala.inspect, { desc = "Inspect request", silent = true })
-    vim.keymap.set("n", "<leader>rj", kulala.jump_next, { desc = "Jump to next request", silent = true })
-    vim.keymap.set("n", "<leader>rk", kulala.jump_prev, { desc = "Jump to previous request", silent = true })
-    vim.keymap.set("n", "<leader>ra", kulala.run_all, { desc = "Send all requests", silent = true })
-    vim.keymap.set("n", "<leader>rb", kulala.scratchpad, { desc = "Open scratchpad", silent = true })
-    vim.keymap.set("n", "<leader>ru", function()
-      require("kulala.ui.auth_manager").open_auth_config()
-    end, { desc = "Open scratchpad", silent = true })
+    -- Set up keymaps with <leader>r prefix, only for .http/.rest buffers
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "http", "rest" },
+      callback = function(ev)
+        local map_opts = { buffer = ev.buf, silent = true }
+        vim.keymap.set("n", "<leader>rs", kulala.run, vim.tbl_extend("force", map_opts, { desc = "Send the request" }))
+        vim.keymap.set(
+          "n",
+          "<leader>rt",
+          kulala.toggle_view,
+          vim.tbl_extend("force", map_opts, { desc = "Toggle headers/body" })
+        )
+        vim.keymap.set("n", "<leader>rc", kulala.copy, vim.tbl_extend("force", map_opts, { desc = "Copy as cURL" }))
+        vim.keymap.set(
+          "n",
+          "<leader>ri",
+          kulala.inspect,
+          vim.tbl_extend("force", map_opts, { desc = "Inspect request" })
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>rj",
+          kulala.jump_next,
+          vim.tbl_extend("force", map_opts, { desc = "Jump to next request" })
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>rk",
+          kulala.jump_prev,
+          vim.tbl_extend("force", map_opts, { desc = "Jump to previous request" })
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>ra",
+          kulala.run_all,
+          vim.tbl_extend("force", map_opts, { desc = "Send all requests" })
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>rb",
+          kulala.scratchpad,
+          vim.tbl_extend("force", map_opts, { desc = "Open scratchpad" })
+        )
+        vim.keymap.set("n", "<leader>ru", function()
+          require("kulala.ui.auth_manager").open_auth_config()
+        end, vim.tbl_extend("force", map_opts, { desc = "Open scratchpad" }))
+      end,
+    })
 
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "kulala_ui",
