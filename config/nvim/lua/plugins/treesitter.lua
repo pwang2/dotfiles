@@ -61,5 +61,18 @@ return {
         },
       },
     })
+
+    -- main branch no longer auto-attaches parsers/highlighting; start explicitly.
+    -- vim.treesitter.start() throws (not just returns false) when no parser
+    -- exists for lang, so pcall the whole thing, not just language.add.
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        local lang = vim.treesitter.language.get_lang(args.match) or args.match
+        pcall(function()
+          vim.treesitter.language.add(lang)
+          vim.treesitter.start()
+        end)
+      end,
+    })
   end,
 }

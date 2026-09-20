@@ -12,7 +12,6 @@ return {
   { "heavenshell/vim-jsdoc", build = "make install" },
 
   -- UI enhancements
-  { "folke/trouble.nvim", cmd = "TroubleToggle" },
   { "folke/which-key.nvim", event = "VeryLazy" },
   { "sphamba/smear-cursor.nvim" },
 
@@ -39,6 +38,7 @@ return {
   },
   {
     "razak17/tailwind-fold.nvim",
+    enabled = false,
     ft = { "html", "svelte", "astro", "vue", "typescriptreact" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {},
@@ -47,6 +47,16 @@ return {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
     config = true,
+    opts = {
+      terminal = {
+        snacks_win_opts = {
+          -- keep your existing split settings (position, width, etc.)
+          wo = {
+            winbar = "", -- disable the title winbar
+          },
+        },
+      },
+    },
     -- `cmd` lets lazy.nvim create command stubs that load the plugin on first use,
     -- so `:ClaudeCode` and friends work on a fresh start. Without it, a keys-only
     -- spec defers loading until a <leader>a* mapping is pressed and the commands

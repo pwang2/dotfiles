@@ -108,7 +108,6 @@ function nexus_setup() {
     node_modules
     .envrc
     .env.local
-    dab-api/http-client.private.env.json
   )
   for link in "${links[@]}"; do
     if [[ ! -e "$link" ]]; then
@@ -129,7 +128,7 @@ gw() {
   local dir=$(basename $PWD)
   local setup_cmd=${action_map[$dir]}
   local name="${1#.worktrees/}"
-  local wt_path=".worktrees/$name"
+  local wt_path="~/.worktrees/$dir/$name"
 
   git worktree add "$wt_path"
   tmux new-window -n "$name" -c "$PWD/$wt_path"

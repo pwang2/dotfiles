@@ -29,6 +29,7 @@ vim.cmd([[
   nnoremap <silent> <leader>bp   <cmd>bp<CR>
   nnoremap <silent> <leader>bn   <cmd>bn<CR>
 
+  nnoremap <silent> <leader>cp   <cmd>let @+ = expand('%:p')<CR>
   nnoremap <silent> <leader>rr   <cmd>execute('lsp restart')<CR>
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
