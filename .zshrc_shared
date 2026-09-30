@@ -128,13 +128,13 @@ gw() {
   local dir=$(basename $PWD)
   local setup_cmd=${action_map[$dir]}
   local name="${1#.worktrees/}"
-  local wt_path="~/.worktrees/$dir/$name"
+  local wt_path="$HOME/.worktrees/$dir/$name"
 
   git worktree add "$wt_path"
-  tmux new-window -n "$name" -c "$PWD/$wt_path"
-  tmux split-window -h -c "$PWD/$wt_path"
+  tmux new-window -n "$name" -c "$wt_path"
+  tmux split-window -h -c "$wt_path"
   tmux select-pane -t 1
-  tmux split-window -v -l 8 -c "$PWD/$wt_path"
+  tmux split-window -v -l 8 -c "$wt_path"
   tmux select-pane -t 1
 
   if [[ -n "$setup_cmd" ]]; then
@@ -143,7 +143,7 @@ gw() {
 
   tmux send-keys "nvim" Enter
   tmux select-pane -t 3
-  tmux send-keys "oc" Enter
+  tmux send-keys "cc" Enter
   tmux select-pane -t 1
 }
 

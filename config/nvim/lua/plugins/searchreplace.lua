@@ -8,16 +8,18 @@ return {
     end,
   },
   {
-    "nvim-pack/nvim-spectre",
-    event = "InsertEnter",
-    cmd = "Spectre",
+    "MagicDuck/grug-far.nvim",
+    cmd = "GrugFar",
     keys = {
-      { "<leader>s", "<cmd>Spectre<CR>", desc = "Replace in files" },
+      { "<leader>s", "<cmd>GrugFar<CR>", desc = "Replace in files" },
+      {
+        "<leader>sa",
+        function()
+          require("grug-far").open({ engine = "astgrep" })
+        end,
+        desc = "Replace in files (AST)",
+      },
     },
-    opts = {
-      line_sep_start = string.rep("~", 80),
-      result_padding = "  ",
-      line_sep = string.rep("~", 80),
-    },
+    opts = {},
   },
 }

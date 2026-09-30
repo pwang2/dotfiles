@@ -13,8 +13,10 @@ end
 -- Dark theme palette (based on current onehalfdark colors)
 local dark_palette = {
   -- Border and separator colors
+
   border = "#5b5b5b",
   separator = "#585858",
+  comment = "#585858",
 
   -- Visual selection
   visual = "#474e5d",
@@ -87,6 +89,7 @@ local light_palette = {
   -- Border and separator colors (lighter)
   border = "#a0a0a0",
   separator = "#c0c0c0",
+  comment = "#585858",
 
   -- Visual selection (lighter)
   visual = "#d4d8e4",
@@ -203,6 +206,9 @@ function M.setup()
     sp = "green",
   })
 
+  vim.api.nvim_set_hl(0, "FoldColumn", { fg = c.comment, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
+
   -- CMP highlights (will be applied by cmp.lua using M.colors)
   -- Bufferline highlights (will be applied by bufferline.lua using M.colors)
   -- Other plugin highlights will be applied in their respective configs
@@ -219,8 +225,5 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 -- Initialize colors on module load
 M.update_colors()
-
-vim.api.nvim_set_hl(0, "FoldColumn", { link = "Comment" })
-vim.api.nvim_set_hl(0, "LspInlayHint", { link = "Comment" })
 
 return M
