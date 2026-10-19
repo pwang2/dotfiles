@@ -69,12 +69,11 @@ command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
 command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
 
 alias x="exit"
-alias vi="nvim"
 alias c="clear"
-alias cls="clear"
-alias td="todo.sh"
 alias k="kubectl"
 alias j="z"
+alias td="todo.sh"
+alias vi="nvim"
 alias start=/mnt/c/Windows/explorer.exe
 
 complete -F __start_kubectl k
