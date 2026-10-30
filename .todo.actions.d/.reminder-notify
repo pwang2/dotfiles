@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Run by cron for a reminder created by the `add` action.
+# Usage: .reminder-notify ID BASE64_TEXT [repeat]
+#
+# Opens a floating tmux popup on every attached client showing the task.
+# Unless "repeat" is given, then removes its own crontab entry (cron has no
+# year field, so a one-shot entry would otherwise fire again next year).
+
+id="$1"
+text="$(printf %s "$2" | base64 -d)"
+
+[ "${3:-}" = repeat ] ||
+  crontab -l 2>/dev/null | grep -v "todo-reminder:${id}\$" | crontab -
+
+clients=$(tmux list-clients -F '#{client_name}' 2>/dev/null)
+if [ -z "$clients" ]; then
+  # No attached tmux client: leave a trace instead of dropping the reminder.
+  echo "$(date '+%F %T') DUE: $text" >>"$HOME/.todo-reminders.missed"
+  exit 0
+fi
+
+for c in $clients; do
+  tmux display-popup -c "$c" -E -w 60% -h 40% -b rounded -S fg=yellow \
+    -e "TODO_MSG=$text" "$(dirname "$0")/.reminder-banner" &
+done
+wait

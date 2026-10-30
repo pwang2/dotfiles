@@ -184,3 +184,30 @@ gcmai() {
   *) echo "Aborted." ;;
   esac
 }
+
+# WSL-only helpers (rely on code --remote wsl+, wslpath, Windows interop)
+if [[ -n "$WSL_DISTRO_NAME" ]]; then
+  function cf() {
+    fullPath=$(realpath "${1:-$(pwd)}")
+    echo "$fullPath"
+    code --remote wsl+ubuntu "${fullPath}" --profile "FrontEnd" >>/dev/null 2>&1
+  }
+
+  function cputemp() {
+    local out win_out
+    out=$(mktemp /mnt/c/Users/Public/cputemp.XXXXXX)
+    win_out=$(wslpath -w "$out")
+    /mnt/c/Windows/System32/sudo.exe \
+      powershell.exe -NoProfile -Command \
+      "Get-CimInstance -Namespace root/wmi -ClassName MSAcpi_ThermalZoneTemperature | Select-Object InstanceName, @{n='TempC';e={[math]::Round(\$_.CurrentTemperature / 10 - 273.15, 1)}} | Out-File -Encoding ascii '$win_out'"
+    # sudo.exe returns before the elevated window finishes; wait up to 30s for output
+    local i
+    for i in {1..60}; do
+      [[ -s "$out" ]] && break
+      sleep 0.5
+    done
+    sleep 0.2
+    tr -d '\r' <"$out"
+    rm -f "$out"
+  }
+fi

@@ -1,0 +1,211 @@
+#!/usr/bin/env bash
+# todo.sh add-on action: add (override)
+#
+# Wraps the builtin `add`/`a` action: if the task text starts with
+# "ado:", the rest of the text is used to create a new Azure Boards
+# backlog item, and the local task actually added to todo.txt is the
+# same text with the literal "ado:" prefix replaced by an "ado:<id>"
+# tag appended at the end (matching the convention used by `sync` and
+# the `done` override).
+#
+# Any task text NOT starting with "ado:" is passed straight through to
+# the builtin action, unchanged (including the no-args interactive
+# prompt case).
+#
+# Install: place this file (executable) in $TODO_ACTIONS_DIR
+# (default ~/.todo.actions.d), and symlink `a` -> `add` so both
+# spellings are intercepted (todo.sh resolves the a/add alias only
+# *after* checking actions.d, so each spelling needs its own filename).
+#   ln -s add "$TODO_ACTIONS_DIR/a"
+#
+# Run with: todo.sh add "ado: Fix login bug +proj @work"
+#       or: todo.sh a "ado: Fix login bug"
+
+set -euo pipefail
+
+# todo.sh only exports TODOTXT_CFG_FILE when it was set via -d or the
+# environment; its default is resolved after the export block. Re-resolve
+# it here so we can pass -d through to nested todo.sh calls.
+TODOTXT_CFG_FILE="${TODOTXT_CFG_FILE:-}"
+if [ ! -r "$TODOTXT_CFG_FILE" ]; then
+  for cfg in "$HOME/.todo/config" "$HOME/todo.cfg" "$HOME/.todo.cfg" \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/todo/config"; do
+    if [ -r "$cfg" ]; then
+      TODOTXT_CFG_FILE="$cfg"
+      break
+    fi
+  done
+fi
+
+if [ -r "$TODOTXT_CFG_FILE" ]; then
+  # shellcheck source=/dev/null
+  source "$TODOTXT_CFG_FILE"
+fi
+
+cfg_opt=()
+[ -r "$TODOTXT_CFG_FILE" ] && cfg_opt=(-d "$TODOTXT_CFG_FILE")
+
+AZURE_PROJECT="FinancialEngineering"
+ADO_WORK_ITEM_TYPE="Product Backlog Item"
+ASSIGNED_TO="$(az ad signed-in-user show --query userPrincipalName -o tsv)"
+TAG_PREFIX="ado" # tasks get tagged ado:<id>
+
+usage() {
+  echo "    $TODO_SH add \"ado: TITLE +project @context\""
+  echo "      If TEXT starts with '${TAG_PREFIX}:', creates a new"
+  echo "      '$ADO_WORK_ITEM_TYPE' in Azure Boards using the rest of TEXT"
+  echo "      as its title, then adds the task locally with an"
+  echo "      '${TAG_PREFIX}:<id>' tag appended instead of the prefix."
+  echo "      Any other TEXT is passed straight to the builtin add."
+}
+
+# todo.sh invokes add-ons as: "$TODO_ACTIONS_DIR/add" "$@" -- i.e. $1 is the
+# action name itself ("add" or "a"). Drop it so our own args start at $1.
+action_word="${1:-add}"
+[ $# -gt 0 ] && shift
+
+if [ "${1:-}" = "usage" ]; then
+  usage
+  exit 0
+fi
+
+text="$*"
+
+# "EVERY <phrase>" (upper case only): ask `claude -p` to turn the phrase
+# into a 5-field cron expression and install a recurring job. The job is
+# tagged "# todo-reminder:<id>" so it can be found and removed later.
+schedule_recurring() {
+  local text="$1" phrase out spec id b64
+  [[ "$text" =~ (^|[[:space:]])EVERY[[:space:]]+(.+)$ ]] || return 0
+  phrase="${BASH_REMATCH[2]}"
+  if ! command -v claude >/dev/null 2>&1; then
+    echo "add: 'claude' not found in PATH; recurring reminder NOT set." >&2
+    return 0
+  fi
+  local try
+  for try in 1 2; do
+    out=$(cd /tmp && timeout 60 claude -p --model haiku "Convert this recurrence phrase into ONE standard 5-field cron expression (minute hour day-of-month month day-of-week). Use 09:00 if no time is given. Ignore +project, @context and key:value tags such as ado:123. Output ONLY the expression on a single line. If it cannot be expressed in cron, output NONE. Phrase: $phrase" </dev/null 2>&1) || true
+    spec=$(printf '%s\n' "$out" | tr -d '`' | grep -E '^[[:space:]]*[0-9A-Za-z*/,?-]+([[:space:]]+[0-9A-Za-z*/,?-]+){4}[[:space:]]*$' | tail -n1 | xargs)
+    [ -n "$spec" ] && break
+  done
+  if [ -z "$spec" ] || [ "${spec%% *}" = NONE ]; then
+    echo "add: could not parse \"EVERY $phrase\" into cron; recurring reminder NOT set." >&2
+    echo "add: claude said: $(printf '%s' "$out" | head -c 300)" >&2
+    return 0
+  fi
+  id="r$(date +%s)-$$"
+  b64=$(printf %s "$text" | base64 -w0)
+  if {
+    crontab -l 2>/dev/null
+    echo "$spec $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.reminder-notify $id $b64 repeat # todo-reminder:$id"
+  } | crontab -; then
+    echo "add: recurring reminder set (cron: $spec) (tmux popup)."
+  else
+    echo "add: crontab rejected '$spec'; recurring reminder NOT set." >&2
+  fi
+}
+
+# Scan TEXT for "by|on|at <Mon|Monday|...>", "<YYYY-MM-DD>", "<MM-DD>" or
+# "<HH:MM>" (day/date may be followed by an optional HH:MM, default
+# 09:00) and, on the first hit, install a one-shot cron job that opens a
+# tmux popup at that moment. Never fails the add.
+schedule_reminder() {
+  if [[ "$1" =~ (^|[[:space:]])EVERY[[:space:]] ]]; then
+    schedule_recurring "$1"
+    return 0
+  fi
+  local text="$1" rest="$1" m="" tok="" t2="" now ts="" d="" y=""
+  now=$(date +%s)
+  shopt -s nocasematch
+  # "in <N> min|mins|minute|minutes|hour|hours": relative to now, rounded
+  # up to the next whole minute (cron has minute resolution).
+  if [[ "$text" =~ (^|[[:space:]])in[[:space:]]+([0-9]+)[[:space:]]*(min|mins|minute|minutes|hour|hours)([^[:alnum:]]|$) ]]; then
+    case "${BASH_REMATCH[3]}" in
+    min*) ts=$((now + BASH_REMATCH[2] * 60)) ;;
+    *) ts=$((now + BASH_REMATCH[2] * 3600)) ;;
+    esac
+    ts=$(((ts + 59) / 60 * 60))
+  fi
+  while [ -z "$ts" ] && [[ "$rest" =~ (^|[[:space:]])(by|on|at)[[:space:]]+([^[:space:]]+)([[:space:]]+([0-9]{1,2}:[0-9]{2})([^[:alnum:]:]|$))? ]]; do
+    m="${BASH_REMATCH[0]}"
+    tok="${BASH_REMATCH[3]%%[,.;]}"
+    t2="${BASH_REMATCH[5]}"
+    rest="${rest#*"$m"}"
+    ts=""
+    case "$tok" in
+    mon | monday | tue | tues | tuesday | wed | weds | wednesday | thu | thur | thurs | thursday | fri | friday | sat | saturday | sun | sunday)
+      d=$(date -d "${tok:0:3}" +%F)
+      ts=$(date -d "$d ${t2:-09:00}" +%s 2>/dev/null) || continue
+      [ "$ts" -le "$now" ] && ts=$(date -d "$d ${t2:-09:00} + 7 days" +%s)
+      ;;
+    [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9])
+      ts=$(date -d "$tok ${t2:-09:00}" +%s 2>/dev/null) || continue
+      ;;
+    [0-9][0-9]-[0-9][0-9])
+      y=$(date +%Y)
+      ts=$(date -d "$y-$tok ${t2:-09:00}" +%s 2>/dev/null) || continue
+      [ "$ts" -le "$now" ] && { ts=$(date -d "$((y + 1))-$tok ${t2:-09:00}" +%s 2>/dev/null) || continue; }
+      ;;
+    [0-9]:[0-9][0-9] | [0-9][0-9]:[0-9][0-9])
+      ts=$(date -d "today $tok" +%s 2>/dev/null) || continue
+      [ "$ts" -le "$now" ] && ts=$(date -d "tomorrow $tok" +%s)
+      ;;
+    *) continue ;;
+    esac
+    break
+  done
+  shopt -u nocasematch
+  [ -n "$ts" ] || return 0
+  if [ "$ts" -le "$now" ]; then
+    echo "add: due time already passed; no reminder set." >&2
+    return 0
+  fi
+
+  local id="$ts-$$" b64 when
+  b64=$(printf %s "$text" | base64 -w0)
+  when=$(date -d "@$ts" '+%-M %-H %-d %-m')
+  {
+    crontab -l 2>/dev/null
+    echo "$when * $(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.reminder-notify $id $b64 # todo-reminder:$id"
+  } | crontab -
+  echo "add: reminder set for $(date -d "@$ts" '+%a %F %H:%M') (tmux popup)."
+}
+
+if [[ ! "$text" =~ ^${TAG_PREFIX}:[[:space:]]*(.+)$ ]]; then
+  # Not an ado: task -- passthrough unchanged (preserves the interactive
+  # "Add: " prompt when no text was given at all).
+  if "$TODO_FULL_SH" "${cfg_opt[@]}" command "$action_word" "$@"; then
+    [ -n "$text" ] && { schedule_reminder "$text" || true; }
+    exit 0
+  fi
+  exit 1
+fi
+
+title="${BASH_REMATCH[1]}"
+
+if ! command -v jq >/dev/null 2>&1; then
+  echo "add: 'jq' is required but not found in PATH." >&2
+  exit 1
+fi
+
+json=$(
+  az boards work-item create \
+    --title "$title" \
+    --type "$ADO_WORK_ITEM_TYPE" \
+    --project "$AZURE_PROJECT" \
+    --assigned-to "$ASSIGNED_TO" \
+    --detect false \
+    --output json
+)
+
+id=$(echo "$json" | jq -r '.id')
+if [ -z "$id" ] || [ "$id" = "null" ]; then
+  echo "add: failed to create Azure Boards work item; task NOT added locally." >&2
+  exit 1
+fi
+
+echo "add: created ${ADO_WORK_ITEM_TYPE} ${TAG_PREFIX}:${id} in Azure Boards."
+
+final_text="${title} ${TAG_PREFIX}:${id}"
+"$TODO_FULL_SH" "${cfg_opt[@]}" command add "$final_text"
+schedule_reminder "$final_text" || true

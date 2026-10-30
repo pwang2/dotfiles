@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+# todo.sh add-on action: open
+#
+# For each given task NR, if the task is tagged ado:<id>, opens that
+# Azure Boards work item in the browser. Tasks without an ado:<id> tag
+# are skipped (not an error). Does not touch todo.txt.
+#
+# Install: place this file (executable) in $TODO_ACTIONS_DIR
+# (default ~/.todo.actions.d), and symlink `o` -> `open`.
+#   ln -s open "$TODO_ACTIONS_DIR/o"
+#
+# Run with: todo.sh open NR [NR ...]   (or: todo.sh o NR [NR ...])
+
+set -euo pipefail
+
+# todo.sh only exports TODOTXT_CFG_FILE when it was set via -d or the
+# environment; its default is resolved after the export block. Re-resolve
+# it here so TODO_FILE is populated even if the calling todo.sh didn't
+# export it.
+TODOTXT_CFG_FILE="${TODOTXT_CFG_FILE:-}"
+if [ ! -r "$TODOTXT_CFG_FILE" ]; then
+  for cfg in "$HOME/.todo/config" "$HOME/todo.cfg" "$HOME/.todo.cfg" \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/todo/config"; do
+    if [ -r "$cfg" ]; then
+      TODOTXT_CFG_FILE="$cfg"
+      break
+    fi
+  done
+fi
+
+if [ -r "$TODOTXT_CFG_FILE" ]; then
+  # shellcheck source=/dev/null
+  source "$TODOTXT_CFG_FILE"
+fi
+
+TAG_PREFIX="ado" # tasks get tagged ado:<id>
+ADO_ITEM_URL="https://dev.azure.com/wbim/FinancialEngineering/_workitems/edit"
+
+usage() {
+  echo "    $TODO_SH open NR [NR ...]"
+  echo "      For each NR tagged '${TAG_PREFIX}:<id>', opens that Azure"
+  echo "      Boards work item in the browser. Tasks without an"
+  echo "      '${TAG_PREFIX}:' tag are ignored."
+}
+
+# todo.sh invokes add-ons as: "$TODO_ACTIONS_DIR/open" "$@" -- i.e. $1 is
+# the action name itself ("open" or "o"). Drop it so our own args start
+# at $1.
+[ $# -gt 0 ] && shift
+
+if [ "${1:-}" = "usage" ]; then
+  usage
+  exit 0
+fi
+
+if [ $# -eq 0 ]; then
+  usage >&2
+  exit 1
+fi
+
+# Prefer wslview under WSL, then the usual desktop openers.
+opener=""
+for cmd in wslview xdg-open open; do
+  if command -v "$cmd" >/dev/null 2>&1; then
+    opener="$cmd"
+    break
+  fi
+done
+if [ -z "$opener" ]; then
+  echo "open: no browser opener found (wslview, xdg-open, open)." >&2
+  exit 1
+fi
+
+status=0
+for nr in "$@"; do
+  if [[ ! "$nr" =~ ^[0-9]+$ ]]; then
+    echo "open: '$nr' is not a task number, skipped." >&2
+    status=1
+    continue
+  fi
+
+  line=$(sed -n "${nr}p" "$TODO_FILE" 2>/dev/null || true)
+  id=$(grep -oE "${TAG_PREFIX}:[0-9]+" <<<"$line" | head -n1 | cut -d: -f2 || true)
+
+  if [ -z "$id" ]; then
+    echo "open: task $nr has no ${TAG_PREFIX}: tag, ignored."
+    continue
+  fi
+
+  url="${ADO_ITEM_URL}/${id}"
+  if "$opener" "$url" >/dev/null 2>&1; then
+    echo "open: ${TAG_PREFIX}:${id} -> $url"
+  else
+    echo "open: failed to open $url" >&2
+    status=1
+  fi
+done
+
+exit $status

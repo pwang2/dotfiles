@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+# todo.sh add-on action: sync
+#
+# Pulls open work items assigned to you from Azure Boards and reconciles
+# them with todo.txt:
+#   - items in the query but not in todo.txt      -> added
+#   - open todo.txt items tagged ado:<id> that are
+#     no longer in the query results              -> marked done
+#
+# Install: place this file (executable) in $TODO_ACTIONS_DIR
+# (default ~/.todo.actions.d). Run with: todo.sh sync
+
+set -euo pipefail
+
+# todo.sh only exports TODOTXT_CFG_FILE when it was set via -d or the
+# environment; its default is resolved after the export block. Re-resolve
+# it here so we can pass -d through to nested todo.sh calls.
+TODOTXT_CFG_FILE="${TODOTXT_CFG_FILE:-}"
+if [ ! -r "$TODOTXT_CFG_FILE" ]; then
+  for cfg in "$HOME/.todo/config" "$HOME/todo.cfg" "$HOME/.todo.cfg" \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/todo/config"; do
+    if [ -r "$cfg" ]; then
+      TODOTXT_CFG_FILE="$cfg"
+      break
+    fi
+  done
+fi
+
+# Make sure TODO_FILE / DONE_FILE / TODO_DIR are populated even if the
+# calling todo.sh didn't export them.
+if [ -r "$TODOTXT_CFG_FILE" ]; then
+  # shellcheck source=/dev/null
+  source "$TODOTXT_CFG_FILE"
+fi
+
+# Pass -d only when we actually found a config file.
+cfg_opt=()
+[ -r "$TODOTXT_CFG_FILE" ] && cfg_opt=(-d "$TODOTXT_CFG_FILE")
+
+usage() {
+  echo "    $TODO_SH sync [-n|--dry-run]"
+  echo "      Sync open Azure Boards work items assigned to you into todo.txt."
+  echo "      Items no longer returned by the query are marked done."
+}
+
+if [ "${1:-}" = "usage" ]; then
+  usage
+  exit 0
+fi
+
+# todo.sh invokes add-ons as: "$TODO_ACTIONS_DIR/sync" "$@" -- i.e. $1 is the
+# action name itself. Drop it so our own options start at $1.
+[ $# -gt 0 ] && shift
+
+DRY_RUN=0
+if [ "${1:-}" = "-n" ] || [ "${1:-}" = "--dry-run" ]; then
+  DRY_RUN=1
+fi
+
+# --- configuration -----------------------------------------------------
+AZURE_PROJECT="FinancialEngineering"
+TAG_PREFIX="ado" # tasks get tagged ado:<id>
+
+WIQL="
+SELECT [System.Id], [System.WorkItemType], [System.Title], [System.State]
+FROM WorkItems
+WHERE [System.TeamProject] = '${AZURE_PROJECT}'
+  AND (
+    [System.WorkItemType] IN GROUP 'Microsoft.RequirementCategory'
+    OR [System.WorkItemType] IN GROUP 'Microsoft.BugCategory'
+  )
+  AND [System.AssignedTo] = @Me
+  AND [System.State] NOT IN ('Done', 'Removed')
+ORDER BY [System.ChangedDate] DESC
+"
+
+# --- fetch ---------------------------------------------------------------
+if ! command -v jq >/dev/null 2>&1; then
+  echo "sync: 'jq' is required but not found in PATH." >&2
+  exit 1
+fi
+
+json=$(az boards query --detect false --wiql "$WIQL" --output json)
+if [ -z "$json" ] || [ "$json" = "null" ]; then
+  echo "sync: az boards query returned no data." >&2
+  exit 1
+fi
+
+# open_ids: array of currently-open Azure work item IDs
+mapfile -t open_ids < <(echo "$json" | jq -r '.[].id')
+
+echo "sync: ${#open_ids[@]} open work item(s) returned from Azure Boards."
+
+is_open() {
+  local id="$1" oid
+  for oid in "${open_ids[@]}"; do
+    [ "$oid" = "$id" ] && return 0
+  done
+  return 1
+}
+
+# --- add new items ---------------------------------------------------------
+added=0
+for id in "${open_ids[@]}"; do
+  if grep -qE "(^|[[:space:]])${TAG_PREFIX}:${id}([[:space:]]|$)" "$TODO_FILE" 2>/dev/null; then
+    continue # already synced
+  fi
+
+  title=$(echo "$json" | jq -r --arg id "$id" \
+    '.[] | select(.id == ($id|tonumber)) | .fields."System.Title"')
+
+  # Strip characters that would be misread as todo.txt syntax
+  title=${title//$'\n'/ }
+
+  task="${title} ${TAG_PREFIX}:${id}"
+
+  if [ "$DRY_RUN" = 1 ]; then
+    echo "sync: [dry-run] would add: $task"
+  else
+    "$TODO_FULL_SH" "${cfg_opt[@]}" command add "$task"
+  fi
+  added=$((added + 1))
+done
+
+# --- mark stale items done -------------------------------------------------
+completed=0
+while IFS=: read -r lineno content; do
+  [[ "$content" =~ ^x[[:space:]] ]] && continue # already done, skip
+
+  id=$(grep -oE "${TAG_PREFIX}:[0-9]+" <<<"$content" | head -n1 | cut -d: -f2)
+  [ -z "$id" ] && continue
+
+  if ! is_open "$id"; then
+    if [ "$DRY_RUN" = 1 ]; then
+      echo "sync: [dry-run] would mark done (line $lineno): $content"
+    else
+      # shellcheck disable=SC1010 # "do" here is the todo.sh subcommand name, not a loop keyword
+      "$TODO_FULL_SH" "${cfg_opt[@]}" command do "$lineno"
+    fi
+    completed=$((completed + 1))
+  fi
+done < <(grep -nE "${TAG_PREFIX}:[0-9]+" "$TODO_FILE" 2>/dev/null || true)
+
+echo "sync: done. added=${added} completed=${completed}${DRY_RUN:+ (dry-run)}"

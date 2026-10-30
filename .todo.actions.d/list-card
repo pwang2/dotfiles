@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+# todo.sh add-on action: list-card (alias: lsc)
+#
+# Shows prioritized tasks, i.e. those with (A)-(Z), as cards in a grid
+# sized to the terminal, highest priority first.
+#
+# Install: place in $TODO_ACTIONS_DIR (executable); symlink lsc -> list-card.
+# Run with: todo.sh list-card [TERM ...]   (or: todo.sh lsc [TERM ...])
+#   TERM filters cards: only tasks containing every TERM (case-insensitive).
+
+import os
+import re
+import shutil
+import sys
+import textwrap
+
+args = sys.argv[1:]
+# todo.sh passes the action name itself as $1
+if args:
+    args = args[1:]
+
+if args and args[0] == "usage":
+    sh = os.environ.get("TODO_SH", "todo.sh")
+    print(f"    {sh} list-card [TERM ...]")
+    print("      Shows prioritized tasks as cards, highest priority first.")
+    print("      Alias: lsc. TERMs filter tasks (all must match).")
+    sys.exit(0)
+
+todo_file = os.environ.get("TODO_FILE") or os.path.expanduser("~/.todo/todo.txt")
+try:
+    with open(todo_file, encoding="utf-8") as f:
+        lines = f.read().splitlines()
+except OSError as e:
+    sys.exit(f"list-card: cannot read {todo_file}: {e}")
+
+terms = [t.lower() for t in args]
+PRI = re.compile(r"^\(([A-Z])\) (.*)$")
+COLORS = {"A": "31", "B": "33", "C": "36"}  # red, yellow, cyan; others dim
+use_color = sys.stdout.isatty() and "NO_COLOR" not in os.environ
+
+def paint(s, code):
+    return f"\033[{code}m{s}\033[0m" if use_color else s
+
+cards = []
+for nr, line in enumerate(lines, 1):
+    m = PRI.match(line)
+    if not m or any(t not in line.lower() for t in terms):
+        continue
+    cards.append((m.group(1), nr, m.group(2)))
+cards.sort(key=lambda c: (c[0], c[1]))
+
+if not cards:
+    sys.exit("list-card: no prioritized tasks found")
+
+term_w = shutil.get_terminal_size((100, 24)).columns
+CARD_W = 48
+GAP = 2
+cols = max(1, (term_w + GAP) // (CARD_W + GAP))
+inner = CARD_W - 4
+TAG = re.compile(r"(?:^|\s)(?:[+@][^\s]+|[A-Za-z]+:[^\s]+)")
+
+def build(pri, nr, text):
+    color = COLORS.get(pri, "2")
+    tags = " ".join(t.strip() for t in TAG.findall(" " + text))
+    body = TAG.sub("", " " + text).strip() or text
+    body_lines = textwrap.wrap(body, inner) or [""]
+    tag_lines = textwrap.wrap(tags, inner) if tags else []
+    rows = [("top", (f" {nr} ", pri))]
+    rows += [("txt", b) for b in body_lines]
+    if tag_lines:
+        rows.append(("sep", ""))
+        rows += [("tag", t) for t in tag_lines]
+    rows.append(("bot", ""))
+    out = []
+    for kind, s in rows:
+        if kind == "top":
+            left, right = s
+            bar = "─" * (CARD_W - 1 - len(left) - len(right))
+            out.append(
+                paint("┌", color)
+                + paint(left, color + ";1")
+                + paint(bar, color)
+                + paint(right, color + ";1")
+            )
+        elif kind == "bot":
+            out.append(paint("└" + "─" * (CARD_W - 2) + "┘", color))
+        elif kind == "sep":
+            out.append(paint("├" + "─" * (CARD_W - 2) + "┤", color))
+        else:
+            pad = " " * (inner - len(s))
+            cell = paint(s, "2") if kind == "tag" else s
+            out.append(paint("│", color) + " " + cell + pad + " " + paint("│", color))
+    return out
+
+groups = {}
+for c in cards:
+    groups.setdefault(c[0], []).append(build(*c))
+
+for gi, group in enumerate(groups.values()):
+    if gi:
+        print()
+    for i in range(0, len(group), cols):
+        row = group[i : i + cols]
+        h = max(len(c) for c in row)
+        for c in row:
+            c.extend([" " * CARD_W] * (h - len(c)))
+        for r in range(h):
+            print((" " * GAP).join(c[r] for c in row))
+print(f"{len(cards)} prioritized task(s)")

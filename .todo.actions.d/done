@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# todo.sh add-on action: done (override)
+#
+# Wraps the builtin `done`/`do` action: marks the task(s) done as usual,
+# then for every task tagged ado:<id> pushes the completion to Azure
+# Boards by setting that work item's State to Done.
+#
+# Install: place this file (executable) in $TODO_ACTIONS_DIR
+# (default ~/.todo.actions.d), and symlink `do` -> `done` so both
+# spellings are intercepted (todo.sh resolves the do/done alias only
+# *after* checking actions.d, so each spelling needs its own filename).
+#   ln -s done "$TODO_ACTIONS_DIR/do"
+#
+# Run with: todo.sh done NR [NR ...]   (or: todo.sh do NR [NR ...])
+
+set -euo pipefail
+
+# todo.sh only exports TODOTXT_CFG_FILE when it was set via -d or the
+# environment; its default is resolved after the export block. Re-resolve
+# it here so we can pass -d through to nested todo.sh calls.
+TODOTXT_CFG_FILE="${TODOTXT_CFG_FILE:-}"
+if [ ! -r "$TODOTXT_CFG_FILE" ]; then
+  for cfg in "$HOME/.todo/config" "$HOME/todo.cfg" "$HOME/.todo.cfg" \
+    "${XDG_CONFIG_HOME:-$HOME/.config}/todo/config"; do
+    if [ -r "$cfg" ]; then
+      TODOTXT_CFG_FILE="$cfg"
+      break
+    fi
+  done
+fi
+
+if [ -r "$TODOTXT_CFG_FILE" ]; then
+  # shellcheck source=/dev/null
+  source "$TODOTXT_CFG_FILE"
+fi
+
+cfg_opt=()
+[ -r "$TODOTXT_CFG_FILE" ] && cfg_opt=(-d "$TODOTXT_CFG_FILE")
+
+TAG_PREFIX="ado" # tasks get tagged ado:<id>
+ADO_DONE_STATE="Done"
+
+usage() {
+  echo "    $TODO_SH done NR [NR ...]"
+  echo "      Marks task(s) done, then syncs any ado:<id> tag(s) to Azure"
+  echo "      Boards by setting the work item's state to '$ADO_DONE_STATE'."
+}
+
+# todo.sh invokes add-ons as: "$TODO_ACTIONS_DIR/done" "$@" -- i.e. $1 is the
+# action name itself ("done" or "do"). Drop it so our own args start at $1.
+[ $# -gt 0 ] && shift
+
+if [ "${1:-}" = "usage" ]; then
+  usage
+  exit 0
+fi
+
+if [ $# -eq 0 ]; then
+  usage >&2
+  exit 1
+fi
+
+# --- capture ado:<id> tags BEFORE marking done, one per NR arg -------------
+ids=()
+for nr in "$@"; do
+  [[ "$nr" =~ ^[0-9]+$ ]] || continue # let the builtin reject bad NRs itself
+  line=$(sed -n "${nr}p" "$TODO_FILE" 2>/dev/null || true)
+  id=$(grep -oE "${TAG_PREFIX}:[0-9]+" <<<"$line" | head -n1 | cut -d: -f2 || true)
+  if [ -n "$id" ]; then
+    ids+=("$id")
+  fi
+done
+
+# --- mark done using the real builtin (bypasses actions.d, no recursion) --
+"$TODO_FULL_SH" "${cfg_opt[@]}" command done "$@"
+
+# --- push completions to Azure Boards --------------------------------------
+if [ "${#ids[@]}" -gt 0 ]; then
+  if ! command -v az >/dev/null 2>&1; then
+    echo "done: 'az' not found in PATH; skipped Azure Boards sync for: ${ids[*]}" >&2
+  else
+    for id in "${ids[@]}"; do
+      if az boards work-item update --detect false --id "$id" --state "$ADO_DONE_STATE" >/dev/null; then
+        echo "✅ done: ${TAG_PREFIX}:${id} -> Azure Boards state '$ADO_DONE_STATE'"
+      else
+        echo "done: failed to update Azure Boards work item ${id} (task already marked done locally)" >&2
+      fi
+    done
+  fi
+fi
