@@ -14,6 +14,10 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # export TERM="xterm-256color"
 export PYENV_ROOT="$HOME/.pyenv"
 export TODO_DIR=$HOME/.todo
+export EDITOR=vi
+
+alias cc="claude"
+alias vi=nvim
 
 PATHS=(
   $HOME/bin
@@ -78,6 +82,10 @@ alias start=/mnt/c/Windows/explorer.exe
 
 complete -F __start_kubectl k
 
+is_wsl() {
+  [[ -n "$WSL_DISTRO_NAME" || "$(uname -r)" == *[Mm]icrosoft* ]]
+}
+
 killp() {
   kill -9 $(lsof -t -i :"$@")
 }
@@ -102,11 +110,11 @@ profile() {
   zprof
 }
 
-function nexus_setup() {
+nexus_setup() {
   links=(
-    node_modules
     .envrc
     .env.local
+    node_modules
   )
   for link in "${links[@]}"; do
     if [[ ! -e "$link" ]]; then
@@ -145,6 +153,12 @@ gw() {
   tmux send-keys "cc" Enter
   tmux select-pane -t 1
 }
+
+_ccp() {
+  claude --model haiku -p "$*"
+}
+
+alias ccp='noglob _ccp'
 
 gcmai() {
   local diff
@@ -187,6 +201,19 @@ gcmai() {
 
 # WSL-only helpers (rely on code --remote wsl+, wslpath, Windows interop)
 if [[ -n "$WSL_DISTRO_NAME" ]]; then
+  export BROWSER="wslview"
+  export PATH="/mnt/c/Windows/system32:$PATH"
+  export PATH="/mnt/c/Program Files/Google/Chrome/Application:$PATH"
+
+  alias gist="gist-paste"
+  alias google-chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"
+  alias simplecsv2json="python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))'"
+  alias xdg-open="wslview"
+  alias start="/mnt/c/Windows/explorer.exe"
+  alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+  alias code="/mnt/c/Users/PW618/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe"
+  alias oc="OPENCODE_EXPERIMENTAL_MARKDOWN=1 opencode $@"
+
   function cf() {
     fullPath=$(realpath "${1:-$(pwd)}")
     echo "$fullPath"
