@@ -1,0 +1,142 @@
+#!/usr/bin/env zsh
+
+#shellcheck shell=bash disable=2034,2206,2086,1091
+
+# ---------------------------------------------------------------------------
+# Utilities
+# ---------------------------------------------------------------------------
+killp() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: killp <port>"
+    return 1
+  fi
+
+  local pids
+  pids=$(lsof -t -iTCP:"$1" -sTCP:LISTEN) || {
+    echo "Nothing listening on port $1"
+    return 1
+  }
+  kill -9 ${=pids}
+}
+
+colortest() {
+  curl -sSL -H "Cache-Control: no-cache, no-store" https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw\?t=$(date +%s) | bash
+}
+
+strongpass() {
+  if [[ $(uname) == "Darwin" && -x "$(command -v pbcopy)" ]]; then
+    openssl rand -base64 14 | pbcopy
+  elif [[ $(uname) == "Linux" && -x "$(command -v xclip)" ]]; then
+    openssl rand -base64 14 | xclip -selection clipboard
+  else
+    openssl rand -base64 14
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Git worktree + tmux workflow
+# ---------------------------------------------------------------------------
+nexus_setup() {
+  local links=(
+    .envrc
+    .env.local
+    node_modules
+  )
+  local link
+  for link in "${links[@]}"; do
+    if [[ ! -e "$link" ]]; then
+      ln -s "$HOME/nexus/$link" "$link"
+    fi
+  done
+  direnv allow .env.local
+  direnv allow
+}
+
+# create a dictionary map to extra set up per variant
+typeset -A action_map
+action_map=(
+  "nexus" "nexus_setup"
+)
+
+gw() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: gw <name>"
+    return 1
+  fi
+
+  [[ -n $TMUX ]] || {
+    echo "gw must run inside tmux"
+    return 1
+  }
+
+  local root
+  root=$(git rev-parse --show-toplevel) || return 1
+
+  local dir=${root:t}
+  local setup_cmd=${action_map[$dir]}
+  local name="${1#.worktrees/}"
+  local wt_path="$HOME/.worktrees/$dir/$name"
+
+  git worktree add "$wt_path" || return 1
+
+  # use pane ids so layout does not depend on tmux pane-base-index
+  local editor_pane cc_pane
+  editor_pane=$(tmux new-window -P -F '#{pane_id}' -n "$name" -c "$wt_path")
+  cc_pane=$(tmux split-window -h -P -F '#{pane_id}' -t "$editor_pane" -c "$wt_path")
+  tmux split-window -v -l 8 -t "$editor_pane" -c "$wt_path"
+
+  if [[ -n "$setup_cmd" ]]; then
+    tmux send-keys -t "$editor_pane" "$setup_cmd" Enter
+  fi
+
+  tmux send-keys -t "$editor_pane" "nvim" Enter
+  tmux send-keys -t "$cc_pane" "cc" Enter
+  tmux select-pane -t "$editor_pane"
+}
+
+# ---------------------------------------------------------------------------
+# Claude helpers
+# ---------------------------------------------------------------------------
+_ccp() {
+  claude --model haiku -p "$*"
+}
+
+alias ccp='noglob _ccp'
+
+gcmai() {
+  local diff
+  diff=$(git diff --cached)
+
+  if [[ -z "$diff" ]]; then
+    echo "No staged changes found. Use 'git add' first."
+    return 1
+  fi
+
+  local max_chars=50000
+  if ((${#diff} > max_chars)); then
+    echo "Diff truncated to $max_chars chars before sending."
+    diff=${diff[1,max_chars]}
+  fi
+
+  local msg
+  msg=$(print -r -- "$diff" |
+    claude --model haiku -p "Generate a concise git commit message for this diff. Output ONLY the commit message — no explanation, no backticks, no preamble. Use conventional commits format (feat/fix/refactor/chore/docs/test/style/perf). First line ≤72 chars. Add a blank line and bullet points for non-trivial changes.")
+
+  if [[ -z "$msg" ]]; then
+    echo "Failed to generate commit message."
+    return 1
+  fi
+
+  echo "Generated message:"
+  echo "─────────────────"
+  print -r -- "$msg"
+  echo "─────────────────"
+  echo ""
+
+  read -r "?Commit with this message? [y/e/n] " choice
+  case "$choice" in
+  y | Y) git commit -m "$msg" ;;
+  e | E) git commit -e -m "$msg" ;; # opens editor to tweak; empty message aborts
+  *) echo "Aborted." ;;
+  esac
+}

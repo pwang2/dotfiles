@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+#shellcheck shell=bash disable=1090
+
+# cache brew shellenv output; regenerate when brew binary is newer
+for _brew_bin in /home/linuxbrew/.linuxbrew/bin/brew /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  [[ -x $_brew_bin ]] && break
+done
+_brew_cache=$HOME/.cache/brew_shellenv.zsh
+if [[ -x $_brew_bin ]]; then
+  if [[ ! -s $_brew_cache || $_brew_bin -nt $_brew_cache ]]; then
+    mkdir -p ${_brew_cache:h}
+    $_brew_bin shellenv >|$_brew_cache
+  fi
+  source $_brew_cache
+fi
+unset _brew_bin _brew_cache

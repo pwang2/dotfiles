@@ -1,240 +1,51 @@
 #!/usr/bin/env zsh
 
 #shellcheck shell=bash disable=2034,2206,2086,1091
+
 ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 KEYTIMEOUT=1
 DISABLE_AUTO_TITLE=true
 DISABLE_MAGIC_FUNCTIONS=true
+ZSH_DISABLE_COMPFIX=true # skip compaudit on every start
 
-# needed for tmux called in function gw
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+HISTSIZE=100000
+SAVEHIST=100000
 
-# export TERM="xterm-256color"
-export PYENV_ROOT="$HOME/.pyenv"
-export TODO_DIR=$HOME/.todo
-export EDITOR=vi
+setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
 
-alias cc="claude"
+# Aliases
+alias x=exit
+alias c=clear
+alias j=z
+alias td=todo.sh
 alias vi=nvim
+alias oc=opencode
+alias cc=claude
+alias k=kubectl
 
-PATHS=(
-  $HOME/bin
-  $HOME/go/bin
-  $HOME/.bun/bin
-  $HOME/.local/bin
-  $HOME/.luarocks/bin
-  $HOME/.cargo/bin
-  $HOME/.dotnet/tools
-  $BREW_PREFIX/bin
-  $BREW_PREFIX/sbin
-  $PYENV_ROOT/bin
-  /usr/local/bin
-  /usr/local/sbin
-  /usr/local/go/bin
-  /snap/bin
-  /usr/local/opt/{grep,coreutils,findutils}/libexec/gnubin
+export TODO_DIR=$HOME/.todo
+export EDITOR=nvim
+
+path=(
+  $HOME/{bin,go/bin,.bun/bin,.local/bin,.luarocks/bin,.cargo/bin,.dotnet/tools}(N-/)
+  /usr/local/{bin,sbin,go/bin}(N-/)
+  /usr/local/opt/{grep,coreutils,findutils}/libexec/gnubin(N-/)
+  /opt/mssql-tools18/bin(N-/)
+  $path
 )
 
-for i in "${PATHS[@]}"; do
-  [[ -d "$i" ]] && [[ ! $PATH == *"$i"* ]] && PATH="$i:$PATH"
-done
+plugins=(
+  git
+  evalcache
+  zsh-vi-mode
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
-if [[ -z $plugins ]]; then
-  plugins=(
-    git
-    evalcache
-    web-search
-    zsh-vi-mode
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-  )
-fi
+[[ -n "$WSL_DISTRO_NAME" ]] && source ~/.zshrc_wsl
 
-autoload -Uz compinit
-compinit -C
-
+source ~/.zshrc_brew
 source $ZSH/oh-my-zsh.sh
-
-# need to add the -M mode here or it will not work with zsh-vi-mode
-# bindkey -M viins '^[|' zsh_gh_copilot_explain # bind Alt+shift+\ to explain
-# bindkey -M viins '^[\' zsh_gh_copilot_suggest # bind Alt+\ to suggest
-
-unset PATHS
-unset plugins
-
-# 3rd party completions
-command -v kubectl >/dev/null 2>&1 && _evalcache kubectl completion zsh
-command -v argo >/dev/null 2>&1 && _evalcache argo completion zsh
-command -v gh >/dev/null 2>&1 && _evalcache gh completion -s zsh
-command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
-command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
-command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
-
-alias x="exit"
-alias c="clear"
-alias k="kubectl"
-alias j="z"
-alias td="todo.sh"
-alias vi="nvim"
-alias start=/mnt/c/Windows/explorer.exe
-
-complete -F __start_kubectl k
-
-is_wsl() {
-  [[ -n "$WSL_DISTRO_NAME" || "$(uname -r)" == *[Mm]icrosoft* ]]
-}
-
-killp() {
-  kill -9 $(lsof -t -i :"$@")
-}
-
-colortest() {
-  curl -sSLk -H "Cache-Control: no-cache, no-store" https://gist.githubusercontent.com/pwang2/77450beffe2d343c6c446a33a6df74f0/raw\?t=$(date +%s) | bash
-}
-
-strongpass() {
-  if [[ $(uname) == "Darwin" && -x "$(command -v pbcopy)" ]]; then
-    openssl rand -base64 14 | pbcopy
-  elif [[ $(uname) == "Linux" && -x "$(command -v xclip)" ]]; then
-    openssl rand -base64 14 | xclip -selection clipboard
-  else
-    openssl rand -base64 14
-  fi
-}
-
-profile() {
-  zmodload zsh/zprof
-  source ~/.zshrc_shared
-  zprof
-}
-
-nexus_setup() {
-  links=(
-    .envrc
-    .env.local
-    node_modules
-  )
-  for link in "${links[@]}"; do
-    if [[ ! -e "$link" ]]; then
-      ln -s "$HOME/nexus/$link" "$link"
-    fi
-  done
-  direnv allow .env.local
-  direnv allow
-}
-
-# create a dictionary map to extra set up per variant
-typeset -A action_map
-action_map=(
-  "nexus" "nexus_setup"
-)
-
-gw() {
-  local dir=$(basename $PWD)
-  local setup_cmd=${action_map[$dir]}
-  local name="${1#.worktrees/}"
-  local wt_path="$HOME/.worktrees/$dir/$name"
-
-  git worktree add "$wt_path"
-  tmux new-window -n "$name" -c "$wt_path"
-  tmux split-window -h -c "$wt_path"
-  tmux select-pane -t 1
-  tmux split-window -v -l 8 -c "$wt_path"
-  tmux select-pane -t 1
-
-  if [[ -n "$setup_cmd" ]]; then
-    tmux send-keys -t 1 "$setup_cmd" Enter
-  fi
-
-  tmux send-keys "nvim" Enter
-  tmux select-pane -t 3
-  tmux send-keys "cc" Enter
-  tmux select-pane -t 1
-}
-
-_ccp() {
-  claude --model haiku -p "$*"
-}
-
-alias ccp='noglob _ccp'
-
-gcmai() {
-  local diff
-  diff=$(git diff --cached)
-
-  if [[ -z "$diff" ]]; then
-    echo "No staged changes found. Use 'git add' first."
-    return 1
-  fi
-
-  local msg
-  msg=$(echo "$diff" | claude --model haiku -p "Generate a concise git commit message for this diff. Output ONLY the commit message — no explanation, no backticks, no preamble. Use conventional commits format (feat/fix/refactor/chore/docs/test/style/perf). First line ≤72 chars. Add a blank line and bullet points for non-trivial changes.")
-
-  if [[ -z "$msg" ]]; then
-    echo "Failed to generate commit message."
-    return 1
-  fi
-
-  echo "Generated message:"
-  echo "─────────────────"
-  echo "$msg"
-  echo "─────────────────"
-  echo ""
-
-  read -r "?Commit with this message? [y/e/n] " choice
-  case "$choice" in
-  y | Y) git commit -m "$msg" ;;
-  e | E)
-    # Drop into $EDITOR to tweak
-    local tmpfile
-    tmpfile=$(mktemp /tmp/git_commit_msg.XXXXXX)
-    echo "$msg" >"$tmpfile"
-    ${EDITOR:-nvim} "$tmpfile"
-    git commit -F "$tmpfile"
-    rm -f "$tmpfile"
-    ;;
-  *) echo "Aborted." ;;
-  esac
-}
-
-# WSL-only helpers (rely on code --remote wsl+, wslpath, Windows interop)
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
-  export BROWSER="wslview"
-  export PATH="/mnt/c/Windows/system32:$PATH"
-  export PATH="/mnt/c/Program Files/Google/Chrome/Application:$PATH"
-
-  alias gist="gist-paste"
-  alias google-chrome="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"
-  alias simplecsv2json="python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))'"
-  alias xdg-open="wslview"
-  alias start="/mnt/c/Windows/explorer.exe"
-  alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
-  alias code="/mnt/c/Users/PW618/AppData/Local/Programs/Microsoft\ VS\ Code/Code.exe"
-  alias oc="OPENCODE_EXPERIMENTAL_MARKDOWN=1 opencode $@"
-
-  function cf() {
-    fullPath=$(realpath "${1:-$(pwd)}")
-    echo "$fullPath"
-    code --remote wsl+ubuntu "${fullPath}" --profile "FrontEnd" >>/dev/null 2>&1
-  }
-
-  function cputemp() {
-    local out win_out
-    out=$(mktemp /mnt/c/Users/Public/cputemp.XXXXXX)
-    win_out=$(wslpath -w "$out")
-    /mnt/c/Windows/System32/sudo.exe \
-      powershell.exe -NoProfile -Command \
-      "Get-CimInstance -Namespace root/wmi -ClassName MSAcpi_ThermalZoneTemperature | Select-Object InstanceName, @{n='TempC';e={[math]::Round(\$_.CurrentTemperature / 10 - 273.15, 1)}} | Out-File -Encoding ascii '$win_out'"
-    # sudo.exe returns before the elevated window finishes; wait up to 30s for output
-    local i
-    for i in {1..60}; do
-      [[ -s "$out" ]] && break
-      sleep 0.5
-    done
-    sleep 0.2
-    tr -d '\r' <"$out"
-    rm -f "$out"
-  }
-fi
+source ~/.zshrc_comp_env
+source ~/.zshrc_functions

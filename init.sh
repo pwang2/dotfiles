@@ -1,39 +1,52 @@
 #! /bin/bash
-# shellcheck disable=SC2012,SC2086
 set -xe
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+BACKUP_SUFFIX=".bak.$(date +%Y%m%d%H%M%S)"
 
-configs=$(ls -1 config)
-for config in ${configs}; do
-  rm -rf "${HOME}/.config/${config}"
-  ln -s "${CWD}/config/${config}" "$HOME/.config/${config}"
+# link <src> <dest>: back up existing dest unless it already points at src
+link() {
+  local src=$1 dest=$2
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    [ "$(readlink "$dest")" = "$src" ] && return 0
+    mv "$dest" "${dest}${BACKUP_SUFFIX}"
+  fi
+  ln -sfn "$src" "$dest"
+}
+
+IS_WSL=false
+grep -qi microsoft /proc/version 2>/dev/null && IS_WSL=true
+
+mkdir -p "$HOME/.config"
+for dir in "$CWD"/config/*; do
+  link "$dir" "$HOME/.config/$(basename "$dir")"
 done
 
-FILES=(.tmux.conf .tmuxline.conf .zshrc_shared .gitconfig)
+FILES=(.tmux.conf .zshrc_shared .zshrc_brew .zshrc_comp_env .zshrc_functions .zshrc_tools .gitconfig)
+$IS_WSL && FILES+=(.zshrc_wsl)
 
 for file in "${FILES[@]}"; do
-  rm -rf "$HOME/$file"
-  ln -s "$CWD/$file" "$HOME/$file"
+  link "$CWD/$file" "$HOME/$file"
 done
 
 if uname | grep -q Darwin; then
-  rm -rf "$HOME/hammerspoon"
-  ln -s "${CWD}/hammerspoon" "$HOME"
+  link "$CWD/hammerspoon" "$HOME/hammerspoon"
 fi
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  ZPLUGINS=$HOME/.oh-my-zsh/custom/plugins
-  [ ! -d $ZPLUGINS/zsh-autosuggestions ] && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
-  [ ! -d $ZPLUGINS/zsh-syntax-highlighting ] && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
-  [ ! -d $ZPLUGINS/zsh-vi-mode ] && git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode $ZPLUGINS/zsh-vi-mode
-  [ ! -d $ZPLUGINS/evalcache ] && git clone --depth=1 https://github.com/mroth/evalcache $ZPLUGINS/evalcache
-  [ ! -d $ZPLUGINS/zsh-github-copilot ] && git clone --depth=1 https://github.com/loiccoyle/zsh-github-copilot ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-github-copilot
-  [ ! -f $HOME/.zshrc ] && echo "source $HOME/.zshrc_shared" >$HOME/.zshrc
 fi
 
-BREW_PREFIX=$([[ "$(uname -s)" == darwin* ]] && echo "/usr/local" || echo "/home/linuxbrew/.linuxbrew")
+ZPLUGINS=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+[ ! -d $ZPLUGINS/zsh-autosuggestions ] && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
+[ ! -d $ZPLUGINS/zsh-syntax-highlighting ] && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
+[ ! -d $ZPLUGINS/zsh-vi-mode ] && git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode $ZPLUGINS/zsh-vi-mode
+[ ! -d $ZPLUGINS/evalcache ] && git clone --depth=1 https://github.com/mroth/evalcache $ZPLUGINS/evalcache
+
+# oh-my-zsh installer may write its own .zshrc; make sure ours is sourced
+grep -qs '\.zshrc_shared' "$HOME/.zshrc" || echo "source $HOME/.zshrc_shared" >>"$HOME/.zshrc"
+
+BREW_PREFIX=$([[ "$(uname -s)" == Darwin ]] && echo "/usr/local" || echo "/home/linuxbrew/.linuxbrew")
 # if no brew install it
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

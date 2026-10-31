@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+# 3rd party tool integrations: lazy completions and shell hooks
+# needs _evalcache (oh-my-zsh evalcache plugin) and compdef, so source after oh-my-zsh
+
+# lazy completions: stub registered per command, real completion loaded on first <tab>
+typeset -A _lazy_comp_cmd
+_lazy_comp_load() {
+  local cmd=${_lazy_comp_cmd[$1]}
+  unfunction _lazy_comp_load_$cmd
+  _evalcache ${=2}
+  # re-point extra names (e.g. alias k) at the real completer
+  local name
+  for name in ${=3}; do compdef ${_comps[$cmd]} $name; done
+  return 124
+}
+_lazy_completion() {
+  local cmd=$1 extra=$2
+  shift 2
+  command -v $cmd >/dev/null 2>&1 || return
+  _lazy_comp_cmd[$cmd]=$cmd
+  eval "_lazy_comp_load_$cmd() { _lazy_comp_load $cmd '$*' '$extra'; }"
+  compdef _lazy_comp_load_$cmd $cmd $=extra
+}
+_lazy_completion kubectl k kubectl completion zsh
+_lazy_completion argo '' argo completion zsh
+_lazy_completion gh '' gh completion -s zsh
+
+# shell hooks
+command -v direnv >/dev/null 2>&1 && _evalcache direnv hook zsh
+command -v fnm >/dev/null 2>&1 && _evalcache fnm env --use-on-cd --shell zsh
+command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
