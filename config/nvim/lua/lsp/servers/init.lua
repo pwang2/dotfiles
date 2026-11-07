@@ -9,7 +9,8 @@ local servers = {
   "yamlls",
   "jsonls",
   "lua_ls",
-  "vtsls",
+  -- "vtsls",
+  "tsc",
   "tailwindcss",
   "pyright",
   -- jdtls is handled separately by nvim-jdtls plugin

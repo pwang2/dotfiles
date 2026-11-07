@@ -15,7 +15,7 @@ return {
     },
     opts = {
       automatic_enable = {
-        exclude = { "yamlls", "copilot" },
+        exclude = { "yamlls", "copilot", "vtsls" },
       },
       ensure_installed = {
         "jdtls",
@@ -26,7 +26,7 @@ return {
         "jsonls",
         "omnisharp",
         "html",
-        -- "ts_ls",
+        "tsc",
         "vtsls",
         -- "pyright",
         "basedpyright",

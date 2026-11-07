@@ -33,7 +33,8 @@ function M.setup()
       },
     },
     --if you .ts file containes import "*.vue", you still need to use vtsls here with @vue/typescript-plugin
-    filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+    -- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+    filetypes = { "vue" },
   })
 end
 
