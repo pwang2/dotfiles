@@ -22,7 +22,16 @@ for dir in "$CWD"/config/*; do
   link "$dir" "$HOME/.config/$(basename "$dir")"
 done
 
-FILES=(.tmux.conf .zshrc_shared .zshrc_brew .zshrc_comp_env .zshrc_functions .zshrc_tools .gitconfig .yamllint.yaml)
+FILES=(
+  .tmux.conf
+  .zshrc_shared
+  .zshrc_brew
+  .zshrc_comp_env
+  .zshrc_functions
+  .zshrc_tools
+  .gitconfig
+  .yamllint.yaml
+)
 $IS_WSL && FILES+=(.zshrc_wsl)
 
 for file in "${FILES[@]}"; do
@@ -38,10 +47,16 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 ZPLUGINS=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-[ ! -d $ZPLUGINS/zsh-autosuggestions ] && git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git $ZPLUGINS/zsh-autosuggestions
-[ ! -d $ZPLUGINS/zsh-syntax-highlighting ] && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $ZPLUGINS/zsh-syntax-highlighting
-[ ! -d $ZPLUGINS/zsh-vi-mode ] && git clone --depth=1 https://github.com/jeffreytse/zsh-vi-mode $ZPLUGINS/zsh-vi-mode
-[ ! -d $ZPLUGINS/evalcache ] && git clone --depth=1 https://github.com/mroth/evalcache $ZPLUGINS/evalcache
+ZSH_PLUGIN_REPOS=(
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-syntax-highlighting
+  jeffreytse/zsh-vi-mode
+  mroth/evalcache
+)
+for repo in "${ZSH_PLUGIN_REPOS[@]}"; do
+  dest="$ZPLUGINS/${repo##*/}"
+  [ -d "$dest" ] || git clone --depth=1 "https://github.com/$repo.git" "$dest"
+done
 
 # oh-my-zsh installer may write its own .zshrc; make sure ours is sourced
 grep -qs '\.zshrc_shared' "$HOME/.zshrc" || echo "source $HOME/.zshrc_shared" >>"$HOME/.zshrc"
@@ -50,7 +65,7 @@ BREW_PREFIX=$([[ "$(uname -s)" == Darwin ]] && echo "/usr/local" || echo "/home/
 # if no brew install it
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$($BREW_PREFIX/bin/brew shellenv)"
+  eval "$("$BREW_PREFIX/bin/brew" shellenv)"
 
   brew install uv fnm zoxide
 fi

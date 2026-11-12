@@ -11,8 +11,7 @@ rules:
   indentation:
     spaces: 2
     check-multi-line-strings: false
-
-  indent-sequences: false
+    indent-sequences: false
 
   comments:
     min-spaces-from-content: 1
