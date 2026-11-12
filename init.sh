@@ -22,7 +22,7 @@ for dir in "$CWD"/config/*; do
   link "$dir" "$HOME/.config/$(basename "$dir")"
 done
 
-FILES=(.tmux.conf .zshrc_shared .zshrc_brew .zshrc_comp_env .zshrc_functions .zshrc_tools .gitconfig)
+FILES=(.tmux.conf .zshrc_shared .zshrc_brew .zshrc_comp_env .zshrc_functions .zshrc_tools .gitconfig .yamllint.yaml)
 $IS_WSL && FILES+=(.zshrc_wsl)
 
 for file in "${FILES[@]}"; do

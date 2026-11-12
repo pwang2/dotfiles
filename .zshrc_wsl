@@ -1,5 +1,6 @@
 export BROWSER="wslview"
 export PATH="/mnt/c/Program Files/Google/Chrome/Application:$PATH"
+export PATH="/mnt/c/Users/PW618/AppData/Local/Programs/AutoHotkey/v2:$PATH"
 
 alias google-chrome='/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe'
 alias simplecsv2json="python3 -c 'import csv, json, sys; print(json.dumps([dict(r) for r in csv.DictReader(sys.stdin)]))'"

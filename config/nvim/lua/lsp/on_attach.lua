@@ -110,24 +110,6 @@ M.on_attach = function(client, bufnr)
     keygen("gi", require("omnisharp_extended").lsp_implementation, "[cs]Go to implementation")
   end
 
-  if client.name == "jdtls" and filetype == "java" then
-    keygen("<leader>di", function()
-      require("jdtls").organize_imports()
-    end, "[java]Organize imports")
-    keygen("<leader>de", function()
-      require("jdtls").extract_variable(true)
-    end, "[java]Extract variable")
-    keygen("<leader>dm", function()
-      require("jdtls").extract_method(true)
-    end, "[java]Extract method")
-    keygen("<leader>dt", function()
-      require("jdtls").test_class()
-    end, "[java]Test class")
-    keygen("<leader>dn", function()
-      require("jdtls").test_nearest_method()
-    end, "[java]Test nearest method")
-  end
-
   -- Disable it to prevent the document_color.lua crash
   client.server_capabilities.colorProvider = false
 end

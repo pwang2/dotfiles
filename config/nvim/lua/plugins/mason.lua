@@ -15,10 +15,11 @@ return {
     },
     opts = {
       automatic_enable = {
-        exclude = { "yamlls", "copilot", "vtsls" },
+        exclude = {
+          "vtsls",
+        },
       },
       ensure_installed = {
-        "jdtls",
         "lua_ls",
         "cssls",
         "bashls",
@@ -27,10 +28,9 @@ return {
         "omnisharp",
         "html",
         "tsc",
-        "vtsls",
-        -- "pyright",
+        -- "vtsls",
+        -- "vue_ls",
         "basedpyright",
-        "vue_ls",
         "tailwindcss",
         "rust_analyzer",
         "nginx_language_server",
@@ -58,13 +58,10 @@ return {
         "black",
         "shfmt",
         "yamlfmt",
-        "google-java-format",
         "kulala-fmt",
 
         "codelldb",
         "debugpy",
-        "java-debug-adapter",
-        "java-test",
         "netcoredbg",
       },
     },

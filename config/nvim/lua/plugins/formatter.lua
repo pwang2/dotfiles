@@ -10,7 +10,6 @@ return {
       rust = { "rustfmt" },
       python = { "ruff_format" }, -- or "black" if preferred
       lua = { "stylua" },
-      java = { "google_java_format" },
       toml = { "taplo" },
       typescript = { "prettier" },
       javascript = { "prettier" },

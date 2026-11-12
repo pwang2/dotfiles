@@ -46,7 +46,7 @@ return {
       "nvim-neotest/nvim-nio",
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
-      -- "mxsdev/nvim-dap-vscode-js",
+      "mxsdev/nvim-dap-vscode-js",
       -- {
       --   -- https://theosteiner.de/debugging-javascript-frameworks-in-neovim
       --   "microsoft/vscode-js-debug",
