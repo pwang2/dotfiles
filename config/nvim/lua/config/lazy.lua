@@ -58,12 +58,8 @@ vim.g.maplocalleader = ";"
 
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
-vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
 vim.g.loaded_node_provider = 0
-
-vim.api.nvim_set_var("vim_deprecation_warnings", false)
-
-vim.diagnostic.config({ virtual_text = { current_line = true } })
 
 require("lazy").setup({
   spec = {

@@ -28,6 +28,7 @@ return {
         "omnisharp",
         "html",
         "tsc",
+        "helm_ls",
         -- "vtsls",
         -- "vue_ls",
         "basedpyright",
@@ -42,20 +43,18 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     -- comment following line out after the first time setup
-    lazy = "VeryLazy",
+    event = "VeryLazy",
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {
         "eslint_d",
-        "pylint",
+        "ruff", -- linter (nvim-lint) + formatter (conform ruff_format)
         "yamllint",
         "luacheck",
-        "shellcheck",
 
-        "oxfmt",
+        "prettier", -- conform: ts/js/css/json/vue/html
         "taplo",
         "stylua",
-        "black",
         "shfmt",
         "yamlfmt",
         "kulala-fmt",

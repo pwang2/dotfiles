@@ -8,7 +8,6 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.json       setlocal filetype=jsonc
   autocmd BufNewFile,BufRead .envrc       setlocal filetype=sh
 
-  autocmd FileType helm                   setlocal syntax=yaml
   autocmd FileType json,jsonc,markdown    setlocal conceallevel=1
   autocmd FileType markdown               setlocal wrap linebreak
 
@@ -34,10 +33,21 @@ vim.cmd([[
   nnoremap <silent> <leader>rr   <cmd>execute('lsp restart')<CR>
   nnoremap <silent> <leader>w    <cmd>execute('write')<CR>
   nnoremap <silent> <cr><cr>     <cmd>nohl<CR>
-
-  tnoremap <silent> <Esc>        <C-\><C-n>
 ]])
 
+-- Esc leaves terminal mode, except in TUI apps that need Esc themselves (claude, lazygit, sidekick CLIs).
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("UserTermEsc", { clear = true }),
+  callback = function(args)
+    local name = vim.api.nvim_buf_get_name(args.buf)
+    if name:match("claude") or name:match("lazygit") or name:match("sidekick") then
+      return
+    end
+    vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { buffer = args.buf, silent = true })
+  end,
+})
+
+-- `:t` -> `:Telescope` only when `t` is the whole command line (keeps `:t.` copy-line working)
 vim.cmd([[
-  cab t   Telescope
+  cnoreabbrev <expr> t (getcmdtype() ==# ':' && getcmdline() ==# 't') ? 'Telescope' : 't'
 ]])

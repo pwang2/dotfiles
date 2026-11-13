@@ -8,7 +8,7 @@ return {
       lua = { "luacheck" },
       -- sh = { "shellcheck" }, --bashls already have this as diagnose
       python = { "ruff" }, --pylint
-      yaml = { "yamllint" },
+      -- yaml = { "yamllint" },
     }
 
     vim.api.nvim_create_augroup("__lint__", { clear = true })

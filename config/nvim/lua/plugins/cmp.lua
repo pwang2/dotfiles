@@ -60,7 +60,6 @@ return {
           format = lspkind.cmp_format({
             mode = "text",
             maxwidth = 70,
-            minWidth = 50,
             symbol_map = {
               Copilot = "🤖 ",
             },
@@ -113,7 +112,10 @@ return {
             end,
           }),
         },
-        sources = cmp.config.sources({
+        sources = vim.list_extend({
+          -- group_index 0 = always shown alongside other groups (lua require paths / annotations)
+          { name = "lazydev", group_index = 0 },
+        }, cmp.config.sources({
           { name = "copilot", priority = 1000 },
           { name = "nvim_lsp", priority = 900 },
           { name = "nvim_lsp_signature_help" },
@@ -122,11 +124,7 @@ return {
           { name = "vsnip", max_item_count = 3 },
         }, {
           { name = "buffer", max_item_count = 5, priority = 10 },
-        }),
-        confirm_opts = {
-          behavior = cmp.ConfirmBehavior.Insert,
-          select = true,
-        },
+        })),
         window = {
           documentation = cmp.config.window.bordered(),
           completion = cmp.config.window.bordered(),

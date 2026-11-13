@@ -25,7 +25,7 @@ return {
     },
     format_on_save = {
       timeout_ms = 1500,
-      lsp_fallback = false,
+      lsp_format = "never",
     },
     formatters = {
       kulala = {

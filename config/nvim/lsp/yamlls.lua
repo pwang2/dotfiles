@@ -1,17 +1,12 @@
-local azure_patterns = {
-  "azure%-pipelines%.yml$",
-  "azure%-pipelines%.yaml$",
-}
+local azure = require("config.azure")
 
 return {
   -- Skip azure pipeline files (azure_pipelines_ls owns them) and Helm templates.
   -- Default root_dir from nvim-lspconfig is replaced, so provide root markers here.
   root_dir = function(bufnr, on_dir)
     local name = vim.api.nvim_buf_get_name(bufnr)
-    for _, pat in ipairs(azure_patterns) do
-      if name:match(pat) then
-        return
-      end
+    if azure.is_azure_file(name) then
+      return
     end
     -- Skip Helm chart templates: Go templating is not valid YAML.
     local chart_root = vim.fs.root(bufnr, { "Chart.yaml" })

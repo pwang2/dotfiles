@@ -11,6 +11,19 @@ return {
         winbar_info = false, -- See |diffview-config-view.x.winbar_info|
       },
     },
+    keymaps = {
+      file_panel = {
+        {
+          "n",
+          "gf",
+          function()
+            require("diffview.actions").goto_file()
+            vim.cmd("tabclose #")
+          end,
+          { desc = "Open file and close Diffview" },
+        },
+      },
+    },
     hooks = {
       diff_buf_read = function()
         -- Change local options in diff buffers
@@ -22,18 +35,11 @@ return {
   },
   cmd = { "DiffviewOpen", "DiffviewFileHistory" },
   keys = {
-    file_panel = {
-      ["gf"] = function()
-        local actions = require("diffview.actions")
-        actions.goto_file()
-        vim.cmd("tabclose #")
-      end,
-    },
-    { "<leader>df", "<cmd>DiffviewOpen<cr>",  desc = "Open Diffview"  },
-    { "<leader>dfc", "<cmd>DiffviewClose<cr>",  desc = "Close Diffview"  },
-    { "<leader>dfh", "<cmd>DiffviewFileHistory %<cr>",  desc = "File History"  },
-    { "<leader>dfH", "<cmd>DiffviewFileHistory<cr>",  desc = "File History (All Files)"  },
-    { "<leader>dfs", "<cmd>DiffviewToggleFiles<cr>",  desc = "Toggle File Panel"  },
+    { "<leader>df", "<cmd>DiffviewOpen<cr>", desc = "Open Diffview" },
+    { "<leader>dfc", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+    { "<leader>dfh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History" },
+    { "<leader>dfH", "<cmd>DiffviewFileHistory<cr>", desc = "File History (All Files)" },
+    { "<leader>dfs", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle File Panel" },
   },
   config = function()
     local highlights = require("config.highlights")

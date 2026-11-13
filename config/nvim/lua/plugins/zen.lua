@@ -36,16 +36,25 @@ return {
     },
   },
   init = function()
+    local saved_winborder
     vim.api.nvim_create_user_command("Zen", function()
-      vim.o.winborder = "none"
+      local opening = not require("zen-mode.view").is_open()
+      if opening then
+        saved_winborder = vim.o.winborder
+        vim.o.winborder = "none"
+      end
       vim.cmd("ZenMode")
+      if not opening and saved_winborder then
+        vim.o.winborder = saved_winborder
+        saved_winborder = nil
+      end
     end, { desc = "Toggle Zen Mode with option set first" })
   end,
   keys = {
     {
       "<leader><leader>",
       "<cmd>Zen<cr>",
-      { silent = true },
+      silent = true,
       desc = "Toggle Zen Mode with option set first",
     },
   },

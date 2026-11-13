@@ -37,7 +37,7 @@ return {
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
-      "<leader>aa",
+      "<leader>at",
       function()
         require("sidekick.cli").toggle()
       end,

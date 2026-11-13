@@ -10,57 +10,35 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   build = ":TSUpdate",
   config = function()
-    require("nvim-treesitter").setup({
-      modules = {},
-      ignore_install = {},
-      auto_install = true,
-      ensure_installed = {
-        "markdown",
-        "markdown_inline",
-        "bash",
-        "c",
-        "css",
-        "jsx",
-        "tsx",
-        "javascript",
-        "typescript",
-        "json",
-        "jsonc",
-        "vue",
-        "regex",
-        "lua",
-        "rust",
-        "vim",
-        "vimdoc",
-        "python",
-        "html",
-        "kulala_http",
-      },
-      sync_install = false,
-      indent = { enable = true },
-      textobjects = {
-        move = {
-          enable = true,
-          set_jumps = true, -- Add to jumplist
-          goto_next_start = {
-            ["]f"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]F"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[f"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[F"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-      },
+    -- main branch: setup() only takes install_dir; parsers are installed explicitly.
+    require("nvim-treesitter").setup({})
+
+    -- install() skips parsers that are already installed.
+    require("nvim-treesitter").install({
+      "markdown",
+      "markdown_inline",
+      "bash",
+      "c",
+      "css",
+      "tsx",
+      "javascript",
+      "typescript",
+      "json",
+      "vue",
+      "regex",
+      "lua",
+      "rust",
+      "vim",
+      "vimdoc",
+      "python",
+      "html",
+      "yaml",
     })
+
+    -- helm buffers (filetype=helm) use the yaml parser for highlighting
+    vim.treesitter.language.register("yaml", "helm")
+    -- jsonc has no parser on main branch; json parser covers it. kulala.nvim manages kulala_http itself.
+    vim.treesitter.language.register("json", "jsonc")
 
     -- main branch no longer auto-attaches parsers/highlighting; start explicitly.
     -- vim.treesitter.start() throws (not just returns false) when no parser
@@ -68,11 +46,30 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       callback = function(args)
         local lang = vim.treesitter.language.get_lang(args.match) or args.match
-        pcall(function()
+        local ok = pcall(function()
           vim.treesitter.language.add(lang)
           vim.treesitter.start()
         end)
+        if ok then
+          vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
       end,
     })
+
+    -- main branch textobjects: keymaps are defined by hand.
+    local move = require("nvim-treesitter-textobjects.move")
+    local function map(lhs, fn, query, desc)
+      vim.keymap.set({ "n", "x", "o" }, lhs, function()
+        fn(query, "textobjects")
+      end, { desc = desc })
+    end
+    map("]f", move.goto_next_start, "@function.outer", "Next function start")
+    map("]]", move.goto_next_start, "@class.outer", "Next class start")
+    map("]F", move.goto_next_end, "@function.outer", "Next function end")
+    map("][", move.goto_next_end, "@class.outer", "Next class end")
+    map("[f", move.goto_previous_start, "@function.outer", "Prev function start")
+    map("[[", move.goto_previous_start, "@class.outer", "Prev class start")
+    map("[F", move.goto_previous_end, "@function.outer", "Prev function end")
+    map("[]", move.goto_previous_end, "@class.outer", "Prev class end")
   end,
 }
