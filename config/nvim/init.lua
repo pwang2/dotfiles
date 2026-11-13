@@ -2,26 +2,6 @@ require("config.lazy")
 
 require("config.highlights").setup()
 
--- Helm: nvim has no built-in detection, so templates stay ft=yaml and helm_ls never attaches.
-local function helm_chart_root(path, bufnr)
-  return vim.fs.root(bufnr, { "Chart.yaml" }) or vim.fs.root(path, { "Chart.yaml" })
-end
-vim.filetype.add({
-  extension = {
-    tpl = function(path, bufnr)
-      return helm_chart_root(path, bufnr) and "helm" or "smarty"
-    end,
-  },
-  pattern = {
-    [".*/templates/.*%.ya?ml"] = function(path, bufnr)
-      return helm_chart_root(path, bufnr) and "helm" or "yaml"
-    end,
-    [".*/values[^/]*%.ya?ml"] = function(path, bufnr)
-      return helm_chart_root(path, bufnr) and "yaml.helm-values" or "yaml"
-    end,
-  },
-})
-
 vim.cmd([[
   autocmd BufNewFile,BufRead Dockerfile.* setlocal filetype=dockerfile
   autocmd BufNewFile,BufRead nginx.*      setlocal filetype=nginx
@@ -30,7 +10,6 @@ vim.cmd([[
 
   autocmd FileType json,jsonc,markdown    setlocal conceallevel=1
   autocmd FileType markdown               setlocal wrap linebreak
-  autocmd FileType helm                   setlocal syntax=yaml
 
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |

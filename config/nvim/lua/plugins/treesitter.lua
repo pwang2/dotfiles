@@ -33,10 +33,10 @@ return {
       "python",
       "html",
       "yaml",
+      "gotmpl",
+      "helm",
     })
 
-    -- helm buffers (filetype=helm) use the yaml parser for highlighting
-    vim.treesitter.language.register("yaml", "helm")
     -- jsonc has no parser on main branch; json parser covers it. kulala.nvim manages kulala_http itself.
     vim.treesitter.language.register("json", "jsonc")
 

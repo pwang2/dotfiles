@@ -11,7 +11,7 @@ return {
     vim.api.nvim_set_keymap(
       "t",
       "<C-t>",
-      "<C-\\><C-n>:FloatermToggle --height=50<CR>",
+      "<C-\\><C-n>:FloatermToggle<CR>",
       { noremap = true, silent = true }
     )
   end,
