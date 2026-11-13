@@ -1,7 +1,11 @@
 return {
   "mistweaverco/kulala.nvim",
   ft = { "http", "rest" },
-  events = false,
+  -- kulala's own lazy.lua adds event = SessionLoadPost. Plain lists merge, so
+  -- use a function to discard inherited events and load only on ft.
+  event = function()
+    return {}
+  end,
   init = function()
     vim.filetype.add({
       extension = {

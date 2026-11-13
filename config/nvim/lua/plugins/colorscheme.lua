@@ -5,11 +5,14 @@ return {
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
     init = function()
+      vim.o.background = "dark"
+      -- start from dark allways, keep comments below for later
+      --
       -- Simple time-based theme detection to avoid flash
       -- Use light mode during daytime (6 AM to 6 PM), dark mode at night
-      local hour = tonumber(os.date("%H"))
-      local is_daytime = hour >= 6 and hour < 18
-      vim.o.background = is_daytime and "light" or "dark"
+      -- local hour = tonumber(os.date("%H"))
+      -- local is_daytime = hour >= 6 and hour < 18
+      -- vim.o.background = is_daytime and "light" or "dark"
     end,
     config = function()
       local lazypath = vim.fn.stdpath("data") .. "/lazy"

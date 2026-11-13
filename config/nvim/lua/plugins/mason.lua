@@ -16,6 +16,7 @@ return {
     opts = {
       automatic_enable = {
         exclude = {
+          "copilot",
           "vtsls",
         },
       },

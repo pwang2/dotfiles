@@ -20,6 +20,7 @@ alias c=clear
 alias j=z
 alias td=todo.sh
 alias vi=nvim
+alias vip="nvim +\"lua require('lazy').profile()\""
 alias oc=opencode
 alias cc=claude
 alias k=kubectl
