@@ -19,6 +19,7 @@ return {
       automatic_enable = {
         exclude = {
           "vtsls",
+          "copilot", -- started by copilot.lua (newer bundled server); avoids a duplicate client
         },
       },
     },

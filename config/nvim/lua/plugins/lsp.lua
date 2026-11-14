@@ -58,6 +58,11 @@ local function create_user_commands()
     vim.api.nvim_set_current_buf(newBuffer)
   end, {})
 
+  vim.api.nvim_create_user_command("LspLog", function()
+    vim.cmd.edit(vim.lsp.log.get_filename())
+    vim.cmd("normal! G")
+  end, { desc = "Open LSP log file" })
+
   vim.api.nvim_create_user_command("LspStop", function(cmd_opts)
     local name = cmd_opts.args
     local clients = vim.lsp.get_clients({ name = name })
