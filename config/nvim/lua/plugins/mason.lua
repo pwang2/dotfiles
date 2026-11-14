@@ -1,12 +1,14 @@
 return {
   {
     "mason-org/mason-lspconfig.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = "VeryLazy", -- vim.lsp.enable() also attaches to already-loaded buffers
     dependencies = {
       {
         "mason-org/mason.nvim",
         priority = 900,
         cmd = "Mason",
+        -- setup() prepends mason/bin to PATH; linters/formatters need it before VeryLazy
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
           ui = { border = "rounded" },
         },
@@ -16,38 +18,41 @@ return {
     opts = {
       automatic_enable = {
         exclude = {
-          "copilot",
           "vtsls",
         },
-      },
-      ensure_installed = {
-        "lua_ls",
-        "cssls",
-        "bashls",
-        "yamlls",
-        "jsonls",
-        "omnisharp",
-        "html",
-        "tsc",
-        "helm_ls",
-        -- "vtsls",
-        -- "vue_ls",
-        "basedpyright",
-        "tailwindcss",
-        "rust_analyzer",
-        "nginx_language_server",
-        "azure_pipelines_ls",
-        "copilot",
       },
     },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    -- comment following line out after the first time setup
+    -- Loaded on VeryLazy, i.e. after VimEnter, so the plugin's own VimEnter
+    -- autocmd never fires. Trigger the install check manually in config.
     event = "VeryLazy",
+    config = function(_, opts)
+      require("mason-tool-installer").setup(opts)
+      require("mason-tool-installer").run_on_start()
+    end,
     opts = {
       -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim?tab=readme-ov-file#configuration
       ensure_installed = {
+        -- LSP servers (mason package names)
+        "lua-language-server",
+        "css-lsp",
+        "bash-language-server",
+        "yaml-language-server",
+        "json-lsp",
+        "omnisharp",
+        "html-lsp",
+        "tsc",
+        "helm-ls",
+        -- "vtsls",
+        -- "vue-language-server",
+        "basedpyright",
+        "tailwindcss-language-server",
+        "rust-analyzer",
+        "nginx-language-server",
+        "azure-pipelines-language-server",
+
         "eslint_d",
         "ruff", -- linter (nvim-lint) + formatter (conform ruff_format)
         "yamllint",
