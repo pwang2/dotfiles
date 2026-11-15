@@ -33,15 +33,4 @@ return {
       },
     },
   },
-  {
-    "OXY2DEV/markview.nvim",
-    enabled = false,
-    lazy = false,
-    opts = {
-      preview = {
-        filetypes = { "markdown", "codecompanion" },
-        ignore_buftypes = {},
-      },
-    },
-  },
 }

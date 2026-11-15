@@ -24,7 +24,6 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   dependencies = {
-    "ravitemer/mcphub.nvim",
     "nvim-tree/nvim-web-devicons",
   },
   opts = {
