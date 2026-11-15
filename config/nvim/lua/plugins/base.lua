@@ -19,11 +19,10 @@ return {
   { "nvim-lua/plenary.nvim", opt = {} },
   { "nvim-tree/nvim-web-devicons", opt = {} },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", opt = {} },
-  { "echasnovski/mini.nvim", version = "*", opt = {} },
   { "brenoprata10/nvim-highlight-colors", event = "VeryLazy", opts = { enable_tailwind = true } },
   {
     "razak17/tailwind-fold.nvim",
-    ft = { "html", "svelte", "astro", "vue", "typescriptreact" },
+    ft = { "html", "vue", "typescriptreact" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {},
   },
