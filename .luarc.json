@@ -1,4 +1,4 @@
 {
-  "workspace": { "maxPreload": 2000, "preloadFileSize": 200 },
+  "workspace": { "maxPreload": 5000, "preloadFileSize": 200 },
   "runtime": { "version": "LuaJIT" }
 }

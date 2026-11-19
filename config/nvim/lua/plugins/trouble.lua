@@ -3,7 +3,6 @@ return {
   cmd = "Trouble",
   opts = {
     use_diagnostic_signs = true,
-    auto_refresh = false,
   },
   keys = {
     {

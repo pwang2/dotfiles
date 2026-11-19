@@ -51,6 +51,7 @@ return {
     -- follow-up edits (e.g. `this.z = z` after the constructor), and lowers NES
     -- aggressiveness. Send the NES-specific accept command instead (same id).
     local apply = nes.apply
+    ---@diagnostic disable-next-line: duplicate-set-field
     nes.apply = function(...)
       for _, edit in ipairs(nes.get(vim.api.nvim_get_current_buf())) do
         if edit.command and edit.command.command == "github.copilot.didAcceptCompletionItem" then
@@ -101,29 +102,6 @@ return {
       desc = "Goto/Apply Next Edit Suggestion",
     },
     {
-      "<leader>aa",
-      function()
-        require("sidekick.cli").toggle()
-      end,
-      desc = "Sidekick Toggle CLI",
-    },
-    {
-      "<c-.>",
-      function()
-        require("sidekick.cli").focus()
-      end,
-      desc = "Sidekick Focus",
-      mode = { "n", "t", "i", "x" },
-    },
-    {
-      "<leader>as",
-      function()
-        -- require("sidekick.cli").select()
-        require("sidekick.cli").select({ filter = { installed = true } })
-      end,
-      desc = "Select CLI",
-    },
-    {
       "<leader>ad",
       function()
         require("sidekick.cli").close()
@@ -165,7 +143,31 @@ return {
     {
       "<leader>ac",
       function()
-        require("sidekick.cli").toggle({ name = "claude", focus = true })
+        -- With mux.create = "split" inside tmux, Claude runs in an external tmux
+        -- pane, not an nvim terminal, so cli.toggle() has nothing to show/hide.
+        -- Toggle that pane ourselves: break it out to a hidden window, or join
+        -- it back next to nvim's pane and focus it.
+        local State = require("sidekick.cli.state")
+        local pane
+        for _, s in ipairs(State.get({ name = "claude", attached = true })) do
+          local session = s.session --[[@as sidekick.cli.muxer.Tmux?]]
+          if s.terminal == nil and session and session.tmux_pane_id then
+            pane = session.tmux_pane_id
+            break
+          end
+        end
+        local me = vim.env.TMUX_PANE
+        if not (pane and me) then
+          return require("sidekick.cli").toggle({ name = "claude", focus = true })
+        end
+        local function win(p)
+          return vim.trim(vim.fn.system({ "tmux", "display-message", "-p", "-t", p, "#{window_id}" }))
+        end
+        if win(pane) == win(me) then
+          vim.fn.system({ "tmux", "break-pane", "-d", "-s", pane })
+        else
+          vim.fn.system({ "tmux", "join-pane", "-h", "-l", "50%", "-s", pane, "-t", me })
+        end
       end,
       desc = "Sidekick Toggle Claude",
     },
