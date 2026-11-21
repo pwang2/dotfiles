@@ -38,6 +38,14 @@ for file in "${FILES[@]}"; do
   link "$CWD/$file" "$HOME/$file"
 done
 
+# WSL: incron copies windows.ahk to the Windows OneDrive folder on save.
+# Watch the repo dir (not the file) so editors that save via rename still trigger.
+if $IS_WSL && command -v incrontab &>/dev/null; then
+  sudo grep -qsx "$USER" /etc/incron.allow || echo "$USER" | sudo tee -a /etc/incron.allow >/dev/null
+  INCRON_LINE="$CWD IN_CLOSE_WRITE,IN_MOVED_TO,recursive=false $CWD/windows-ahk-sync \$@ \$#"
+  { incrontab -l 2>/dev/null | grep -v -e 'windows-ahk-sync' -e '^no table' || true; echo "$INCRON_LINE"; } | incrontab -
+fi
+
 if uname | grep -q Darwin; then
   link "$CWD/hammerspoon" "$HOME/hammerspoon"
 fi
@@ -70,4 +78,4 @@ if ! command -v brew &>/dev/null; then
   brew install uv fnm zoxide
 fi
 
-echo "run sudo apt-get install build-essential unzip xdg-utils zsh tmux python3-venv"
+echo "run sudo apt-get install build-essential unzip xdg-utils zsh tmux python3-venv incron"

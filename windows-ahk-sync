@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# incron hook: copy windows.ahk to the Windows OneDrive folder when it is saved.
+# Invoked as: windows-ahk-sync <watched dir> <event file name>
+[ "$2" = windows.ahk ] || exit 0
+WIN_USERPROFILE=$(wslpath "$(/mnt/c/Windows/system32/cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")
+
+dirs=("$WIN_USERPROFILE"/OneDrive*/)
+ONEDRIVE=${dirs[0]%/}
+[ -d "$ONEDRIVE" ] || exit 1
+
+cp -f "$1/$2" "$ONEDRIVE/Program/windows.ahk"
